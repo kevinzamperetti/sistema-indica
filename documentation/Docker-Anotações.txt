@@ -1,0 +1,14 @@
+Imagem docker postgres:
+https://hub.docker.com/_/postgres
+
+docker run --name indicadb -e POSTGRES_PASSWORD=1nd1c4 -d postgres
+docker run --name indicadb -e POSTGRES_PASSWORD=1nd1c4 -p 5432:5432 -d postgres
+
+Imagem docker pgadmin:
+https://hub.docker.com/r/dpage/pgadmin4/
+
+docker run --name pgadmin4-postgres -p 15432:80 -e "PGADMIN_DEFAULT_EMAIL=db@sistema.indica.com.br" -e "PGADMIN_DEFAULT_PASSWORD=1nd1c4" -d dpage/pgadmin4
+
+conectar no banco padrão "postgres" para criar o banco "indicadb"
+
+CREATE database indicadb;
