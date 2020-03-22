@@ -1,0 +1,32 @@
+package kzs.com.br.sistemaindica.Service.impl;
+
+import kzs.com.br.sistemaindica.Repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class JwtUserDetailsServiceImpl implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        Optional<kzs.com.br.sistemaindica.Entity.User> userRegisterInSystem = userRepository.findByEmail(email);
+
+        if (userRegisterInSystem.get().getEmail().equals(email)) {
+            return new User(userRegisterInSystem.get().getEmail(), userRegisterInSystem.get().getPassword(),
+                    new ArrayList<>());
+        } else {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+    }
+}

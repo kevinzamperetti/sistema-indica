@@ -1,7 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -13,10 +12,10 @@ import javax.persistence.*;
 @Setter
 @EqualsAndHashCode(callSuper = false, of={"name"})
 @ToString(of = {"id"})
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
