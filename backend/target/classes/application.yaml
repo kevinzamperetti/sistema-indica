@@ -32,6 +32,9 @@ spring:
 file:
   upload-dir: ./attachments/
 
+jwt:
+  secret: usersecret
+
 ---
 
 spring:

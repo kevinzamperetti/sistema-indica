@@ -1,7 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,11 +10,11 @@ import java.io.Serializable;
 
 @MappedSuperclass
 @EqualsAndHashCode(of = {"id"})
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(of = {"id"})
-@SuperBuilder
 public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

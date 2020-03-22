@@ -1,7 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @EqualsAndHashCode(callSuper = false, of={"name"})
 @ToString(of = {"id"})
-@SuperBuilder
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Campaign extends  BaseEntity {
