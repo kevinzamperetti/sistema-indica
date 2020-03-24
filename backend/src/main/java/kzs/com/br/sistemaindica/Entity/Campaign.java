@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="Campaign")
+@Table(name="campaign")
 @AttributeOverrides({@AttributeOverride(name="id", column=@Column(name="id_campaign"))})
 //@SequenceGenerator( allocationSize = 1, name = "user_seq", sequenceName = "user_seq")
 @Getter

@@ -37,6 +37,9 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String address;
 
+//    @Enumerated(EnumType.STRING)
+//    private UserProfile profile;
+
     @Column(name = "bank_number", nullable = false)
     private Integer bankNumber;
 

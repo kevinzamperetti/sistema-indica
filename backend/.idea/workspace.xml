@@ -2,34 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a94e705d-005c-4440-9723-5d4a69c4bbc1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/sistema-indica.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity$BaseEntityBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity$BaseEntityBuilderImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilderImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilderImpl.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sistema-indica-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/sistema-indica-0.0.1-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sistema-indica-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/sistema-indica-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-kzs.com.br.sistemaindica.SistemaIndicaApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-kzs.com.br.sistemaindica.SistemaIndicaApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/kzs.com.br.sistemaindica.SistemaIndicaApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/kzs.com.br.sistemaindica.SistemaIndicaApplicationTests.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +24,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -69,7 +49,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lombok.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -83,6 +63,9 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="kzs.com.br.sistemaindica.Exception" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projetos_git\sistema-indica\backend\src\main\java\kzs\com\br\sistemaindica" />
     </key>
@@ -129,6 +112,7 @@
       <workItem from="1584811015740" duration="108000" />
       <workItem from="1584812454942" duration="12043000" />
       <workItem from="1584826868027" duration="5261000" />
+      <workItem from="1585019455871" duration="5621000" />
     </task>
     <servers />
   </component>

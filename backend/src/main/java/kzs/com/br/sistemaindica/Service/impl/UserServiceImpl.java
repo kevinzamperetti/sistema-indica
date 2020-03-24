@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.Service.impl;
 
 import kzs.com.br.sistemaindica.Entity.User;
+import kzs.com.br.sistemaindica.Exception.*;
 import kzs.com.br.sistemaindica.Repository.UserRepository;
 import kzs.com.br.sistemaindica.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,31 +33,31 @@ public class UserServiceImpl implements UserService {
     private void verifyDataUser(User user) throws IllegalAccessException {
 
         if (isNull(user.getName())) {
-            throw new IllegalAccessException("Name of user is null. Check!");
+            throw new UserNameNotProvidedException("Name of user not provided.");
         }
 
         if (isNull(user.getEmail())) {
-            throw new IllegalAccessException("Email of user is null. Check!");
+            throw new UserEmailNotProvidedException("Email of user not provided.");
         }
 
         if (isNull(user.getPassword())) {
-            throw new IllegalAccessException("Password of user is null. Check!");
+            throw new UserPasswordNotProvidedException("Password of user not provided.");
         }
 
         if (isNull(user.getAddress())) {
-            throw new IllegalAccessException("Address of user is null. Check!");
+            throw new UserAddressNotProvidedException("Address of user not provided.");
         }
 
         if (isNull(user.getBankAccount())) {
-            throw new IllegalAccessException("Bank Account of user is null. Check!");
+            throw new UserBankAccountNotProvidedException("Bank Account of user not provided.");
         }
 
         if (isNull(user.getBankAgency())) {
-            throw new IllegalAccessException("Bank Agency of user is null. Check!");
+            throw new UserBankAgencyNotProvidedException("Bank Agency of user not provided.");
         }
 
         if (isNull(user.getBankNumber())) {
-            throw new IllegalAccessException("Bank Number of user is null. Check!");
+            throw new UserBankNumberNotProvidedException("Bank Number of user not provided.");
         }
 
     }
