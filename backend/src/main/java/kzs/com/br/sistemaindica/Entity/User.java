@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
+import kzs.com.br.sistemaindica.Enum.UserProfile;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,11 +35,14 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private String address;
+//    @Column(nullable = false)
+//    private String address;
 
-//    @Enumerated(EnumType.STRING)
-//    private UserProfile profile;
+    @Column(name = "document_number", nullable = false)
+    private String documentNumber;
+
+    @Enumerated(EnumType.STRING)
+    private UserProfile profile;
 
     @Column(name = "bank_number", nullable = false)
     private Integer bankNumber;

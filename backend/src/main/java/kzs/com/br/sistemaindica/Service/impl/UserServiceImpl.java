@@ -44,8 +44,12 @@ public class UserServiceImpl implements UserService {
             throw new UserPasswordNotProvidedException("Password of user not provided.");
         }
 
-        if (isNull(user.getAddress())) {
-            throw new UserAddressNotProvidedException("Address of user not provided.");
+        if (isNull(user.getDocumentNumber())) {
+            throw new UserDocumentNumberNotProvidedException("Address of user not provided.");
+        }
+
+        if (isNull(user.getProfile())) {
+            throw new UserProfileNotProvidedException("Address of user not provided.");
         }
 
         if (isNull(user.getBankAccount())) {
