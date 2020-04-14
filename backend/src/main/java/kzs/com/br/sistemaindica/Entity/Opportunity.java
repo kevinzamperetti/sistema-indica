@@ -1,11 +1,14 @@
 package kzs.com.br.sistemaindica.Entity;
 
-import kzs.com.br.sistemaindica.Enum.ExperienceLevel;
+import kzs.com.br.sistemaindica.Enum.OpportunityExperienceLevel;
 import kzs.com.br.sistemaindica.Enum.OpportunityBonusLevel;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="opportunity")
@@ -25,15 +28,22 @@ public class Opportunity extends BaseEntity {
 
     private String description;
 
-//    @ManyToMany
-//    revisar e fazer relacionamento
-//    private Campaign campaign;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "id_campaign", referencedColumnName = "id_campaign")
+    private Campaign campaign;
+
+    @OneToMany(mappedBy = "opportunity", fetch = LAZY)
+    private Set<Indication> indications;
+
+    @OneToMany(mappedBy = "opportunity", fetch = LAZY)
+    private Set<KeyWord> keyWords;
 
     @Column(name = "bonus_level")
     private OpportunityBonusLevel bonusLevel;
 
     @Column(name = "experience_level")
-    private ExperienceLevel experienceLevel;
+    @Enumerated(EnumType.STRING)
+    private OpportunityExperienceLevel experienceLevel;
 
     @Column(name = "creation_date")
     private LocalDate creationDate;

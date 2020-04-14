@@ -4,6 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="campaign")
@@ -18,11 +21,14 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Campaign extends  BaseEntity {
 
+    @OneToMany(mappedBy = "campaign", fetch = LAZY)
+    private Set<Opportunity> opportunities;
+
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "has_rewards", nullable = false)
-    private boolean hasRewards;
+    @Column(name = "has_reward", nullable = false)
+    private boolean hasReward;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;

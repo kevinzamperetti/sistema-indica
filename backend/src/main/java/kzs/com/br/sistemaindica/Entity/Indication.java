@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @Table(name="indication")
 @AttributeOverrides({@AttributeOverride(name="id", column=@Column(name="id_indication"))})
@@ -19,17 +21,20 @@ public class Indication extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-//    @OneToOne
-//    revisar e fazer relacionamento
-//    private Opportunity opportunity;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
+    private User user;
 
-//    @ManyToOne
-//    revisar e fazer relacionamento
-//    private User user;
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "id_opportunity", referencedColumnName = "id_opportunity")
+    private Opportunity opportunity;
+
+    @OneToOne(mappedBy = "indication", fetch = LAZY)
+    private IndicationWinner indicationWinner;
 
 //    revisar tipo pra este campo
 //    private FileUpload attachment;
 
-    private IndicationStatus indicationStatus;
+    private IndicationStatus status;
 
 }

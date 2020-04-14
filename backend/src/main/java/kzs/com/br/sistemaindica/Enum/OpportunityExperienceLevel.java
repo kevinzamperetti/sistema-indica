@@ -1,6 +1,6 @@
 package kzs.com.br.sistemaindica.Enum;
 
-public enum ExperienceLevel {
+public enum OpportunityExperienceLevel {
 
     JUNIOR, PLENO, SENIOR;
 
