@@ -33,10 +33,9 @@ public class Campaign extends  BaseEntity {
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
 
-    @Column(name = "end_date", nullable = false)
-    private LocalDate endDate;
+    @Column(name = "expiration_date", nullable = false)
+    private LocalDate expirationDate;
 
-    @Column(name = "draw_date", nullable = false)
-    private LocalDate drawDate;
+    private boolean enabled;
 
 }

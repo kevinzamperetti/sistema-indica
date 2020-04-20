@@ -4,6 +4,7 @@ import kzs.com.br.sistemaindica.Enum.IndicationStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -29,12 +30,29 @@ public class Indication extends BaseEntity {
     @JoinColumn(name = "id_opportunity", referencedColumnName = "id_opportunity")
     private Opportunity opportunity;
 
-    @OneToOne(mappedBy = "indication", fetch = LAZY)
-    private IndicationWinner indicationWinner;
+    @OneToMany(mappedBy = "indication", fetch = LAZY)
+    private Set<IndicationHistory> indicationHistories;
 
 //    revisar tipo pra este campo
 //    private FileUpload attachment;
 
+    @OneToOne(mappedBy = "indication", fetch = LAZY)
+    private IndicationWinner indicationWinner;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private IndicationStatus status;
+
+    @Column(name = "indication_name", nullable = false)
+    private String indicationName;
+
+    @Column(name = "indication_phone_number", nullable = false)
+    private String indicationPhoneNumber;
+
+    @Column(name = "indication_email", nullable = false)
+    private String indicationEmail;
+
+    @Column(name = "user_document_number", nullable = false)
+    private String userDocumentNumber;
 
 }

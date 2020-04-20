@@ -24,6 +24,7 @@ public class Opportunity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @Column(nullable = false)
     private String name;
 
     private String description;
@@ -38,7 +39,8 @@ public class Opportunity extends BaseEntity {
     @OneToMany(mappedBy = "opportunity", fetch = LAZY)
     private Set<KeyWord> keyWords;
 
-    @Column(name = "bonus_level")
+    @OneToOne
+    @JoinColumn(name = "id_opportunity_bonus_level", referencedColumnName = "id_opportunity_bonus_level")
     private OpportunityBonusLevel bonusLevel;
 
     @Column(name = "experience_level")
@@ -56,5 +58,7 @@ public class Opportunity extends BaseEntity {
 
     @Column(name = "automatic_evaluation_quantity")
     private Integer automaticEvaluationQuantity;
+
+    private boolean enabled;
 
 }

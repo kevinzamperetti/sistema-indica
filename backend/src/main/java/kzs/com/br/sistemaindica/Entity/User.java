@@ -38,14 +38,15 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-//    @Column(nullable = false)
-//    private String address;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserProfile profile;
 
     @Column(name = "document_number", nullable = false)
     private String documentNumber;
 
-    @Enumerated(EnumType.STRING)
-    private UserProfile profile;
+    @Column(name = "sector_company")
+    private String sectorCompany;
 
     //tirar esses caras depois que ajustar no front e ajustar save do usuário para salvar na tabela de bankData
     @Column(name = "bank_number", nullable = false)

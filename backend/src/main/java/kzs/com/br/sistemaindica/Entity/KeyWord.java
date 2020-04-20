@@ -24,6 +24,9 @@ public class KeyWord extends BaseEntity {
     @JoinColumn(name = "id_opportunity", referencedColumnName = "id_opportunity")
     private Opportunity opportunity;
 
+    @Column(nullable = false)
     private String word;
+
+    private boolean enabled;
 
 }
