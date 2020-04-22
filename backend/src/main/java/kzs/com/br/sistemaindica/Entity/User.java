@@ -1,12 +1,11 @@
 package kzs.com.br.sistemaindica.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kzs.com.br.sistemaindica.Enum.UserProfile;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name="\"user\"")
@@ -48,24 +47,33 @@ public class User extends BaseEntity {
     @Column(name = "sector_company")
     private String sectorCompany;
 
-    //tirar esses caras depois que ajustar no front e ajustar save do usuário para salvar na tabela de bankData
-    @Column(name = "bank_number", nullable = false)
-    private Integer bankNumber;
+    @Column(name = "is_collaborator")
+    private Boolean isCollaborator;
 
-    @Column(name = "bank_agency", nullable = false)
-    private Integer bankAgency;
-
-    @Column(name = "bank_account", nullable = false)
-    private Integer bankAccount;
-
+//    //tirar esses caras depois que ajustar no front e ajustar save do usuário para salvar na tabela de bankData
+//    @Column(name = "bank_number")
+//    private Integer bankNumber;
+//
     @OneToOne
     @JoinColumn(name = "id_bank_data", referencedColumnName = "id_bank_data")
     private BankData bankData;
 
-    @OneToMany(mappedBy = "user", fetch = LAZY)
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "id_bank_data", referencedColumnName = "id_bank_data")
+//    private BankData bankData;
+
+    @Column(name = "bank_agency")
+    private Integer bankAgency;
+
+    @Column(name = "bank_account")
+    private String bankAccount;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Indication> indications;
 
-    @OneToMany(mappedBy = "user", fetch = LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<IndicationWinner> indicationWinners;
 
 }

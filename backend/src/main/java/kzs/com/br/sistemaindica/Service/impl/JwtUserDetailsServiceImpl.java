@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.Service.impl;
 
+import kzs.com.br.sistemaindica.Exception.UserCollaboratorNotFoundException;
 import kzs.com.br.sistemaindica.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
@@ -24,6 +25,23 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
         if (userRegisterInSystem.get().getEmail().equals(email)) {
             return new User(userRegisterInSystem.get().getEmail(), userRegisterInSystem.get().getPassword(),
+                    new ArrayList<>());
+        } else {
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+    }
+
+    public UserDetails loadUserByUsername(String email, boolean isCollaborator) throws UsernameNotFoundException {
+
+        kzs.com.br.sistemaindica.Entity.User userRegisterInSystem = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+
+        if (!isCollaborator == userRegisterInSystem.getIsCollaborator()) {
+            throw new UserCollaboratorNotFoundException("User is not a company employee.");
+        }
+
+        if (userRegisterInSystem.getEmail().equals(email)) {
+            return new User(userRegisterInSystem.getEmail(), userRegisterInSystem.getPassword(),
                     new ArrayList<>());
         } else {
             throw new UsernameNotFoundException("User not found with email: " + email);

@@ -10,12 +10,15 @@ public class JwtRequest implements Serializable {
 
     private String password;
 
+    private boolean isCollaborator;
+
     public JwtRequest() {
     }
 
-    public JwtRequest(String email, String password) {
+    public JwtRequest(String email, String password, boolean isCollaborator) {
         this.setEmail(email);
         this.setPassword(password);
+        this.setIsCollaborator(isCollaborator);
     }
 
     public String getEmail() {
@@ -32,6 +35,14 @@ public class JwtRequest implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean getIsCollaborator() {
+        return this.isCollaborator;
+    }
+
+    public void setIsCollaborator(boolean isCollaborator) {
+        this.isCollaborator = isCollaborator;
     }
 
 }

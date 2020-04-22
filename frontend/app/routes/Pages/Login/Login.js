@@ -25,11 +25,7 @@ export default class Login extends Component {
 			name: '',
 			email: '',
 			password: '',
-			profileSelector: '',
-			documentNumber: '',
-			bankNumberSelector: '',
-			bankAgency: '',
-			bankAccount: ''
+			isCollaboratorSelector: ''
 		}
 	}
 	
@@ -43,11 +39,12 @@ export default class Login extends Component {
     
     login( evt ) {
         evt.preventDefault();
-        const { email, password } = this.state
+        const { email, password, isCollaboratorSelector } = this.state
         if ( email  && password ) {
             API.post( 'http://localhost:8080/login', {
-                    email:   this.state.email,
-                    password : this.state.password
+                    email: email,
+					password: password,
+					isCollaborator: isCollaboratorSelector
             } ).then ( response => {
                 console.log( "response: " + response.data.token );
                 localStorage.setItem( 'Authorization' , response.data.token ) 
@@ -67,7 +64,15 @@ export default class Login extends Component {
                     { /* END Header */}
                     { /* START Form */}
                     <Form className="mb-3" onChange={ this.changeValuesState.bind( this ) } onSubmit={ this.login.bind( this ) }>
-                        <FormGroup>
+						<FormGroup>
+							<Label for="isCollaboratorSelector">Colaborador da empresa?</Label>
+							<CustomInput type="select" name="isCollaboratorSelector" id="isCollaboratorSelector">
+								<option value="">Selecione...</option>
+								<option value="true">Sim</option>
+								<option value="false">Não</option>
+							</CustomInput>
+						</FormGroup>
+						<FormGroup>
                             <Label for="emailAdress">E-mail</Label>
                             <Input type="email" name="email" id="emailAdress" placeholder="Informar e-mail..." className="bg-white" />
                             <FormText color="muted">Nós nunca compartilharemos seu email com mais ninguém.</FormText>

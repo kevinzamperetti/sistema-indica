@@ -4,8 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 
-import static javax.persistence.FetchType.LAZY;
-
 @Entity
 @Table(name="indication_winner")
 @AttributeOverrides({@AttributeOverride(name="id", column=@Column(name="id_indication_winner"))})
@@ -20,7 +18,7 @@ public class IndicationWinner extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     private User user;
 
