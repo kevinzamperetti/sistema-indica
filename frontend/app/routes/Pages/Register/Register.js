@@ -148,7 +148,7 @@ export default class Register extends Component {
 							<FormGroup>
 								<Label for="profileSelector">Perfil</Label>
 								<CustomInput type="select" name="profileSelector" id="profileSelector">
-									<option value="EXTERNAL">Externo</option>
+									<option value="EXTERNAL" selected>Externo</option>
 								</CustomInput>
 							</FormGroup>
 							<FormGroup>
