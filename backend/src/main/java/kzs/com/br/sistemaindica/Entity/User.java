@@ -50,10 +50,6 @@ public class User extends BaseEntity {
     @Column(name = "is_collaborator")
     private Boolean isCollaborator;
 
-//    //tirar esses caras depois que ajustar no front e ajustar save do usuário para salvar na tabela de bankData
-//    @Column(name = "bank_number")
-//    private Integer bankNumber;
-//
     @OneToOne
     @JoinColumn(name = "id_bank_data", referencedColumnName = "id_bank_data")
     private BankData bankData;

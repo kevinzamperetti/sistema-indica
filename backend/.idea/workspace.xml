@@ -2,27 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a94e705d-005c-4440-9723-5d4a69c4bbc1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/JwtRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/JwtRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/JwtResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/JwtResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/JwtAuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/JwtAuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/BankData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/BankData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/IndicationWinner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/IndicationWinner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Opportunity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Opportunity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Exception/UserBankAccountNotProvidedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Exception/UserBankAccountNotProvidedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Exception/UserBankAgencyNotProvidedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Exception/UserBankAgencyNotProvidedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Exception/UserBankNumberNotProvidedException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Exception/BankDataNumberNotProvidedException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/JwtUserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/JwtUserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/OpportunityBonusLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/OpportunityBonusLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/layout/components/NavbarUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/layout/components/NavbarUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Register/Register.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,10 +65,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="kzs.com.br.sistemaindica.Controller" />
       <recent name="kzs.com.br.sistemaindica.Exception" />
+      <recent name="kzs.com.br.sistemaindica.Service.impl" />
+      <recent name="kzs.com.br.sistemaindica.Service" />
       <recent name="kzs.com.br.sistemaindica.Repository" />
-      <recent name="kzs.com.br.sistemaindica.Entity" />
-      <recent name="kzs.com.br.sistemaindica.Enum" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projetos_git\sistema-indica\backend\src\main\java\kzs\com\br\sistemaindica" />
@@ -135,7 +123,8 @@
       <workItem from="1586811401219" duration="8662000" />
       <workItem from="1587337187869" duration="5338000" />
       <workItem from="1587490478966" duration="20461000" />
-      <workItem from="1587517475227" duration="2493000" />
+      <workItem from="1587517475227" duration="3104000" />
+      <workItem from="1587590867822" duration="9970000" />
     </task>
     <servers />
   </component>
@@ -154,5 +143,16 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/CampaignServiceImpl.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
