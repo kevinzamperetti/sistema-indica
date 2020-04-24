@@ -7,6 +7,37 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/OpportunityBonusLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/OpportunityBonusLevel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/layout/components/SidebarMiddleNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/layout/components/SidebarMiddleNav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/Cards/Cards.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/Cards/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/CardsHeaders/CardsHeaders.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/CardsHeaders/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Financial/Financial.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Financial/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Monitor/Monitor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Monitor/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Projects/DraggableProjects.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Projects/ProjectsDashboard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Projects/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Reports/Reports.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Reports/components/TinyArcChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Reports/components/TinyAreaChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Reports/components/TinyLineChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Reports/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Stock/Stock.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/Stock/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/System/System.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/System/components/CardSystem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/System/components/TinyAreaChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/System/components/TinyBarChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/System/components/TinyDonutChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/System/components/trSystem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/System/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Dashboards/components/TinyLineChart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Widgets/Widgets.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Widgets/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/components/Navbars/NavbarNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/components/Navbars/NavbarNavigation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -123,7 +154,7 @@
       <workItem from="1587517475227" duration="3104000" />
       <workItem from="1587590867822" duration="9970000" />
       <workItem from="1587677866007" duration="2710000" />
-      <workItem from="1587691356007" duration="5623000" />
+      <workItem from="1587691356007" duration="6928000" />
     </task>
     <servers />
   </component>
