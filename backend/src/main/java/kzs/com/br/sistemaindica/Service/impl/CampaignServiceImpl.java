@@ -45,7 +45,7 @@ public class CampaignServiceImpl implements CampaignService {
     public void delete(Long id) {
         Campaign campaign = repository.findById(id)
                 .orElseThrow(() -> new CampaignIdNotFoundException("Id of Campaign not found."));
-        if(nonNull(campaign.getOpportunities())) {
+        if(!campaign.getOpportunities().isEmpty()) {
             throw new CampaignHasOpportunitiesAndCannotBeDeletedException("Campaign has opportunities and cannot be deleted.");
         } else {
             repository.delete(campaign);

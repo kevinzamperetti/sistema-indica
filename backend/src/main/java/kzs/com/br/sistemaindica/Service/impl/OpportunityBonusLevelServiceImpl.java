@@ -45,12 +45,11 @@ public class OpportunityBonusLevelServiceImpl implements OpportunityBonusLevelSe
     public void delete(Long id) {
         OpportunityBonusLevel opportunityBonusLevel = repository.findById(id)
                 .orElseThrow(() -> new CampaignIdNotFoundException("Id of Bonus Level not found."));
-//        if(nonNull(opportunityBonusLevel.getOpportunities())) {
-//            throw new OpportunityBonusLevelHasOpportunitiesAndCannotBeDeletedException("Bonus Level has opportunities and cannot be deleted.");
-//        } else {
-//            repository.delete(opportunityBonusLevel);
-//        }
-        repository.delete(opportunityBonusLevel);
+        if(!opportunityBonusLevel.getOpportunities().isEmpty()) {
+            throw new OpportunityBonusLevelHasOpportunitiesAndCannotBeDeletedException("Bonus Level has opportunities and cannot be deleted.");
+        } else {
+            repository.delete(opportunityBonusLevel);
+        }
     }
 
     private void verifyFields(OpportunityBonusLevel opportunityBonusLevel) {

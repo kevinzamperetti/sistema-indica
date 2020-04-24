@@ -1,6 +1,5 @@
 package kzs.com.br.sistemaindica.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,7 +31,6 @@ public class OpportunityBonusLevel  extends BaseEntity {
 //    @OneToOne(mappedBy = "bonusLevel", fetch = FetchType.LAZY)
 //    private Opportunity opportunity;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "bonusLevel", fetch = LAZY)
     private Set<Opportunity> opportunities;
 
