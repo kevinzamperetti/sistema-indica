@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class Campaign extends  BaseEntity {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "campaign", fetch = LAZY)
     private Set<Opportunity> opportunities;
 

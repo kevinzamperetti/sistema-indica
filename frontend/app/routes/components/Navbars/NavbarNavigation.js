@@ -33,7 +33,7 @@ const NavbarNavigation = ({ accent, pills, ...navbarProps }) => (
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem tag={ Link } to="/dashboards/analytics">Analytics</DropdownItem>
-                <DropdownItem tag={ Link } to="/dashboards/projects">Projects</DropdownItem>
+                {/* <DropdownItem tag={ Link } to="/dashboards/projects">Projects</DropdownItem> */}
             </DropdownMenu>
         </UncontrolledDropdown>
 
