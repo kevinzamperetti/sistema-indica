@@ -177,7 +177,7 @@ export default class Register extends Component {
 										</React.Fragment>
 									:
 										<option value="Não existe uma lista de bancos cadastrada">Não existe uma lista de bancos cadastrada</option>
-								}
+									}
 								</CustomInput>
 							</FormGroup>
 							<FormGroup>

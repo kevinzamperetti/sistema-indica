@@ -7,25 +7,31 @@ import _ from 'lodash';
 import faker from 'faker/locale/en_US';
 import moment from 'moment';
 
+import API from '../../../../services/api';
+
 import {
     Badge,
     Button,
     CustomInput,
     StarRating,
     ButtonGroup
-} from './../../../../components';
+// } from './../../../../components';
+} from '../../../../components';
 
-import { CustomExportCSV } from './CustomExportButton';
-import { CustomSearch } from './CustomSearch';
-import { CustomPaginationPanel } from './CustomPaginationPanel';
-import { CustomSizePerPageButton } from './CustomSizePerPageButton';
-import { CustomPaginationTotal } from './CustomPaginationTotal';
-import { randomArray } from './../../../../utilities';
-import {
-    buildCustomTextFilter,
-    buildCustomSelectFilter,
-    buildCustomNumberFilter
-} from './../filters';
+import { CustomExportCSV } from '../../../Tables/ExtendedTable/components';
+
+import { CustomSearch } from '../../../Tables/ExtendedTable/components/CustomSearch';
+import { CustomPaginationPanel } from '../../../Tables/ExtendedTable/components/CustomPaginationPanel';
+import { CustomSizePerPageButton } from '../../../Tables/ExtendedTable/components/CustomSizePerPageButton';
+import { CustomPaginationTotal } from '../../../Tables/ExtendedTable/components/CustomPaginationTotal';
+
+import { randomArray } from '../../../../utilities';
+
+// import {
+//     buildCustomTextFilter,
+//     buildCustomSelectFilter,
+//     buildCustomNumberFilter
+// } from '../../../Tables/ExtendedTable/filters';
 
 const INITIAL_PRODUCTS_COUNT = 500;
 
@@ -43,6 +49,7 @@ const sortCaret = (order) => {
 }
 
 const generateRow = (index) => ({
+
     id: index,
     name: faker.commerce.productName(),
     quality: randomArray([
@@ -55,17 +62,65 @@ const generateRow = (index) => ({
     inStockDate: faker.date.past()
 });
 
-export class AdvancedTableA extends React.Component {
+export class CampaignList extends React.Component {
     constructor() {
         super();
         
         this.state = {
+            listBanks: [
+                {
+                    id: 2,
+                    name: 'Campanha 2020',
+                    hasReward: true,
+                    creationDate: '2020-04-22',
+                    expirationDate: '2020-08-01',
+                    enabled: true
+                }
+            ],
             products: _.times(INITIAL_PRODUCTS_COUNT, generateRow),
+            //products: _.times(INITIAL_PRODUCTS_COUNT, this.listAllBanks()),
             selected: []
         };
 
         this.headerCheckboxRef = React.createRef();
     }
+
+    componentDidMount() {
+		this.listAllBanks()
+	}	
+
+	listAllBanks = async () => {
+		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const response = await API.get( '/campaign', header )
+		this.setState( {
+            listBanks: response.data,
+
+            // listBanks: [
+            //     {
+            //         id: response.data.id,
+            //         name: response.data.name,
+            //         hasReward: response.data.hasReward,
+            //         creationDate: response.data.creationDate,
+            //         expirationDate: response.data.expirationDate,
+            //         enabled: response.data.enabled
+            //     }
+            // ]
+
+            // id: response.data.id,
+            // name: response.data.name,
+            // quality: randomArray([
+            //     ProductQuality.Bad,
+            //     ProductQuality.Good,
+            //     ProductQuality.Unknown
+            // ]),
+            // price: response.data.number,
+            // satisfaction: response.data.enabled,
+        } )
+        
+        console.log('teste')
+        console.log(this.state.listBanks)
+	}
+
 
     handleSelect(row, isSelected) {
         if (isSelected) {
@@ -122,7 +177,7 @@ export class AdvancedTableA extends React.Component {
                         className="d-block small text-decoration-none text-nowrap"
                         onClick={ this.handleResetFilters.bind(this) }
                     >
-                        Reset Filters <i className="fa fa-times fa-fw text-danger"></i>
+                        {/* Reset Filters <i className="fa fa-times fa-fw text-danger"></i> */}
                     </a>
                 </React.Fragment>
             )
@@ -136,10 +191,10 @@ export class AdvancedTableA extends React.Component {
                     { cell }
                 </span>
             ),
-            ...buildCustomTextFilter({
-                placeholder: 'Enter product name...',
-                getFilter: filter => { this.nameFilter = filter; }
-            })
+            // ...buildCustomTextFilter({
+            //     placeholder: 'Enter product name...',
+            //     getFilter: filter => { this.nameFilter = filter; }
+            // })
         }, {
             dataField: 'quality',
             text: 'Product Quality',
@@ -174,24 +229,24 @@ export class AdvancedTableA extends React.Component {
             },
             sort: true,
             sortCaret,
-            ...buildCustomSelectFilter({
-                placeholder: 'Select Quality',
-                options: [
-                    { value: ProductQuality.Good, label: 'Good' },
-                    { value: ProductQuality.Bad, label: 'Bad' },
-                    { value: ProductQuality.Unknown, label: 'Unknown' }
-                ],
-                getFilter: filter => { this.qualityFilter = filter; }
-            })
+            // ...buildCustomSelectFilter({
+            //     placeholder: 'Select Quality',
+            //     options: [
+            //         { value: ProductQuality.Good, label: 'Good' },
+            //         { value: ProductQuality.Bad, label: 'Bad' },
+            //         { value: ProductQuality.Unknown, label: 'Unknown' }
+            //     ],
+            //     getFilter: filter => { this.qualityFilter = filter; }
+            // })
         }, {
             dataField: 'price',
             text: 'Product Price',
             sort: true,
             sortCaret,
-            ...buildCustomNumberFilter({
-                comparators: [Comparator.EQ, Comparator.GT, Comparator.LT],
-                getFilter: filter => { this.priceFilter = filter; }
-            })
+            // ...buildCustomNumberFilter({
+            //     comparators: [Comparator.EQ, Comparator.GT, Comparator.LT],
+            //     getFilter: filter => { this.priceFilter = filter; }
+            // })
         }, {
             dataField: 'satisfaction',
             text: 'Buyer Satisfaction',
@@ -199,23 +254,23 @@ export class AdvancedTableA extends React.Component {
             sortCaret,
             formatter: (cell) =>
                 <StarRating at={ cell } max={ 6 } />,
-            ...buildCustomSelectFilter({
-                placeholder: 'Select Satisfaction',
-                options: _.times(6, (i) => ({ value: i + 1, label: i + 1 })),
-                getFilter: filter => { this.satisfactionFilter = filter; }
-            })
+            // ...buildCustomSelectFilter({
+            //     placeholder: 'Select Satisfaction',
+            //     options: _.times(6, (i) => ({ value: i + 1, label: i + 1 })),
+            //     getFilter: filter => { this.satisfactionFilter = filter; }
+            // })
         }, {
             dataField: 'inStockDate',
             text: 'In Stock From',
             formatter: (cell) =>
                 moment(cell).format('DD/MM/YYYY'),
-            filter: dateFilter({
-                className: 'd-flex align-items-center',
-                comparatorClassName: 'd-none',
-                dateClassName: 'form-control form-control-sm',
-                comparator: Comparator.GT,
-                getFilter: filter => { this.stockDateFilter = filter; }
-            }),
+            // filter: dateFilter({
+            //     className: 'd-flex align-items-center',
+            //     comparatorClassName: 'd-none',
+            //     dateClassName: 'form-control form-control-sm',
+            //     comparator: Comparator.GT,
+            //     getFilter: filter => { this.stockDateFilter = filter; }
+            // }),
             sort: true,
             sortCaret
         }]; 
@@ -262,7 +317,7 @@ export class AdvancedTableA extends React.Component {
                     <React.Fragment>
                         <div className="d-flex justify-content-end align-items-center mb-2">
                             <h6 className="my-0">
-                                AdvancedTable A
+                                Lista de Campanhas
                             </h6>
                             <div className="d-flex ml-auto">
                                 <CustomSearch
@@ -270,25 +325,13 @@ export class AdvancedTableA extends React.Component {
                                     { ...props.searchProps }
                                 />
                                 <ButtonGroup>
-                                    <CustomExportCSV
-                                        { ...props.csvProps }
-                                    >
-                                        Export
-                                    </CustomExportCSV>
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        onClick={ this.handleDeleteRow.bind(this) }
-                                    >
+                                    <CustomExportCSV { ...props.csvProps }> Export </CustomExportCSV>
+                                    <Button size="sm" outline onClick={ this.handleDeleteRow.bind(this) }>
                                         Delete
                                     </Button>
-                                    <Button
-                                        size="sm"
-                                        outline
-                                        onClick={ this.handleAddRow.bind(this) }
-                                    >
+                                    {/* <Button size="sm" outline onClick={ this.handleAddRow.bind(this) }>
                                         <i className="fa fa-fw fa-plus"></i>
-                                    </Button>
+                                    </Button> */}
                                 </ButtonGroup>
                             </div>
                         </div>

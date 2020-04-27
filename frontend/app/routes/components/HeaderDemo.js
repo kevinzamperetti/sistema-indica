@@ -6,7 +6,8 @@ const HeaderDemo = (props) => (
     <Media className={ `mb-3 ${ props.className }` }>
         <Media left top>
             <h1 className="mr-3 display-4 text-muted">
-                {props.no}. 
+                {/* {props.no}.  */}
+                {props.no}
             </h1>
         </Media>
         <Media body>
@@ -28,7 +29,7 @@ HeaderDemo.propTypes = {
     className: PropTypes.string
 };
 HeaderDemo.defaultProps = {
-    no: 0,
+    no: '',
     title: "Waiting for Data...",
     subTitle: "Waiting for Data..."
 };
