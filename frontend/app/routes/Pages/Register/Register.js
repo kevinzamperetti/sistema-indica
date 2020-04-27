@@ -34,12 +34,34 @@ export default class Register extends Component {
 			password: '',
 			profileSelector: '',
 			documentNumber: '',
-			bankNumberSelector: '',
+			// bankNumberSelector: '',
+			bankIdSelector: '',
 			bankAgency: '',
-			bankAccount: ''
-		}
+			bankAccount: '',
+			listBanks: []
 	}
-	
+}
+
+	componentDidMount() {
+		this.listAllBanks()
+	}	
+
+	listAllBanks = async () => {
+		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const response = await API.get( '/bankData', header )
+		this.setState( { listBanks: response.data }  )
+	}
+
+	changeValuesStateBank( evt ) {
+		let { listBanks } = this.state
+		let { name } = evt.target
+		const itemID = evt.target.value
+		const res = listBanks.find( p => p.id == itemID )
+		this.setState( { 
+						[name] : res
+		} )
+}
+
 	changeValuesState( evt ) {
 		const { name, value } = evt.target
 		// this.validarEmail( evt )
@@ -56,7 +78,7 @@ export default class Register extends Component {
 
 	register( evt ) {
 		evt.preventDefault();
-		const { name, email, password, profileSelector, documentNumber, bankNumberSelector, bankAgency, bankAccount } = this.state
+		const { name, email, password, profileSelector, documentNumber, bankNumberSelector, bankIdSelector, bankAgency, bankAccount } = this.state
 		// let cor, mensagem
 		// if ( nome && email && senha && tipoUsuario ) {
 			API.post( '/user/register', {
@@ -64,8 +86,12 @@ export default class Register extends Component {
 				email: email,
 				password: password,
 				profile: profileSelector.toUpperCase(),
+				isCollaborator: false,
 				documentNumber: documentNumber,
-				bankNumber: bankNumberSelector,
+				// bankNumber: bankNumberSelector,
+				bankData: {
+					id: bankIdSelector
+				},
 				bankAgency: bankAgency,
 				bankAccount: bankAccount
 			} ).then( response => {
@@ -84,6 +110,7 @@ export default class Register extends Component {
 	}
     
     render() {
+		const { listBanks } = this.state
 		if(this.state.redirect) {
 			return (
 				<Fragment>
@@ -120,14 +147,8 @@ export default class Register extends Component {
 							</FormGroup>
 							<FormGroup>
 								<Label for="profileSelector">Perfil</Label>
-								<CustomInput 
-									type="select" 
-									name="profileSelector" 
-									id="profileSelector"
-								>
-									<option value="">Selecione seu perfil...</option>
-									<option value="ADMINISTRATOR">Administrador</option>
-									<option value="COLLABORATOR">Colaborador</option>
+								<CustomInput type="select" name="profileSelector" id="profileSelector">
+									<option value="EXTERNAL" selected>Externo</option>
 								</CustomInput>
 							</FormGroup>
 							<FormGroup>
@@ -143,15 +164,20 @@ export default class Register extends Component {
 								/>
 							</FormGroup>
 							<FormGroup>
-								<Label for="bankNumberSelector">Banco</Label>
-								<CustomInput 
-									type="select" 
-									name="bankNumberSelector" 
-									id="bankNumberSelector"
-								>
-									<option value="">Selecione seu banco...</option>
-									<option value="001">001 - Banco do Brasil</option>
-									<option value="002">002 - Banco Teste</option>
+								<Label for="bankIdSelector">Banco</Label>
+								<CustomInput type="select" name="bankIdSelector" id="bankIdSelector" onChange={ this.changeValuesStateBank.bind( this ) } >
+									<option value="" selected>Selecione seu banco...</option>
+									{ listBanks.length > 0 ?
+										<React.Fragment>
+											{ listBanks.map( ( bank ) => { 
+												return(
+													<option key={bank.id} id={ bank.id } value={ bank.id } onChange={ this.changeValuesStateBank.bind( this ) }>{ bank.number +"-"+ bank.name }</option>
+												)
+											} ) }
+										</React.Fragment>
+									:
+										<option value="Não existe uma lista de bancos cadastrada">Não existe uma lista de bancos cadastrada</option>
+								}
 								</CustomInput>
 							</FormGroup>
 							<FormGroup>
@@ -160,7 +186,7 @@ export default class Register extends Component {
 							</FormGroup>
 							<FormGroup>
 								<Label for="bankAccount">Número da Conta <span className="small ml-1 text-muted">(com dígito)</span></Label>
-								<Input type="number" name="bankAccount" id="bankAccount" placeholder="Número da Conta..." className="bg-white" />
+								<Input type="text" name="bankAccount" id="bankAccount" placeholder="Número da Conta..." className="bg-white" />
 							</FormGroup>
 							{/* <FormGroup>
 								<CustomInput type="checkbox" id="acceptTerms" label="Accept Terms and Privacy Policy" inline />

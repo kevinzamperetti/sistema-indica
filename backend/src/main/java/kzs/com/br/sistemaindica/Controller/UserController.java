@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -28,9 +29,12 @@ public class UserController {
     }
 
     @GetMapping
+    public ResponseEntity<List<User>> listAll() {
+        return ResponseEntity.ok(repository.findAll());
+    }
+
+    @GetMapping("/email")
     public ResponseEntity<Optional<User>> findByEmail(@RequestParam(name = "email") String email) {
         return ResponseEntity.ok(repository.findByEmail(email));
     }
-
-
 }

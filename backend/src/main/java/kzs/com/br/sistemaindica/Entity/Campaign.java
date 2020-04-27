@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class Campaign extends  BaseEntity {
 
+    @JsonIgnore
     @OneToMany(mappedBy = "campaign", fetch = LAZY)
     private Set<Opportunity> opportunities;
 
@@ -28,7 +30,7 @@ public class Campaign extends  BaseEntity {
     private String name;
 
     @Column(name = "has_reward", nullable = false)
-    private boolean hasReward;
+    private Boolean hasReward;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
@@ -36,6 +38,6 @@ public class Campaign extends  BaseEntity {
     @Column(name = "expiration_date", nullable = false)
     private LocalDate expirationDate;
 
-    private boolean enabled;
+    private Boolean enabled;
 
 }

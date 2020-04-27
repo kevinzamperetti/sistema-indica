@@ -1,7 +1,9 @@
 package kzs.com.br.sistemaindica.Service.impl;
 
+import kzs.com.br.sistemaindica.Entity.BankData;
 import kzs.com.br.sistemaindica.Entity.User;
 import kzs.com.br.sistemaindica.Exception.*;
+import kzs.com.br.sistemaindica.Repository.BankDataRepository;
 import kzs.com.br.sistemaindica.Repository.UserRepository;
 import kzs.com.br.sistemaindica.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,20 +20,27 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
 
+    private final BankDataRepository bankDataRepository;
+
     @Override
-    public User save(User user) throws IllegalAccessException {
+    public User save(User user) {
+
+        validateEmail(user.getEmail());
 
         verifyDataUser(user);
 
-        validateEmail(user.getEmail());
+        BankData bankData = bankDataRepository.findById(user.getBankData().getId())
+                .orElseThrow(() -> new BankDataNotProvidedException("Bank Data not found."));
+
+        user.setBankData(bankData);
 
         user.setPassword(cryptographyPassword(user.getPassword()));
 
         return repository.save(user);
+
     }
 
-    private void verifyDataUser(User user) throws IllegalAccessException {
-
+    private void verifyDataUser(User user) {
         if (isNull(user.getName())) {
             throw new UserNameNotProvidedException("Name of user not provided.");
         }
@@ -52,6 +61,10 @@ public class UserServiceImpl implements UserService {
             throw new UserProfileNotProvidedException("Address of user not provided.");
         }
 
+        if (isNull(user.getBankData())) {
+            throw new BankDataNotProvidedException("Bank Data of user not provided.");
+        }
+
         if (isNull(user.getBankAccount())) {
             throw new UserBankAccountNotProvidedException("Bank Account of user not provided.");
         }
@@ -59,20 +72,13 @@ public class UserServiceImpl implements UserService {
         if (isNull(user.getBankAgency())) {
             throw new UserBankAgencyNotProvidedException("Bank Agency of user not provided.");
         }
-
-        if (isNull(user.getBankNumber())) {
-            throw new UserBankNumberNotProvidedException("Bank Number of user not provided.");
-        }
-
     }
 
-    private void validateEmail(String email) throws IllegalAccessException {
-
+    private void validateEmail(String email) {
         Optional<User> emailUser = repository.findByEmail(email);
         if (emailUser.isPresent()) {
-            throw new IllegalAccessException("This user cannot be registered. Email already registered in the system.");
+            throw new UserEmailAlreadyRegisteredException("This user cannot be registered. Email already registered in the system.");
         }
-
     }
 
 }

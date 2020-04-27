@@ -1,7 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
 import kzs.com.br.sistemaindica.Enum.OpportunityExperienceLevel;
-import kzs.com.br.sistemaindica.Enum.OpportunityBonusLevel;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,7 +38,11 @@ public class Opportunity extends BaseEntity {
     @OneToMany(mappedBy = "opportunity", fetch = LAZY)
     private Set<KeyWord> keyWords;
 
-    @OneToOne
+//    @OneToOne
+//    @JoinColumn(name = "id_opportunity_bonus_level", referencedColumnName = "id_opportunity_bonus_level")
+//    private OpportunityBonusLevel bonusLevel;
+
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_opportunity_bonus_level", referencedColumnName = "id_opportunity_bonus_level")
     private OpportunityBonusLevel bonusLevel;
 

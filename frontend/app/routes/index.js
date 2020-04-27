@@ -11,12 +11,12 @@ import {PrivateRoute} from './components/PrivateRoute/PrivateRoute'
 
 // ----------- Pages Imports ---------------
 import Analytics from './Dashboards/Analytics';
-import ProjectsDashboard from './Dashboards/Projects';
-import System from './Dashboards/System';
-import Monitor from './Dashboards/Monitor'; 
-import Financial from './Dashboards/Financial';
-import Stock from './Dashboards/Stock';
-import Reports from './Dashboards/Reports';
+// import ProjectsDashboard from './Dashboards/Projects';
+// import System from './Dashboards/System';
+// import Monitor from './Dashboards/Monitor'; 
+// import Financial from './Dashboards/Financial';
+// import Stock from './Dashboards/Stock';
+// import Reports from './Dashboards/Reports';
 
 import Widgets from './Widgets';
 
@@ -122,12 +122,12 @@ export const RoutedContent = () => {
             <Redirect from="/" to="/pages/login" exact />
             
             <PrivateRoute path="/dashboards/analytics" exact component={Analytics} />
-            <Route path="/dashboards/projects" exact component={ProjectsDashboard} />
+            {/* <Route path="/dashboards/projects" exact component={ProjectsDashboard} />
             <Route path="/dashboards/system" exact component={System} />
             <Route path="/dashboards/monitor" exact component={Monitor} />
             <Route path="/dashboards/financial" exact component={Financial} />
             <Route path="/dashboards/stock" exact component={Stock} />
-            <Route path="/dashboards/reports" exact component={Reports} />
+            <Route path="/dashboards/reports" exact component={Reports} /> */}
 
             <Route path='/widgets' exact component={Widgets} />
             
