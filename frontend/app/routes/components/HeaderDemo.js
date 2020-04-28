@@ -11,9 +11,9 @@ const HeaderDemo = (props) => (
             </h1>
         </Media>
         <Media body>
-            <h4 className="mt-1">
+            <h1 className="mt-1">
                 {props.title}
-            </h4>
+            </h1>
             <p>{props.children || props.subTitle}</p>
         </Media>
     </Media>

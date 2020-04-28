@@ -118,7 +118,7 @@ export class CampaignList extends React.Component {
         } )
         
         console.log('teste')
-        console.log(this.state.listBanks)
+        // console.log(response.data)
 	}
 
 

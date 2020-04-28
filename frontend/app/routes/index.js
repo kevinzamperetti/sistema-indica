@@ -14,6 +14,10 @@ import Analytics from './Dashboards/Analytics';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Campaign from './Pages/Campaign';
+import OpportunityBonusLevel from './Pages/OpportunityBonusLevel'
+import Opportunity from './Pages/Opportunity'
+import KeyWord from './Pages/KeyWord/KeyWord';
+import Indication from './Pages/Indication';
 
 import NavbarOnly from './Layouts/NavbarOnly';
 import SidebarDefault from './Layouts/SidebarDefault';
@@ -38,9 +42,13 @@ export const RoutedContent = () => {
             <Route component={ Login } path="/pages/login" />
             <Route component={ Register } path="/pages/register" />
             
-            <PrivateRoute path="/dashboards/analytics" exact component={Analytics} />
-            <PrivateRoute path="/pages/campaign" exact component={Campaign} />
-
+            <Route path="/dashboards/analytics" exact component={Analytics} />
+            <Route path="/pages/campaign" exact component={Campaign} />
+            <Route path="/pages/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
+            <Route path="/pages/opportunity" exact component={Opportunity} />
+            <Route path="/pages/key-word" exact component={KeyWord} />
+            <Route path="/pages/indication" exact component={Indication} />
+            
             { /*    Layouts     */ }
             <Route path='/layouts/navbar' component={NavbarOnly} />
             <Route path='/layouts/sidebar' component={SidebarDefault} />

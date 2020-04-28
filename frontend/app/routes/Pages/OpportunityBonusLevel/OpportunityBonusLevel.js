@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+// import DatePicker, { setDefaultLocale } from 'react-datepicker';
 import MaskedInput from 'react-text-mask';
 import Toggle from 'react-toggle';
+
+import {
+    createNumberMask
+} from 'text-mask-addons';
 
 import { 
     Button,
@@ -8,31 +13,42 @@ import {
     Row,
     Col,
     Card,
+    CardTitle,
     CardBody,
     CardFooter,
+    FormFeedback,
+    Badge,
+    CustomInput,
     Form, 
     FormGroup, 
     Label, 
-    Input
+    Input, 
+    InputGroup,
+    InputGroupAddon,
+    FormText
 } from '../../../components';
 
+import { HeaderMain } from "../../components/HeaderMain";
 import { HeaderDemo } from "../../components/HeaderDemo";
 
 //import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
-import { CampaignList } from './CampaignList/CampaignList'
+//import { CampaignList } from './CampaignList/CampaignList'
 
-export default class Campaign extends Component {
+// const realMaskDecimal = createNumberMask({ prefix: 'R$', allowDecimal: true, thousandsSeparatorSymbol: ".", decimalSymbol : "," });
+const realMaskDecimal = createNumberMask({ prefix: '', allowDecimal: false, thousandsSeparatorSymbol: "." });
+
+export default class OpportunityBonusLevel extends Component {
     constructor( props ) {
         super( props )
         this.state = {
 			name: '',
-            expirationDate: '',
-            enabled: ''
+			email: '',
+			password: '',
+			isCollaboratorSelector: ''
 		}
     }
-
+    
     render() {
-        const { listCampaign, listOpportunityBonusLevel } = this.state
         return (
             <React.Fragment>
                 <Container>
@@ -40,10 +56,10 @@ export default class Campaign extends Component {
                         <Col lg={ 12 }>
                             <HeaderDemo 
                                 // no={1} 
-                                title="Cadastro de Campanhas de Indicação" 
+                                title="Cadastro de Níveis de Indicação" 
                                 subTitle={(
                                     <React.Fragment>
-                                        Visualize e cadastre campanhas de indicação.
+                                        Visualize e cadastre níveis de bonificação. O nível de indicação deverá ser informado nas oportunidades de trabalho.
                                     </React.Fragment>
                                 )}
                             />
@@ -64,16 +80,23 @@ export default class Campaign extends Component {
                                         </FormGroup>
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
-                                                Data de Expiração
+                                                Valor da Bonificação:
                                             </Label>
                                             <Col sm={9}>
-                                                <Input
-                                                    mask={ [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] }
-                                                    placeholder='01/01/1970'
-                                                    tag={ MaskedInput }
-                                                    name="expirationDate"
-                                                    id="expirationDate"/>
-                                            </Col>
+                                            {/* <Input
+                                                mask={ realMaskDecimal }
+                                                className='text-right form-control'
+                                                placeholder='Informe o valor da bonificação'
+                                                tag={ MaskedInput }
+                                                name="bonusValue"
+                                                id="bonusValue"/> */}
+                                                <InputGroup>
+                                                    <InputGroupAddon addonType="prepend">R$</InputGroupAddon>
+                                                    <Input mask={ realMaskDecimal } className='text-right form-control' tag={ MaskedInput }
+                                                    placeholder="Informe o valor da bonificação..." id="bonusValue" name="bonusValue" />
+                                                    <InputGroupAddon addonType="append">,00</InputGroupAddon>
+                                                </InputGroup>
+                                            </Col> 
                                         </FormGroup>
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
@@ -101,7 +124,7 @@ export default class Campaign extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <CampaignList />
+                            {/* <CampaignList /> */}
                         </Col>
                     </Row>
                 </Container>
@@ -109,3 +132,4 @@ export default class Campaign extends Component {
         )
     }
 }
+// export default OpportunityBonusLevel;

@@ -60,7 +60,7 @@ export default class Register extends Component {
 		this.setState( { 
 						[name] : res
 		} )
-}
+	}
 
 	changeValuesState( evt ) {
 		const { name, value } = evt.target
