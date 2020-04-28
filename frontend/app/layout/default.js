@@ -52,13 +52,13 @@ class AppLayout extends React.Component {
                     </Layout.Content>
 
                     { /* -- Theme Selector (DEMO) ----*/ }
-                    <PageConfigConsumer>
+                    {/* <PageConfigConsumer>
                     {
                         ({ sidebarHidden, navbarHidden }) => (
                             <ThemeSelector styleDisabled={ sidebarHidden && navbarHidden } />
                         )
                     }
-                    </PageConfigConsumer>
+                    </PageConfigConsumer> */}
                 </Layout>
             </ThemeProvider>
         );
