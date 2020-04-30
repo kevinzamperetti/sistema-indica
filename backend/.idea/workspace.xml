@@ -2,78 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a94e705d-005c-4440-9723-5d4a69c4bbc1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/CampaignServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/CampaignServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/app/layout/components/SidebarMiddleNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/layout/components/SidebarMiddleNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/Cards/Cards.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/Cards/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/CardsHeaders/CardsHeaders.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Cards/CardsHeaders/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Accordions/Accordions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Accordions/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Alerts/Alerts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Alerts/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Avatars/Avatars.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Avatars/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/BadgesLabels/BadgesLabels.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/BadgesLabels/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Breadcrumbs/Breadcrumbs.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Breadcrumbs/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Buttons/Buttons.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Buttons/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Calendar/Calendar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Calendar/events.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Calendar/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Colors/Colors.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Colors/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/CropImage/CropImage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/CropImage/components/ExampleProvider.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/CropImage/images/image-1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/CropImage/images/image-2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/CropImage/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/DragAndDropElements.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/components/DraggableTable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/components/HorizontalLists.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/components/MultipleVerticalLists.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/components/common.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/components/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/components/utilities.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/DragAndDropElements/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Dropdowns/Dropdowns.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Dropdowns/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Images/Images.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Images/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/ListGroups/ListGroups.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/ListGroups/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/MediaObjects/MediaObjects.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/MediaObjects/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Modals/Modals.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Modals/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Navbars/Navbars.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Navbars/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Notifications/Notifications.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Notifications/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Paginations/Paginations.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Paginations/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/ProgressBars/ProgressBars.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/ProgressBars/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/TabsPills/TabsPills.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/TabsPills/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/TooltipsPopovers/TooltipsPopovers.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/TooltipsPopovers/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Typography/Typography.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Interface/Typography/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Error404/Error404.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Error404/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Register/Register.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Tables/ExtendedTable/components/AdvancedTableA.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Tables/ExtendedTable/components/AdvancedTableA.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Widgets/Widgets.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Widgets/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/components/HeaderDemo.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/components/HeaderDemo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/components/LogoThemed/LogoThemed.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/components/LogoThemed/LogoThemed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/components/Pages/HeaderAuth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/components/Pages/HeaderAuth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/index.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -195,6 +128,7 @@
       <workItem from="1587691356007" duration="7578000" />
       <workItem from="1587838316230" duration="4037000" />
       <workItem from="1587867698877" duration="5425000" />
+      <workItem from="1588204524484" duration="6286000" />
     </task>
     <servers />
   </component>

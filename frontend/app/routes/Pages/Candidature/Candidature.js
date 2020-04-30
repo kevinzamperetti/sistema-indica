@@ -35,7 +35,7 @@ import { HeaderDemo } from "../../components/HeaderDemo";
 
 const realMaskDecimal = createNumberMask({ prefix: 'R$', allowDecimal: true, thousandsSeparatorSymbol: ".", decimalSymbol : "," });
 
-export default class Indication extends Component {
+export default class Candidature extends Component {
     constructor( props ) {
         super( props )
         this.state = {
@@ -43,12 +43,12 @@ export default class Indication extends Component {
             opportunityIdSelector: '',
             listOpportunities: '',
             attachment: '',
-            indicationName: '',
-            indicationPhoneNumber: '',
-            indicationEmail: '',
-            userDocumentNumber: '',
+            candidateName: '',
+            candidatePhoneNumber: '',
+            candidateEmail: '',
+            candidateDocumentNumber: '',
             status: 'NEW'
-		}
+        }
     }
 
     changeValuesStateOpportunity( evt ) {
@@ -70,8 +70,8 @@ export default class Indication extends Component {
                         <Col lg={ 12 }>
                             <HeaderDemo 
                                 // no={1} 
-                                title="Realizar indicação" 
-                                subTitle="Aqui é possível realizar a indicação de pessoas conhecidas em alguma de nossas oportunidades em aberto."
+                                title="Realizar Candidatura" 
+                                subTitle="Aqui é possível candidatar-se a uma de nossas oportunidades em aberto."
                             />
                         </Col>
                     </Row>
@@ -80,32 +80,7 @@ export default class Indication extends Component {
                             <Card className="mb-3">
                                 <CardBody>
                                     <Form>
-                                        <CardTitle tag="h6" className="mt-5 mb-4">
-                                            Informações do usuário que está realizando a indicação:
-                                        </CardTitle>
-                                        <FormGroup row>
-                                            <Label for="input" sm={3}>Nome</Label>
-                                            <Col sm={9}>
-                                                <Input type="text" name="name" id="name" placeholder=""/>
-                                            </Col>
-                                        </FormGroup>
-                                        <FormGroup row>
-                                            <Label for="input" sm={3}>CPF</Label>
-                                            <Col sm={9}>
-                                                <Input
-                                                    mask={ [/\d/, /\d/,  /\d/, '.', /\d/,  /\d/, /\d/, '.',  /\d/, /\d/, /\d/, '-', /\d/, /\d/] }
-                                                    keepCharPositions={ true }
-                                                    // pipe="000.000.000-00"
-                                                    placeholder='Informe seu CPF...'
-                                                    tag={ MaskedInput }
-                                                    name="documentNumber"
-                                                    id="documentNumber"/>
-                                            </Col>                                                
-                                        </FormGroup>
-                                        <CardTitle tag="h6" className="mt-5 mb-4">
-                                            Informações de quem deseja indicar:
-                                        </CardTitle>
-                                        <FormGroup row>
+                                    <FormGroup row>
                                             <Label for="CampaignIdSelector" sm={3}>Oportunidade</Label>
                                             <Col sm={9}>
                                                 <CustomInput type="select" name="opportunityIdSelector" id="opportunityIdSelector" onChange={ this.changeValuesStateOpportunity.bind( this ) } >
@@ -127,8 +102,21 @@ export default class Indication extends Component {
                                         <FormGroup row>
                                             <Label for="input" sm={3}>Nome</Label>
                                             <Col sm={9}>
-                                                <Input type="text" name="indicationName" id="indicationName" placeholder=""/>
+                                                <Input type="text" name="candidateName" id="candidateName" placeholder=""/>
                                             </Col>
+                                        </FormGroup>
+                                        <FormGroup row>
+                                            <Label for="input" sm={3}>CPF</Label>
+                                            <Col sm={9}>
+                                                <Input
+                                                    mask={ [/\d/, /\d/,  /\d/, '.', /\d/,  /\d/, /\d/, '.',  /\d/, /\d/, /\d/, '-', /\d/, /\d/] }
+                                                    keepCharPositions={ true }
+                                                    // pipe="000.000.000-00"
+                                                    placeholder='Informe seu CPF...'
+                                                    tag={ MaskedInput }
+                                                    name="candidateDocumentNumber"
+                                                    id="candidateDocumentNumber"/>
+                                            </Col>                                                
                                         </FormGroup>
                                         <FormGroup row>
                                             <Label for="input" sm={3}>Telefone</Label>
@@ -137,8 +125,8 @@ export default class Indication extends Component {
                                                     mask={ ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/] }
                                                     placeholder='(51) 99000-0000'
                                                     tag={ MaskedInput }
-                                                    id="indicationPhoneNumber"
-                                                    name="indicationPhoneNumber"/>
+                                                    id="candidatePhoneNumber"
+                                                    name="candidatePhoneNumber"/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -148,14 +136,8 @@ export default class Indication extends Component {
                                                     mask={ emailMask }
                                                     placeholder='nome@teste.com'
                                                     tag={ MaskedInput }
-                                                    id="indicationEmail"
-                                                    name="indicationEmail"/>
-                                            </Col>
-                                        </FormGroup>
-                                        <FormGroup row>
-                                            <Label for="input" sm={3}>Currículo</Label>
-                                            <Col sm={9}>
-                                                <Input type="text" name="attachment" id="attachment" placeholder=""/>
+                                                    id="candidateEmail"
+                                                    name="candidateEmail"/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -172,7 +154,7 @@ export default class Indication extends Component {
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
                                         <Button color='primary' onClick={() => {this._nextStep()}} className="ml-auto px-4">
-                                            Indicar
+                                            Enviar
                                         </Button>
                                     </div>
                                 </CardFooter>

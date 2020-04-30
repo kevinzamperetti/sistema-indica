@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import MaskedInput from 'react-text-mask';
 import Toggle from 'react-toggle';
+import moment from 'moment';
 
 import { 
     Button,
@@ -12,14 +14,92 @@ import {
     CardFooter,
     Form, 
     FormGroup, 
-    Label, 
+    Label,
+    Media,
     Input
 } from '../../../components';
 
 import { HeaderDemo } from "../../components/HeaderDemo";
-
 //import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
 import { CampaignList } from './CampaignList/CampaignList'
+
+import API from '../../../services/api';
+
+// ========== Toast Contents: ============
+// eslint-disable-next-line react/prop-types
+const contentSuccess = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-check"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Successo!
+            </Media>
+            <p>
+                Campanha de Indicação salva com sucesso!
+            </p>
+            <div className="d-flex mt-2">
+                <Button color="success" onClick={() => { closeToast }} >
+                    Ok
+                </Button>
+                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-success">
+                    Cancelar
+                </Button>
+            </div>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const contentError = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Erro ao salvar dados
+            </p>
+            <div className="d-flex mt-2">
+                <Button color="danger" onClick={() => { closeToast }}>
+                    Ok
+                </Button>
+                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
+                    Cancelar
+                </Button>
+            </div>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const errorFillFields = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Existem campos não preeenchidos.
+            </p>
+            <div className="d-flex mt-2">
+                <Button color="danger" onClick={() => { closeToast }}>
+                    Ok
+                </Button>
+                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
+                    Cancelar
+                </Button>
+            </div>
+        </Media>
+    </Media>
+);
 
 export default class Campaign extends Component {
     constructor( props ) {
@@ -27,12 +107,48 @@ export default class Campaign extends Component {
         this.state = {
 			name: '',
             expirationDate: '',
-            enabled: ''
-		}
+            enabled: false
+        }
     }
 
+    changeValuesState( evt ) {
+		const { name, value } = evt.target
+		// this.validarEmail( evt )
+		this.setState( {
+			[name]: value
+        })
+        console.log( this.state.enabled )
+        console.log( this.state.expirationDate )
+        console.log( this.state.name )
+    }
+    
+    save( evt ) {
+		evt.preventDefault();
+        const { name, expirationDate, enabled } = this.state
+		if ( name && expirationDate ) {
+            const expirationDateFormatted = moment( expirationDate, 'DD/MM/YYYY',true).format("YYYY-MM-DD");
+			API.post( '/campaign', {
+                name: name,
+                expirationDate: expirationDateFormatted,
+                enabled: enabled
+			} ).then( response => {
+                toast.success(contentSuccess);
+				console.log( response.data )
+				this.setState({redirect: true})
+				// this.props.history.push( "/pages/login" )
+				// this.salvarImagem(response.data.id, imagem)
+			//this.props.history.push( "/login" )
+			} )
+			.catch( erro => {
+                console.log( "Erro: " + erro ) 
+                toast.error(contentError);
+            } )
+        } else {
+            toast.error(errorFillFields);
+        }
+	}
+
     render() {
-        const { listCampaign, listOpportunityBonusLevel } = this.state
         return (
             <React.Fragment>
                 <Container>
@@ -54,12 +170,13 @@ export default class Campaign extends Component {
                             <Card className="mb-3">
                                 <CardBody>
                                     <Form>
+                                    {/* <Form onSubmit={ this.save.bind( this ) }> */}
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
                                                 Nome
                                             </Label>
                                             <Col sm={9}>
-                                                <Input type="text" name="name" id="name" placeholder=""/>
+                                                <Input type="text" name="name" id="name" placeholder="" onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -72,7 +189,8 @@ export default class Campaign extends Component {
                                                     placeholder='01/01/1970'
                                                     tag={ MaskedInput }
                                                     name="expirationDate"
-                                                    id="expirationDate"/>
+                                                    id="expirationDate"
+                                                    onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -87,13 +205,12 @@ export default class Campaign extends Component {
                                                     onChange={ () => { this.setState({ enabled: !this.state.enabled }) } }/>
                                             </Col>
                                         </FormGroup>
+                                        {/* <Button color="link" onClick={ this._showHandler } className="ml-2">Toast</Button> */}
                                     </Form>
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' onClick={() => {this._nextStep()}} className="ml-auto px-4">
-                                            Cadastrar
-                                        </Button>
+                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Cadastrar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>
@@ -101,11 +218,21 @@ export default class Campaign extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <CampaignList />
+                            {/* <CampaignList /> */}
                         </Col>
                     </Row>
+                    <ToastContainer 
+                    position='top-right'
+                    autoClose={3000}
+                    draggable={false}
+                    hideProgressBar={true}
+                    />
                 </Container>
             </React.Fragment>
         )
     }
+
+    // _showHandler = () => {
+    //             toast.success(contentSuccess);
+    // }
 }

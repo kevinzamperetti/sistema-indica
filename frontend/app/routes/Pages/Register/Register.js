@@ -12,10 +12,10 @@ import {
     Button,
     Label,
     EmptyLayout,
-	ThemeConsumer,
-	UncontrolledModal,
-	ModalBody,
-	ModalHeader,
+		ThemeConsumer,
+		UncontrolledModal,
+		ModalBody,
+		ModalHeader,
     ModalFooter
 } from './../../../components';
 
@@ -78,7 +78,7 @@ export default class Register extends Component {
 
 	register( evt ) {
 		evt.preventDefault();
-		const { name, email, password, profileSelector, documentNumber, bankNumberSelector, bankIdSelector, bankAgency, bankAccount } = this.state
+		const { name, email, password, profileSelector, documentNumber, bankIdSelector, bankAgency, bankAccount } = this.state
 		// let cor, mensagem
 		// if ( nome && email && senha && tipoUsuario ) {
 			API.post( '/user/register', {
@@ -121,10 +121,7 @@ export default class Register extends Component {
 			return (
 				<EmptyLayout>
 					<EmptyLayout.Section center width={ 480 }>
-						{ /* START Header */}
 						<HeaderAuth title="Criar Conta"/>
-						{ /* END Header */}
-						{ /* START Form */}
 						<Form className="mb-3" onChange={ this.changeValuesState.bind( this ) } onSubmit={ this.register.bind( this ) } >
 							<FormGroup>
 								<Label for="name">Número da Conta</Label>
@@ -199,21 +196,14 @@ export default class Register extends Component {
 							}
 							</ThemeConsumer>
 						</Form>
-						{ /* END Form */}
-						{ /* START Bottom Links */}
 						<div className="d-flex mb-5">
 							<Link to="/pages/forgot-password" className="text-decoration-none">Esqueceu sua senha?</Link>
 							<Link to="/pages/login" className="ml-auto text-decoration-none">Login</Link>
 						</div>
-						{ /* END Bottom Links */}
-						{ /* START Footer */}
 						<FooterAuth />
-						{ /* END Footer */}
 					</EmptyLayout.Section>
 				</EmptyLayout>
 			)
 		}
     }
 }
-
-// export default Register;

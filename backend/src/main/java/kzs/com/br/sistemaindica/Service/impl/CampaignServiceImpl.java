@@ -7,6 +7,8 @@ import kzs.com.br.sistemaindica.Service.CampaignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
@@ -28,6 +30,10 @@ public class CampaignServiceImpl implements CampaignService {
             throw new CampaignIdMustNotBeProvidedException("Id of Campaign must not be provided.");
         }
         verifyFields(campaign);
+        campaign.setCreationDate(LocalDate.now());
+//        LocalDate date = campaign.getExpirationDate();
+//        date.format(DateTimeFormatter.ISO_LOCAL_DATE);
+//        campaign.setExpirationDate(date);
         return repository.save(campaign);
     }
 
@@ -59,9 +65,9 @@ public class CampaignServiceImpl implements CampaignService {
         if (isNull(campaign.getExpirationDate())) {
             throw new CampaignExpirationDateNotProvidedException("Expiration Date of Campaign not provided.");
         }
-        if (isNull(campaign.getHasReward())) {
-            throw new CampaignHasRewardNotProvidedException("Has Reward of Campaign not provided.");
-        }
+//        if (isNull(campaign.getHasReward())) {
+//            throw new CampaignHasRewardNotProvidedException("Has Reward of Campaign not provided.");
+//        }
         if (isNull(campaign.getEnabled())) {
             throw new CampaignEnabledNotProvidedException("Enabled of Campaign not provided.");
         }
