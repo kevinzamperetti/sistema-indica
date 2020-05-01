@@ -117,9 +117,6 @@ export default class Campaign extends Component {
 		this.setState( {
 			[name]: value
         })
-        console.log( this.state.enabled )
-        console.log( this.state.expirationDate )
-        console.log( this.state.name )
     }
     
     save( evt ) {
@@ -133,7 +130,7 @@ export default class Campaign extends Component {
                 enabled: enabled
 			} ).then( response => {
                 toast.success(contentSuccess);
-				console.log( response.data )
+				// console.log( response.data )
 				this.setState({redirect: true})
 				// this.props.history.push( "/pages/login" )
 				// this.salvarImagem(response.data.id, imagem)

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import MaskedInput from 'react-text-mask';
 import { Redirect } from 'react-router';
@@ -10,12 +11,13 @@ import {
     Input,
     CustomInput,
     Button,
-    Label,
+	Label,
+	Media,
     EmptyLayout,
-		ThemeConsumer,
-		UncontrolledModal,
-		ModalBody,
-		ModalHeader,
+	ThemeConsumer,
+	UncontrolledModal,
+	ModalBody,
+	ModalHeader,
     ModalFooter
 } from './../../../components';
 
@@ -24,7 +26,58 @@ import { FooterAuth } from "../../components/Pages/FooterAuth";
 
 import API from '../../../services/api';
 
-// const Register = () => (
+// ========== Toast Contents: ============
+// eslint-disable-next-line react/prop-types
+const contentSuccess = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-check"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Successo!
+            </Media>
+            <p>
+                Campanha de Indicação salva com sucesso!
+            </p>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const contentError = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Erro ao salvar dados
+            </p>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const contentErrorFillFields = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Existem campos não preeenchidos.
+            </p>
+        </Media>
+    </Media>
+);
+
 export default class Register extends Component {
     constructor( props ) {
         super( props )
@@ -32,9 +85,8 @@ export default class Register extends Component {
 			name: '',
 			email: '',
 			password: '',
-			profileSelector: '',
+			profileSelector: 'EXTERNAL',
 			documentNumber: '',
-			// bankNumberSelector: '',
 			bankIdSelector: '',
 			bankAgency: '',
 			bankAccount: '',
@@ -70,17 +122,10 @@ export default class Register extends Component {
 		})
 	}
 
-	// onChange(e) {
-	// 	this.setState({
-	// 	value: e.target.value
-	// 	})
-	// }
-
 	register( evt ) {
 		evt.preventDefault();
 		const { name, email, password, profileSelector, documentNumber, bankIdSelector, bankAgency, bankAccount } = this.state
-		// let cor, mensagem
-		// if ( nome && email && senha && tipoUsuario ) {
+		 if ( name && email && password && profileSelector && documentNumber && bankIdSelector && bankAgency && bankAccount ) {
 			API.post( '/user/register', {
 				name: name,
 				email: email,
@@ -88,25 +133,23 @@ export default class Register extends Component {
 				profile: profileSelector.toUpperCase(),
 				isCollaborator: false,
 				documentNumber: documentNumber,
-				// bankNumber: bankNumberSelector,
 				bankData: {
 					id: bankIdSelector
 				},
 				bankAgency: bankAgency,
 				bankAccount: bankAccount
 			} ).then( response => {
-				console.log( response.data )
+				toast.success(contentSuccess);
+				// console.log( response.data )
 				this.setState({redirect: true})
-				// this.props.history.push( "/pages/login" )
-				// this.salvarImagem(response.data.id, imagem)
-			//this.props.history.push( "/login" )
 			})
-			.catch( erro => console.log( "Erro: " + erro ) )
-		// } else {
-		// 	cor = 'vermelho'
-		// 	mensagem = MensagemFlashConst.ERRO.PREENCHER_TODOS_CAMPOS
-		// 	this.exibirMensagem( { cor, mensagem } )
-		// }
+			.catch( erro => {
+                console.log( "Erro: " + erro ) 
+                toast.error(contentError);
+            } )
+		} else {
+			toast.error(contentErrorFillFields);
+		}
 	}
     
     render() {
@@ -124,7 +167,7 @@ export default class Register extends Component {
 						<HeaderAuth title="Criar Conta"/>
 						<Form className="mb-3" onChange={ this.changeValuesState.bind( this ) } onSubmit={ this.register.bind( this ) } >
 							<FormGroup>
-								<Label for="name">Número da Conta</Label>
+								<Label for="name">Nome</Label>
 								<Input type="text" name="name" id="name" placeholder="Nome..." className="bg-white" />
 							</FormGroup>
 							<FormGroup>
@@ -185,9 +228,6 @@ export default class Register extends Component {
 								<Label for="bankAccount">Número da Conta <span className="small ml-1 text-muted">(com dígito)</span></Label>
 								<Input type="text" name="bankAccount" id="bankAccount" placeholder="Número da Conta..." className="bg-white" />
 							</FormGroup>
-							{/* <FormGroup>
-								<CustomInput type="checkbox" id="acceptTerms" label="Accept Terms and Privacy Policy" inline />
-							</FormGroup> */}
 							<ThemeConsumer>
 							{
 								({ color }) => (
@@ -202,6 +242,12 @@ export default class Register extends Component {
 						</div>
 						<FooterAuth />
 					</EmptyLayout.Section>
+					<ToastContainer 
+                    position='top-right'
+                    autoClose={3000}
+                    draggable={false}
+                    hideProgressBar={true}
+                    />
 				</EmptyLayout>
 			)
 		}

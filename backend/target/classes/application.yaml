@@ -9,8 +9,10 @@ spring:
   # Database
   datasource:
     url: jdbc:postgresql://localhost:5432/indicadb
-    username: postgres
-    password: 1nd1c4
+#    username: postgres
+#    password: 1nd1c4
+    username: newparus
+    password: n3wp@rus
     driver-class-name: org.postgresql.Driver
   # JPA properties
   jpa:

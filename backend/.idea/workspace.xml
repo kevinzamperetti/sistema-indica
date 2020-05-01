@@ -3,13 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="a94e705d-005c-4440-9723-5d4a69c4bbc1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Campaign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/CampaignServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/CampaignServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/layout/components/SidebarMiddleNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/layout/components/SidebarMiddleNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/BankDataRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/BankDataRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/CampaignRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/CampaignRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/OpportunityBonusLevelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/OpportunityBonusLevelRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/SistemaIndicaApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/SistemaIndicaApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Register/Register.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Register/Register.js" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,14 +48,20 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Security" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Parus/evidence-pos-processor-ms" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -56,9 +69,9 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
   </component>
   <component name="RecentsManager">
@@ -81,26 +94,18 @@
       <command value="mvn clean install -U" />
     </option>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
   <component name="RunManager">
     <configuration name="SistemaIndicaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="sistema-indica" />
+      <module name="backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kzs.com.br.sistemaindica.SistemaIndicaApplication" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -129,6 +134,7 @@
       <workItem from="1587838316230" duration="4037000" />
       <workItem from="1587867698877" duration="5425000" />
       <workItem from="1588204524484" duration="6286000" />
+      <workItem from="1588275035535" duration="5297000" />
     </task>
     <servers />
   </component>
@@ -147,5 +153,75 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="164" width="688" height="712" key="#SistemaIndicaApplication" timestamp="1588275107605">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="164" width="688" height="712" key="#SistemaIndicaApplication/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588275107605" />
+    <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1588285978175">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="278" key="FileChooserDialogImpl/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588285978175" />
+    <state width="1877" height="488" key="GridCell.Tab.0.bottom" timestamp="1588306231544">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.0.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231544" />
+    <state width="1877" height="488" key="GridCell.Tab.0.center" timestamp="1588306231544">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.0.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231544" />
+    <state width="1877" height="488" key="GridCell.Tab.0.left" timestamp="1588306231544">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.0.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231544" />
+    <state width="1877" height="488" key="GridCell.Tab.0.right" timestamp="1588306231544">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.0.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231544" />
+    <state width="1877" height="488" key="GridCell.Tab.1.bottom" timestamp="1588306231308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.1.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231308" />
+    <state width="1877" height="488" key="GridCell.Tab.1.center" timestamp="1588306231307">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.1.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231307" />
+    <state width="1877" height="488" key="GridCell.Tab.1.left" timestamp="1588306231307">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.1.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231307" />
+    <state width="1877" height="488" key="GridCell.Tab.1.right" timestamp="1588306231308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.1.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231308" />
+    <state width="1877" height="488" key="GridCell.Tab.2.bottom" timestamp="1588306231308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.2.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231308" />
+    <state width="1877" height="488" key="GridCell.Tab.2.center" timestamp="1588306231308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.2.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231308" />
+    <state width="1877" height="488" key="GridCell.Tab.2.left" timestamp="1588306231308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.2.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231308" />
+    <state width="1877" height="488" key="GridCell.Tab.2.right" timestamp="1588306231308">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="488" key="GridCell.Tab.2.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588306231308" />
+    <state x="440" y="97" key="SettingsEditor" timestamp="1588288245151">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="97" key="SettingsEditor/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588288245151" />
+    <state x="667" y="276" width="586" height="488" key="find.popup" timestamp="1588305189916">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="667" y="276" width="586" height="488" key="find.popup/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588305189916" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588305180557">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588305180557" />
   </component>
 </project>

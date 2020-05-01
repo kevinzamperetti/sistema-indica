@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 import {
@@ -9,6 +10,7 @@ import {
     CustomInput,
     Button,
     Label,
+	Media,    
     EmptyLayout,
     ThemeConsumer
 } from './../../../components';
@@ -18,6 +20,41 @@ import { FooterAuth } from "../../components/Pages/FooterAuth";
 
 import API from '../../../services/api';
 
+// ========== Toast Contents: ============
+// eslint-disable-next-line react/prop-types
+const contentError = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                {this.state.errorMessage}
+            </p>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const contentErrorFillFields = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Existem campos não preeenchidos.
+            </p>
+        </Media>
+    </Media>
+);
+
 export default class Login extends Component {
     constructor( props ) {
         super( props )
@@ -25,7 +62,8 @@ export default class Login extends Component {
 			name: '',
 			email: '',
 			password: '',
-			isCollaboratorSelector: ''
+            isCollaboratorSelector: '',
+            errorMessage: ''
 		}
 	}
 	
@@ -39,20 +77,30 @@ export default class Login extends Component {
     
     login( evt ) {
         evt.preventDefault();
-        const { email, password, isCollaboratorSelector } = this.state
+        const { email, password, isCollaboratorSelector, errorMessage } = this.state
         if ( email  && password ) {
             API.post( 'http://localhost:8080/login', {
                     email: email,
 					password: password,
 					isCollaborator: isCollaboratorSelector
             } ).then ( response => {
-                console.log( "response: " + response.data.token );
+                toast.success(contentSuccess);
+                // console.log( "response: " + response.data.token );
                 localStorage.setItem( 'Authorization' , response.data.token ) 
                 // localStorage.setItem('Email', email )
                 this.props.history.push('/dashboards/analytics')   
                 } )
-                // .catch( erro ) 
-        }
+            .catch( error => {
+                console.log( "Erro: " + error.response.data.message ) 
+                this.setState( {
+                    errorMessage: error.response.data.message
+                } )
+                console.log( "errorMessage: " + errorMessage ) 
+                toast.error(contentError);
+            } )
+        } else {
+			toast.error(contentErrorFillFields);
+		}
     }
 
     render() {
@@ -103,6 +151,12 @@ export default class Login extends Component {
                     <FooterAuth />
                     { /* END Footer */}
                 </EmptyLayout.Section>
+                <ToastContainer 
+                    position='top-right'
+                    autoClose={3000}
+                    draggable={false}
+                    hideProgressBar={true}
+                    />
             </EmptyLayout>
         )
     }
