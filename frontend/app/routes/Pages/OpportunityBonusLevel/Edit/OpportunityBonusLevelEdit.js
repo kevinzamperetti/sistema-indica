@@ -90,14 +90,15 @@ const errorFillFields = ({ closeToast }) => (
     </Media>
 );
 
-export default class OpportunityBonusLevel extends Component {
+export default class OpportunityBonusLevelEdit extends Component {
     constructor( props ) {
         super( props )
         this.state = {
 			name: '',
 			bonusValue: '',
-            enabled: false
+			enabled: false
         }
+        {console.log(this.state.enabled)}
     }
 
     changeValuesState( evt ) {
@@ -106,6 +107,7 @@ export default class OpportunityBonusLevel extends Component {
 		this.setState( {
 			[name]: value
         })
+        console.log(value)
     }
 
     save( evt ) {
@@ -118,7 +120,8 @@ export default class OpportunityBonusLevel extends Component {
                 value: bonusValue.replace('.', '')
 			} ).then( response => {
                 toast.success(contentSuccess);
-				// console.log( response.data )
+				console.log( response.data )
+                // { <Redirect to="/pages/opportunity-bonus-level" /> }
 			} )
 			.catch( erro => {
                 console.log( "Erro: " + erro ) 
@@ -206,7 +209,10 @@ export default class OpportunityBonusLevel extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Cadastrar</Button>
+                                        <div className="l-flex">
+                                            <Button color='secondary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Excluir</Button>
+                                        </div>
+                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Salvar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>

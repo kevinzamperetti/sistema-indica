@@ -69,7 +69,7 @@ export default class Indication extends Component {
                     <Row> 
                         <Col lg={ 12 }>
                             <HeaderDemo 
-                                // no={1} 
+                                no=''
                                 title="Realizar indicação" 
                                 subTitle="Aqui é possível realizar a indicação de pessoas conhecidas em alguma de nossas oportunidades em aberto."
                             />

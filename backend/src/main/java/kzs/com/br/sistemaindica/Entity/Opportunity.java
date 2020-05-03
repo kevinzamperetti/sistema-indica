@@ -26,6 +26,7 @@ public class Opportunity extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
     private String description;
 
     @ManyToOne(fetch = LAZY)
@@ -34,6 +35,7 @@ public class Opportunity extends BaseEntity {
 
     @OneToMany(mappedBy = "opportunity", fetch = LAZY)
     private Set<Indication> indications;
+
 
     @OneToMany(mappedBy = "opportunity", fetch = LAZY)
     private Set<KeyWord> keyWords;
@@ -62,6 +64,6 @@ public class Opportunity extends BaseEntity {
     @Column(name = "automatic_evaluation_quantity")
     private Integer automaticEvaluationQuantity;
 
-    private boolean enabled;
+    private Boolean enabled;
 
 }

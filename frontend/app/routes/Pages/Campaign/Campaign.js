@@ -3,26 +3,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import MaskedInput from 'react-text-mask';
 import Toggle from 'react-toggle';
 import moment from 'moment';
-
-import { 
-    Button,
-    Container,
-    Row,
-    Col,
-    Card,
-    CardBody,
-    CardFooter,
-    Form, 
-    FormGroup, 
-    Label,
-    Media,
-    Input
-} from '../../../components';
-
 import { HeaderDemo } from "../../components/HeaderDemo";
 //import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
 import { CampaignList } from './CampaignList/CampaignList'
-
+import { 
+    Button, Container, Row, Col, Card, CardBody, CardFooter,
+    Form, FormGroup, Label, Media, Input
+} from '../../../components';
 import API from '../../../services/api';
 
 // ========== Toast Contents: ============
@@ -37,7 +24,7 @@ const contentSuccess = ({ closeToast }) => (
                 Successo!
             </Media>
             <p>
-                Campanha de Indicação salva com sucesso!
+                Campanha de Indicação cadastrado com sucesso!
             </p>
             <div className="d-flex mt-2">
                 <Button color="success" onClick={() => { closeToast }} >
@@ -152,7 +139,7 @@ export default class Campaign extends Component {
                     <Row> 
                         <Col lg={ 12 }>
                             <HeaderDemo 
-                                // no={1} 
+                                no=''
                                 title="Cadastro de Campanhas de Indicação" 
                                 subTitle={(
                                     <React.Fragment>

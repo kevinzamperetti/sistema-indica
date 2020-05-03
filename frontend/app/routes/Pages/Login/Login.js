@@ -32,7 +32,7 @@ const contentError = ({ closeToast }) => (
                 Erro!
             </Media>
             <p>
-                {this.state.errorMessage}
+                {/* {this.state.errorMessage} */}
             </p>
         </Media>
     </Media>
@@ -84,18 +84,19 @@ export default class Login extends Component {
 					password: password,
 					isCollaborator: isCollaboratorSelector
             } ).then ( response => {
-                toast.success(contentSuccess);
-                // console.log( "response: " + response.data.token );
-                localStorage.setItem( 'Authorization' , response.data.token ) 
-                // localStorage.setItem('Email', email )
-                this.props.history.push('/dashboards/analytics')   
+                localStorage.setItem( 'Authorization' , response.data.token )
+                localStorage.setItem( 'Name', response.data.name )
+                localStorage.setItem( 'Profile', response.data.profile )
+                localStorage.setItem( 'SectorCompany', response.data.sectorCompany )
+                // localStorage.setItem('UserId', userId ) implementar no back
+                this.props.history.push('/home/analytics')
                 } )
             .catch( error => {
-                console.log( "Erro: " + error.response.data.message ) 
-                this.setState( {
-                    errorMessage: error.response.data.message
-                } )
-                console.log( "errorMessage: " + errorMessage ) 
+                // this.setState( {
+                //     errorMessage: error.response.data.message
+                // } )
+                // console.log( "Erro: " + error.response.data.message ) 
+                console.log( "errorMessage: " + error ) 
                 toast.error(contentError);
             } )
         } else {

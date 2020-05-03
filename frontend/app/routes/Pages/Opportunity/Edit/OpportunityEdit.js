@@ -9,7 +9,6 @@ import {
     Form, FormGroup, Label, Media, Input
 } from '../../../components';
 import API from '../../../services/api';
-
 // ========== Toast Contents: ============
 // eslint-disable-next-line react/prop-types
 const contentSuccess = ({ closeToast }) => (
@@ -22,8 +21,16 @@ const contentSuccess = ({ closeToast }) => (
                 Successo!
             </Media>
             <p>
-                Oportunidade cadastrada com sucesso!
+                Nível de Indicação cadastrado com sucesso!
             </p>
+            <div className="d-flex mt-2">
+                <Button color="success" onClick={() => { closeToast }} >
+                    Ok
+                </Button>
+                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-success">
+                    Cancelar
+                </Button>
+            </div>
         </Media>
     </Media>
 );
@@ -41,6 +48,14 @@ const contentError = ({ closeToast }) => (
             <p>
                 Erro ao salvar dados
             </p>
+            <div className="d-flex mt-2">
+                <Button color="danger" onClick={() => { closeToast }}>
+                    Ok
+                </Button>
+                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
+                    Cancelar
+                </Button>
+            </div>
         </Media>
     </Media>
 );
@@ -58,11 +73,19 @@ const errorFillFields = ({ closeToast }) => (
             <p>
                 Existem campos não preeenchidos.
             </p>
+            <div className="d-flex mt-2">
+                <Button color="danger" onClick={() => { closeToast }}>
+                    Ok
+                </Button>
+                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
+                    Cancelar
+                </Button>
+            </div>
         </Media>
     </Media>
 );
 
-export default class Opportunity extends Component {
+export default class OpportunityEdit extends Component {
     constructor( props ) {
         super( props )
         this.state = {
@@ -83,19 +106,6 @@ export default class Opportunity extends Component {
         this.listAllCampaigns();
         this.listAllOpportunityBonusLevel();
     }	
-
-    listAllCampaigns = async () => {
-		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-		const response = await API.get( '/campaign', header )
-		this.setState( { listCampaign: response.data }  )
-	}
-
-    listAllOpportunityBonusLevel = async () => {
-		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-		const response = await API.get( '/opportunityBonusLevel', header )
-		this.setState( { listOpportunityBonusLevel: response.data }  )
-	}
-
     
     changeValuesState( evt ) {
 		const { name, value } = evt.target
@@ -125,18 +135,30 @@ export default class Opportunity extends Component {
 		} )
     }
 
+    listAllCampaigns = async () => {
+		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const response = await API.get( '/campaign', header )
+		this.setState( { listCampaign: response.data }  )
+	}
+
+    listAllOpportunityBonusLevel = async () => {
+		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const response = await API.get( '/opportunityBonusLevel', header )
+		this.setState( { listOpportunityBonusLevel: response.data }  )
+	}
+
     save( evt ) {
         evt.preventDefault();
         const { name, description, campaignIdSelector, opportunityBonusLevelIdSelector, experienceLevelSelector,
                 expirationDate, automaticEvaluationQuantity, enabled } = this.state
         
         if ( name && description && campaignIdSelector && opportunityBonusLevelIdSelector && experienceLevelSelector &&
-             expirationDate && automaticEvaluationQuantity ) {
+             expirationDate && automaticEvaluationQuantity && enabled ) {
  
             const expirationDateFormatted = moment( expirationDate, 'DD/MM/YYYY',true).format("YYYY-MM-DD");
             API.post( '/opportunity', {
                 name: name,
-                description: description,
+                description: '',
                 campaign: {
                     id: campaignIdSelector.id
                 },
@@ -157,6 +179,8 @@ export default class Opportunity extends Component {
             } )
         } else {
             toast.error(errorFillFields);
+            console.log(name, description, campaignIdSelector.id, opportunityBonusLevelIdSelector.id, experienceLevelSelector,
+                expirationDate, automaticEvaluationQuantity, enabled);
         }
     }
     
@@ -294,7 +318,10 @@ export default class Opportunity extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Cadastrar</Button>
+                                        <div className="l-flex">
+                                            <Button color='secondary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Excluir</Button>
+                                        </div>
+                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Salvar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>

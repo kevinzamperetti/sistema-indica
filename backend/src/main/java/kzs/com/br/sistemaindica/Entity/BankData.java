@@ -32,7 +32,7 @@ public class BankData extends BaseEntity {
     private String name;
 
     @Column(name = "number", nullable = false)
-    private Integer number;
+    private String number;
 
 //    @Column(name = "agency", nullable = false)
 //    private Integer agency;

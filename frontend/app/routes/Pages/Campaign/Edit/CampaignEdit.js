@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-// import DatePicker, { setDefaultLocale } from 'react-datepicker';
 import MaskedInput from 'react-text-mask';
 import Toggle from 'react-toggle';
-import { createNumberMask } from 'text-mask-addons';
-import { HeaderDemo } from "../../components/HeaderDemo";
-import { 
-    Button, Container, Row, Col, Card, CardBody, CardFooter,
-    Form, FormGroup, Label, Media, Input, InputGroup,InputGroupAddon
-} from '../../../components';
-import API from '../../../services/api';
+import moment from 'moment';
 
-// const realMaskDecimal = createNumberMask({ prefix: 'R$', allowDecimal: true, thousandsSeparatorSymbol: ".", decimalSymbol : "," });
-const realMaskDecimal = createNumberMask({ prefix: '', allowDecimal: false, thousandsSeparatorSymbol: "." });
+import { 
+    Button,
+    Container,
+    Row,
+    Col,
+    Card,
+    CardBody,
+    CardFooter,
+    Form, 
+    FormGroup, 
+    Label,
+    Media,
+    Input
+} from '../../../components';
+
+import { HeaderDemo } from "../../components/HeaderDemo";
+//import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
+import { CampaignList } from './CampaignList/CampaignList'
+
+import API from '../../../services/api';
 
 // ========== Toast Contents: ============
 // eslint-disable-next-line react/prop-types
@@ -26,7 +37,7 @@ const contentSuccess = ({ closeToast }) => (
                 Successo!
             </Media>
             <p>
-                Nível de Indicação cadastrado com sucesso!
+                Campanha de Indicação salva com sucesso!
             </p>
             <div className="d-flex mt-2">
                 <Button color="success" onClick={() => { closeToast }} >
@@ -90,12 +101,12 @@ const errorFillFields = ({ closeToast }) => (
     </Media>
 );
 
-export default class OpportunityBonusLevel extends Component {
+export default class CampaignEdit extends Component {
     constructor( props ) {
         super( props )
         this.state = {
 			name: '',
-			bonusValue: '',
+            expirationDate: '',
             enabled: false
         }
     }
@@ -107,18 +118,23 @@ export default class OpportunityBonusLevel extends Component {
 			[name]: value
         })
     }
-
+    
     save( evt ) {
 		evt.preventDefault();
-        const { name, bonusValue, enabled } = this.state
-		if ( name && bonusValue ) {
-			API.post( '/opportunityBonusLevel', {
+        const { name, expirationDate, enabled } = this.state
+		if ( name && expirationDate ) {
+            const expirationDateFormatted = moment( expirationDate, 'DD/MM/YYYY',true).format("YYYY-MM-DD");
+			API.post( '/campaign', {
                 name: name,
-                enabled: enabled,
-                value: bonusValue.replace('.', '')
+                expirationDate: expirationDateFormatted,
+                enabled: enabled
 			} ).then( response => {
                 toast.success(contentSuccess);
 				// console.log( response.data )
+				this.setState({redirect: true})
+				// this.props.history.push( "/pages/login" )
+				// this.salvarImagem(response.data.id, imagem)
+			//this.props.history.push( "/login" )
 			} )
 			.catch( erro => {
                 console.log( "Erro: " + erro ) 
@@ -127,8 +143,8 @@ export default class OpportunityBonusLevel extends Component {
         } else {
             toast.error(errorFillFields);
         }
-	}    
-    
+	}
+
     render() {
         return (
             <React.Fragment>
@@ -137,10 +153,10 @@ export default class OpportunityBonusLevel extends Component {
                         <Col lg={ 12 }>
                             <HeaderDemo 
                                 no=''
-                                title="Cadastro de Níveis de Indicação" 
+                                title="Cadastro de Campanhas de Indicação" 
                                 subTitle={(
                                     <React.Fragment>
-                                        Visualize e cadastre níveis de bonificação. O nível de indicação deverá ser informado nas oportunidades de trabalho.
+                                        Visualize e cadastre campanhas de indicação.
                                     </React.Fragment>
                                 )}
                             />
@@ -151,6 +167,7 @@ export default class OpportunityBonusLevel extends Component {
                             <Card className="mb-3">
                                 <CardBody>
                                     <Form>
+                                    {/* <Form onSubmit={ this.save.bind( this ) }> */}
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
                                                 Nome
@@ -161,40 +178,23 @@ export default class OpportunityBonusLevel extends Component {
                                         </FormGroup>
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
-                                                Valor da Bonificação:
+                                                Data de Expiração
                                             </Label>
                                             <Col sm={9}>
-                                            {/* <Input
-                                                mask={ realMaskDecimal }
-                                                className='text-right form-control'
-                                                placeholder='Informe o valor da bonificação'
-                                                tag={ MaskedInput }
-                                                name="bonusValue"
-                                                id="bonusValue"/> */}
-                                                <InputGroup>
-                                                    <InputGroupAddon addonType="prepend">R$</InputGroupAddon>
-                                                    <Input 
-                                                        mask={ realMaskDecimal } 
-                                                        className='text-right form-control' 
-                                                        tag={ MaskedInput }
-                                                        placeholder="Informe o valor da bonificação..." 
-                                                        id="bonusValue" 
-                                                        name="bonusValue"
-                                                        onBlur={ this.changeValuesState.bind( this ) } />
-                                                    <InputGroupAddon addonType="append">,00</InputGroupAddon>
-                                                </InputGroup>
-                                            </Col> 
+                                                <Input
+                                                    mask={ [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] }
+                                                    placeholder='01/01/1970'
+                                                    tag={ MaskedInput }
+                                                    name="expirationDate"
+                                                    id="expirationDate"
+                                                    onBlur={ this.changeValuesState.bind( this ) }/>
+                                            </Col>
                                         </FormGroup>
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
                                                 Ativo
                                             </Label>
                                             <Col sm={9}>
-                                                {/* <Toggle
-                                                    checked={ this.state.enabled }
-                                                    name='enabled'
-                                                    value='true'
-                                                    onChange={ () => { this.setState({ enabled: !this.state.enabled }) } }/> */}
                                                 <Toggle
                                                     checked={ this.state.enabled }
                                                     name='enabled'
@@ -202,11 +202,15 @@ export default class OpportunityBonusLevel extends Component {
                                                     onChange={ () => { this.setState({ enabled: !this.state.enabled }) } }/>
                                             </Col>
                                         </FormGroup>
+                                        {/* <Button color="link" onClick={ this._showHandler } className="ml-2">Toast</Button> */}
                                     </Form>
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Cadastrar</Button>
+                                        <div className="l-flex">
+                                            <Button color='secondary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Excluir</Button>
+                                        </div>
+                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Salvar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>
@@ -218,14 +222,17 @@ export default class OpportunityBonusLevel extends Component {
                         </Col>
                     </Row>
                     <ToastContainer 
-                        position='top-right'
-                        autoClose={3000}
-                        draggable={false}
-                        hideProgressBar={true}
+                    position='top-right'
+                    autoClose={3000}
+                    draggable={false}
+                    hideProgressBar={true}
                     />
                 </Container>
             </React.Fragment>
         )
     }
+
+    // _showHandler = () => {
+    //             toast.success(contentSuccess);
+    // }
 }
-// export default OpportunityBonusLevel;
