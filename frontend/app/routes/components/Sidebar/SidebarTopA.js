@@ -13,7 +13,8 @@ import {
 } from './../../../components';
 import { randomAvatar } from './../../../utilities';
 
-const avatarImg = randomAvatar();
+// const avatarImg = randomAvatar();
+const avatarImg = '';
 
 const SidebarTopA = () => (
     <React.Fragment>
@@ -21,7 +22,7 @@ const SidebarTopA = () => (
         <Sidebar.HideSlim>
             <Sidebar.Section className="pt-0">
                 <Link to="/" className="d-block">
-                    <Sidebar.HideSlim>
+                    {/* <Sidebar.HideSlim>
                         <Avatar.Image
                             size="lg"
                             src={ avatarImg }
@@ -38,37 +39,39 @@ const SidebarTopA = () => (
                                 />
                             ]}
                         />
-                    </Sidebar.HideSlim>
+                    </Sidebar.HideSlim> */}
                 </Link>
                 
                 <UncontrolledButtonDropdown>
                     <DropdownToggle color="link" className="pl-0 pb-0 btn-profile sidebar__link">
-                        { faker.name.firstName() } { faker.name.lastName() }
+                        {/* { faker.name.firstName() } { faker.name.lastName() } */}
+                        { localStorage.getItem('Name')}
                         <i className="fa fa-angle-down ml-2"></i>
                     </DropdownToggle>
                     <DropdownMenu persist>
-                    <DropdownItem header>
-                        { faker.name.firstName() } { faker.name.lastName() }
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem tag={ Link } to="/apps/profile-details">
-                        My Profile
-                    </DropdownItem>
-                    <DropdownItem tag={ Link } to="/apps/settings-edit">
-                        Settings
-                    </DropdownItem>
-                    <DropdownItem tag={ Link } to="/apps/billing-edit">
-                        Billings
-                    </DropdownItem>
-                    <DropdownItem divider />
-                    <DropdownItem tag={ Link } to="/pages/login">
-                        <i className="fa fa-fw fa-sign-out mr-2"></i>
-                        Sign Out
-                    </DropdownItem>
+                        {/* <DropdownItem header>
+                            { localStorage.getItem('Name')}
+                        </DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem tag={ Link } to="/apps/profile-details">
+                            My Profile
+                        </DropdownItem>
+                        <DropdownItem tag={ Link } to="/apps/settings-edit">
+                            Settings
+                        </DropdownItem>
+                        <DropdownItem tag={ Link } to="/apps/billing-edit">
+                            Billings
+                        </DropdownItem>
+                        <DropdownItem divider /> */}
+                        <DropdownItem tag={ Link } to="/pages/login">
+                            <i className="fa fa-fw fa-sign-out mr-2"></i>
+                            Sair
+                        </DropdownItem>
                     </DropdownMenu>
                 </UncontrolledButtonDropdown>
                 <div className="small sidebar__link--muted">
-                    { faker.name.jobTitle() }
+                    {/* { faker.name.jobTitle() } */}
+                    { localStorage.getItem('SectorCompany   ') }
                 </div>
             </Sidebar.Section>
         </Sidebar.HideSlim>

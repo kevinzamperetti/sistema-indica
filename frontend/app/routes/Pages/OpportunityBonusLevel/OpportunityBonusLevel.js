@@ -6,8 +6,8 @@ import Toggle from 'react-toggle';
 import { createNumberMask } from 'text-mask-addons';
 import { HeaderDemo } from "../../components/HeaderDemo";
 import { 
-    Button, Container, Row, Col, Card, CardBody, CardFooter,
-    Form, FormGroup, Label, Media, Input, InputGroup,InputGroupAddon
+    Button, ButtonGroup, Container, Row, Col, Card, CardBody, CardFooter,
+    Form, FormGroup, Label, Media, Input, InputGroup, InputGroupAddon, Table
 } from '../../../components';
 import API from '../../../services/api';
 
@@ -28,14 +28,6 @@ const contentSuccess = ({ closeToast }) => (
             <p>
                 Nível de Indicação cadastrado com sucesso!
             </p>
-            <div className="d-flex mt-2">
-                <Button color="success" onClick={() => { closeToast }} >
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-success">
-                    Cancelar
-                </Button>
-            </div>
         </Media>
     </Media>
 );
@@ -53,14 +45,6 @@ const contentError = ({ closeToast }) => (
             <p>
                 Erro ao salvar dados
             </p>
-            <div className="d-flex mt-2">
-                <Button color="danger" onClick={() => { closeToast }}>
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
-                    Cancelar
-                </Button>
-            </div>
         </Media>
     </Media>
 );
@@ -78,14 +62,6 @@ const errorFillFields = ({ closeToast }) => (
             <p>
                 Existem campos não preeenchidos.
             </p>
-            <div className="d-flex mt-2">
-                <Button color="danger" onClick={() => { closeToast }}>
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
-                    Cancelar
-                </Button>
-            </div>
         </Media>
     </Media>
 );
@@ -96,8 +72,13 @@ export default class OpportunityBonusLevel extends Component {
         this.state = {
 			name: '',
 			bonusValue: '',
-            enabled: false
+            enabled: false,
+            listOpportunityBonusLevel: []
         }
+    }
+
+    componentWillMount() {
+        this.listAllOpportunityBonusLevel();
     }
 
     changeValuesState( evt ) {
@@ -108,16 +89,23 @@ export default class OpportunityBonusLevel extends Component {
         })
     }
 
+    listAllOpportunityBonusLevel = async () => {
+		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const response = await API.get( '/opportunityBonusLevel', header )
+        this.setState( { listOpportunityBonusLevel: response.data }  )
+    }
+
     save( evt ) {
 		evt.preventDefault();
         const { name, bonusValue, enabled } = this.state
 		if ( name && bonusValue ) {
 			API.post( '/opportunityBonusLevel', {
                 name: name,
-                enabled: enabled,
-                value: bonusValue.replace('.', '')
+                value: bonusValue.replace('.', ''),
+                enabled: enabled
 			} ).then( response => {
                 toast.success(contentSuccess);
+                this.listAllOpportunityBonusLevel();
 				// console.log( response.data )
 			} )
 			.catch( erro => {
@@ -130,6 +118,7 @@ export default class OpportunityBonusLevel extends Component {
 	}    
     
     render() {
+        const { listOpportunityBonusLevel } = this.state
         return (
             <React.Fragment>
                 <Container>
@@ -215,6 +204,61 @@ export default class OpportunityBonusLevel extends Component {
                     <Row>
                         <Col>
                             {/* <CampaignList /> */}
+                            <Table className="mb-0" bordered responsive>
+                                <thead>
+                                    <tr>
+                                        <th colSpan="4" className="align-middle">Campanhas de Indicação cadastradas</th>
+                                    </tr>
+                                </thead>
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Valor</th>
+                                        <th>Situação</th>
+                                        <th colSpan="2" className="align-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { listOpportunityBonusLevel.length > 0 ?
+                                        <React.Fragment>
+                                            { listOpportunityBonusLevel.map( function( opportunityBonusLevel ) { 
+                                                return (
+                                                    <tr key={opportunityBonusLevel.id}>
+                                                        <td className="align-self-center" width='100%'>
+                                                            <span className="text-inverse"> { opportunityBonusLevel.name } </span>
+                                                        </td>
+                                                        <td className="align-middle" width='100%'>
+                                                            <span className="text-inverse"> { opportunityBonusLevel.value } </span>
+                                                        </td>
+                                                        <td className="align-middle" width='100%'>
+                                                            <span className="text-inverse"> { opportunityBonusLevel.enabled === true ? 'Ativo' : 'Inativo' } </span>
+                                                        </td>
+                                                        <td className="align-middle text-right">
+                                                            <ButtonGroup>
+                                                                <Button color="link" className="text-decoration-none">
+                                                                    <i className="fa fa-edit"></i>
+                                                                </Button>
+                                                                <Button color="link" className="text-decoration-none">
+                                                                    <i className="fa fa-close"></i>
+                                                                </Button>
+                                                            </ButtonGroup>
+                                                        </td>
+                                                    </tr>
+                                                    ) } 
+                                                )
+                                            }
+                                        </React.Fragment>
+                                        :
+                                            <tr>
+                                                <td>
+                                                    <span className="text-inverse">
+                                                        Não existem dados para serem listados
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                    }
+                                </tbody>
+                            </Table>
                         </Col>
                     </Row>
                     <ToastContainer 

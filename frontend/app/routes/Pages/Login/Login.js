@@ -89,7 +89,7 @@ export default class Login extends Component {
                 localStorage.setItem( 'Profile', response.data.profile )
                 localStorage.setItem( 'SectorCompany', response.data.sectorCompany )
                 // localStorage.setItem('UserId', userId ) implementar no back
-                this.props.history.push('/home/analytics')
+                this.props.history.push('/home/graphics')
                 } )
             .catch( error => {
                 // this.setState( {

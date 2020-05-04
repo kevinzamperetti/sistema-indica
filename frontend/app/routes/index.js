@@ -43,7 +43,7 @@ export const RoutedContent = () => {
             <Route component={ Login } path="/pages/login" />
             <Route component={ Register } path="/pages/register" />
             
-            <Route path="/home/analytics" exact component={Analytics} />
+            <Route path="/home/graphics" exact component={Analytics} />
             <Route path="/pages/campaign" exact component={Campaign} />
             <Route path="/pages/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
             <Route path="/pages/opportunity" exact component={Opportunity} />

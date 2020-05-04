@@ -5,7 +5,7 @@ import { SidebarMenu } from './../../components';
 export const SidebarMiddleNav = () => (
     <SidebarMenu>
         <SidebarMenu.Item icon={<i className="fa fa-fw fa-home"></i>} title="Início">
-            <SidebarMenu.Item title="Gráficos" to='/home/analytics' exact />
+            <SidebarMenu.Item title="Gráficos" to='/home/graphics' exact />
         </SidebarMenu.Item>
         <SidebarMenu.Item icon={<i className="fa fa-fw fa-archive"></i>} title="Cadastros">
             <SidebarMenu.Item title="Campanhas de Indicação" to='/pages/campaign' exact />
