@@ -23,7 +23,8 @@ const contentSuccess = ({ closeToast }) => (
                 Successo!
             </Media>
             <p>
-                Palavra Chave cadastrada com sucesso!
+                {/* Palavra Chave cadastrada com sucesso! comentado 
+                    porque ta valendo pro save e delete*/} 
             </p>
         </Media>
     </Media>
@@ -77,8 +78,6 @@ export default class KeyWord extends Component {
 
     componentWillMount() {
         this.listAllOpportunities();
-        // &&
-        // this.listAllKeyWords() 
     }
 
     listAllOpportunities = async () => {
@@ -87,7 +86,7 @@ export default class KeyWord extends Component {
         this.setState( { listOpportunities: response.data }  )
     }
 
-    listAllKeyWords = async () => {
+    listKeyWordsByOpportunity = async () => {
 		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         //const id = this.state.opportunityIdSelector.id ? this.state.opportunityIdSelector.id : 0;
         // const id = this.state.opportunityIdSelector ? this.state.opportunityIdSelector : 0;
@@ -120,10 +119,10 @@ export default class KeyWord extends Component {
         //     //     id: res.is
         //     // }
         // } )
-        this.listAllKeyWords();
+        this.listKeyWordsByOpportunity();
         // console.log('opportunityIdSelector: ', opportunityIdSelector.value)
-        // console.log('id listAllKeyWords:', this.state.opportunityIdSelector.id)
-        // console.log('value listAllKeyWords:', this.state.opportunityIdSelector.value)        
+        // console.log('id listKeyWordsByOpportunity:', this.state.opportunityIdSelector.id)
+        // console.log('value listKeyWordsByOpportunity:', this.state.opportunityIdSelector.value)        
     }
 
     save( evt ) {
@@ -131,14 +130,14 @@ export default class KeyWord extends Component {
         const { word, opportunityIdSelector, enabled } = this.state
         if ( word && opportunityIdSelector ) {
              API.post( '/keyWord', {
-                word: word,
+                word: word.toUpperCase(),
                 opportunity: {
                     id: opportunityIdSelector.id,
                 },
                 enabled: enabled
             } ).then( response => {
                 toast.success(contentSuccess);
-                this.listAllKeyWords();
+                this.listKeyWordsByOpportunity();
                 // console.log( response.data )
             } )
             .catch( erro => {
@@ -150,11 +149,12 @@ export default class KeyWord extends Component {
         }
     }
 
-    delete( evt ) {
-        evt.preventDefault();
-        API.delete( `/keyWord/${evt.value}`)
+    delete( evt, k ) {
+        // evt.preventDefault();
+        API.delete( `/keyWord/${evt.id}`)
         .then( response => {
         toast.success(contentSuccess);
+        this.listKeyWordsByOpportunity();
         } )
         .catch( erro => {
             console.log( "Erro: " + erro ) 
@@ -245,7 +245,7 @@ export default class KeyWord extends Component {
                                                                 {/* <Button color="link" className="text-decoration-none">
                                                                     <i className="fa fa-edit"></i>
                                                                 </Button> */}
-                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this ) }>
+                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, keyWord ) }>
                                                                     <i className="fa fa-close"></i>
                                                                 </Button>
                                                             </ButtonGroup>

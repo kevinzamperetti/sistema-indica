@@ -26,7 +26,8 @@ const contentSuccess = ({ closeToast }) => (
                 Successo!
             </Media>
             <p>
-                Nível de Indicação cadastrado com sucesso!
+                {/* Nível de Indicação cadastrado com sucesso! 
+                    porque ta valendo pro save e delete*/}
             </p>
         </Media>
     </Media>
@@ -104,7 +105,7 @@ export default class OpportunityBonusLevel extends Component {
                 value: bonusValue.replace('.', ''),
                 enabled: enabled
 			} ).then( response => {
-                toast.success(contentSuccess);
+                toast.success(contentSuccess());
                 this.listAllOpportunityBonusLevel();
 				// console.log( response.data )
 			} )
@@ -115,7 +116,19 @@ export default class OpportunityBonusLevel extends Component {
         } else {
             toast.error(errorFillFields);
         }
-	}    
+    }
+    
+    delete( evt, o ) {
+        API.delete( `/opportunityBonusLevel/${evt.id}`)
+        .then( response => {
+        toast.success(contentSuccess);
+        this.listAllOpportunityBonusLevel();
+        } )
+        .catch( erro => {
+            console.log( "Erro: " + erro ) 
+            toast.error(contentError);
+        } )
+    }
     
     render() {
         const { listOpportunityBonusLevel } = this.state
@@ -221,7 +234,7 @@ export default class OpportunityBonusLevel extends Component {
                                 <tbody>
                                     { listOpportunityBonusLevel.length > 0 ?
                                         <React.Fragment>
-                                            { listOpportunityBonusLevel.map( function( opportunityBonusLevel ) { 
+                                            { listOpportunityBonusLevel.map( ( opportunityBonusLevel ) => { 
                                                 return (
                                                     <tr key={opportunityBonusLevel.id}>
                                                         <td className="align-self-center" width='100%'>
@@ -238,7 +251,7 @@ export default class OpportunityBonusLevel extends Component {
                                                                 <Button color="link" className="text-decoration-none">
                                                                     <i className="fa fa-edit"></i>
                                                                 </Button>
-                                                                <Button color="link" className="text-decoration-none">
+                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, opportunityBonusLevel ) }>
                                                                     <i className="fa fa-close"></i>
                                                                 </Button>
                                                             </ButtonGroup>

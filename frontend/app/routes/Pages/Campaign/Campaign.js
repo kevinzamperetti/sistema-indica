@@ -28,7 +28,8 @@ const contentSuccess = ({ closeToast }) => (
                 Successo!
             </Media>
             <p>
-                Campanha de Indicação cadastrado com sucesso!
+                {/* Campanha de Indicação cadastrado com sucesso!
+                    porque ta valendo pro save e delete */}
             </p>
         </Media>
     </Media>
@@ -118,6 +119,18 @@ export default class Campaign extends Component {
         } else {
             toast.error(errorFillFields);
         }
+    }
+
+    delete( evt, c ) {
+        API.delete( `/campaign/${evt.id}`)
+        .then( response => {
+        toast.success(contentSuccess);
+        this.listAllCampaigns();
+        } )
+        .catch( erro => {
+            console.log( "Erro: " + erro ) 
+            toast.error(contentError);
+        } )
     }
     
     render() {
@@ -210,7 +223,7 @@ export default class Campaign extends Component {
                                 <tbody>
                                     { listCampaign.length > 0 ?
                                         <React.Fragment>
-                                            { listCampaign.map( function( campaign ) { 
+                                            { listCampaign.map( ( campaign ) => { 
                                                 return (
                                                     <tr key={campaign.id}>
                                                         <td className="align-self-center" width='100%'>
@@ -227,7 +240,7 @@ export default class Campaign extends Component {
                                                                 <Button color="link" className="text-decoration-none">
                                                                     <i className="fa fa-edit"></i>
                                                                 </Button>
-                                                                <Button color="link" className="text-decoration-none">
+                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, campaign ) }>
                                                                     <i className="fa fa-close"></i>
                                                                 </Button>
                                                             </ButtonGroup>

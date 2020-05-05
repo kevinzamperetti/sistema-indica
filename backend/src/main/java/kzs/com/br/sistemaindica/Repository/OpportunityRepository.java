@@ -27,7 +27,8 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Long> 
             " LEFT JOIN FETCH o.bonusLevel " +
             " LEFT JOIN FETCH o.indications " +
             " LEFT JOIN FETCH o.keyWords " +
-            "WHERE (:enabled IS NULL OR o.enabled = :enabled)")
+            "WHERE (:enabled IS NULL OR o.enabled = :enabled) " +
+            "ORDER BY o.name")
     Set<Opportunity> findOpportunityByEnabled(@Param("enabled") Boolean enabled);
 
 }

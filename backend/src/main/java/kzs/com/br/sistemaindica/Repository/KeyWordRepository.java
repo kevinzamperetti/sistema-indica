@@ -23,7 +23,8 @@ public interface KeyWordRepository extends JpaRepository<KeyWord, Long> {
             " FROM KeyWord k" +
             " LEFT JOIN FETCH k.opportunity opportunity " +
             " LEFT JOIN FETCH opportunity.campaign " +
-            "WHERE opportunity.id = :id")
+            "WHERE opportunity.id = :id " +
+            "ORDER BY k.word ASC")
     List<KeyWord> findByOpportunityId(@Param("id") Long id);
 
     @Query("SELECT k " +
