@@ -105,7 +105,7 @@ export default class OpportunityBonusLevel extends Component {
                 value: bonusValue.replace('.', ''),
                 enabled: enabled
 			} ).then( response => {
-                toast.success(contentSuccess());
+                toast.success(contentSuccess);
                 this.listAllOpportunityBonusLevel();
 				// console.log( response.data )
 			} )
