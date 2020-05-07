@@ -3,7 +3,8 @@ package kzs.com.br.sistemaindica.Enum;
 public enum IndicationStatus {
 
     NEW,
-    IN_PROGRESS
+    IN_PROGRESS,
+    FINISHED
 //    “CV enviado”/Pendente, “CV analisado”, “CV Descartado/arquivado”,
 //    “Entrevista Agendada”, “Entrevista Realizada em análise”,
 //    “Indicação descartada/CV arquivado”,

@@ -74,8 +74,8 @@ export default class Indication extends Component {
             indicationPhoneNumber: '',
             indicationEmail: '',
             //userDocumentNumber: '',
-            status: 'NEW',
-            dataUserLogged: {}
+                status: 'NEW',
+                dataUserLogged: {}
 		}
     }
 
@@ -93,7 +93,7 @@ export default class Indication extends Component {
 
     listAllOpportunities = async () => {
 		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const response = await API.get( '/opportunity', header )
+        const response = await API.get( '/opportunity?enabled=true', header )
         this.setState( { listOpportunities: response.data }  )
     }
 
@@ -103,6 +103,7 @@ export default class Indication extends Component {
 			[name]: value
         })
     }
+
     changeValuesStateOpportunity( evt ) {
 		let { listOpportunities } = this.state
 		let { name } = evt.target
@@ -119,9 +120,9 @@ export default class Indication extends Component {
         const { opportunityIdSelector, listOpportunities, attachment, indicationName,
                 indicationPhoneNumber, indicationEmail, status,
                 dataUserLogged } = this.state
-        if ( opportunityIdSelector && listOpportunities && attachment && indicationName,
-            indicationPhoneNumber && indicationEmail && status, dataUserLogged ) {
-             API.post( '/indication', {
+        if ( opportunityIdSelector && listOpportunities && indicationName &&
+             indicationPhoneNumber && indicationEmail && status, dataUserLogged ) {
+            API.post( '/indication', {
                 user: {
                     id: dataUserLogged.id
                 },
@@ -144,7 +145,7 @@ export default class Indication extends Component {
         } else {
             toast.error(errorFillFields);
         }
-    }    
+    }
     
     render() {
         const { listOpportunities, dataUserLogged } = this.state
@@ -171,7 +172,8 @@ export default class Indication extends Component {
                                         <FormGroup row>
                                             <Label for="input" sm={3}>Nome</Label>
                                             <Col sm={9}>
-                                                <Input type="text" name="name" id="name" value={dataUserLogged.name} placeholder="" readOnly/>
+                                                <Input type="text" name="name" id="name"
+                                                       value={ dataUserLogged.name } placeholder="" readOnly/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -253,9 +255,7 @@ export default class Indication extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>
-                                            Indicar
-                                        </Button>
+                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Indicar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>

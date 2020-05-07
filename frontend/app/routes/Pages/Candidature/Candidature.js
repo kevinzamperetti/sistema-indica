@@ -1,54 +1,107 @@
 import React, { Component } from 'react';
-// import DatePicker, { setDefaultLocale } from 'react-datepicker';
+import { ToastContainer, toast } from 'react-toastify';
 import MaskedInput from 'react-text-mask';
-
-import {
-    createNumberMask,
-    emailMask
-} from 'text-mask-addons';
-
+import { HeaderDemo } from "../../components/HeaderDemo";
+import { createNumberMask, emailMask } from 'text-mask-addons';
 import { 
-    Button,
-    Container,
-    Row,
-    Col,
-    Card,
-    CardTitle,
-    CardBody,
-    CardFooter,
-    FormFeedback,
-    Badge,
-    CustomInput,
-    Form, 
-    FormGroup, 
-    Label, 
-    Input, 
-    InputGroup,
-    InputGroupAddon,
-    FormText
+    Button, Container, Row, Col, Card, CardBody, CardFooter,
+    CustomInput, Form,  FormGroup,  Label, Input, FormText, Media,
 } from '../../../components';
 
-import { HeaderDemo } from "../../components/HeaderDemo";
+import API from '../../../services/api';
 
-//import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
-//import { CampaignList } from './CampaignList/CampaignList'
+// ========== Toast Contents: ============
+// eslint-disable-next-line react/prop-types
+const contentSuccess = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-check"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Successo!
+            </Media>
+            <p>
+                Candidatura realizada com sucesso!
+            </p>
+        </Media>
+    </Media>
+);
 
-const realMaskDecimal = createNumberMask({ prefix: 'R$', allowDecimal: true, thousandsSeparatorSymbol: ".", decimalSymbol : "," });
+// eslint-disable-next-line react/prop-types
+const contentError = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Erro ao realizar candidatura
+            </p>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const errorFillFields = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Existem campos não preeenchidos.
+            </p>
+        </Media>
+    </Media>
+);
 
 export default class Candidature extends Component {
     constructor( props ) {
         super( props )
         this.state = {
-            userId: '',
+            // userId: '',
             opportunityIdSelector: '',
             listOpportunities: '',
-            attachment: '',
+            attachment: '', //falta implementar anexo...
             candidateName: '',
             candidatePhoneNumber: '',
             candidateEmail: '',
             candidateDocumentNumber: '',
-            status: 'NEW'
+            status: 'NEW',
+            dataUserLogged: {}
         }
+    }
+
+    componentWillMount() {
+        this.getDataUserLogged() && this.listAllOpportunities();
+    }
+
+    getDataUserLogged = async () => {
+        const name = localStorage.getItem('Name');
+        const profile = localStorage.getItem('Profile');
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const response = await API.get( `/user/name/?name=${name}&profile=${profile}`, header )
+        this.setState( { dataUserLogged: response.data } )
+    }
+
+    listAllOpportunities = async () => {
+		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        const response = await API.get( '/opportunity?enabled=true', header )
+        this.setState( { listOpportunities: response.data }  )
+    }
+
+    changeValuesState( evt ) {
+		const { name, value } = evt.target
+		this.setState( {
+			[name]: value
+        })
     }
 
     changeValuesStateOpportunity( evt ) {
@@ -60,9 +113,42 @@ export default class Candidature extends Component {
             [name] : res
 		} )
     }
-    
+
+    save( evt ) {
+        evt.preventDefault();
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        const { opportunityIdSelector, listOpportunities, attachment, candidateName,
+                candidatePhoneNumber, candidateEmail, candidateDocumentNumber, status,
+                dataUserLogged } = this.state
+        if ( opportunityIdSelector && listOpportunities && attachment && candidatePhoneNumber &&
+             status, dataUserLogged ) {
+            API.post( '/candidature', {
+                user: {
+                    id: dataUserLogged.id
+                },
+                opportunity: {
+                    id: opportunityIdSelector.id
+                },	
+                candidateName: dataUserLogged.name,
+                candidatePhoneNumber: candidatePhoneNumber,
+                candidateEmail: dataUserLogged.email,
+                candidateDocumentNumber: dataUserLogged.documentNumber,
+                status: status
+            }, header ).then( response => {
+                toast.success(contentSuccess);
+                // console.log( response.data )
+            } )
+            .catch( erro => {
+                console.log( "Erro: " + erro ) 
+                toast.error(contentError);
+            } )
+        } else {
+            toast.error(errorFillFields);
+        }
+    }    
+
     render() {
-        const { listOpportunities } = this.state
+        const { listOpportunities, dataUserLogged } = this.state
         return (
             <React.Fragment>
                 <Container>
@@ -102,7 +188,8 @@ export default class Candidature extends Component {
                                         <FormGroup row>
                                             <Label for="input" sm={3}>Nome</Label>
                                             <Col sm={9}>
-                                                <Input type="text" name="candidateName" id="candidateName" placeholder=""/>
+                                                <Input type="text" name="candidateName" id="candidateName" 
+                                                       value={ dataUserLogged.name } placeholder="" readOnly/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -115,7 +202,8 @@ export default class Candidature extends Component {
                                                     placeholder='Informe seu CPF...'
                                                     tag={ MaskedInput }
                                                     name="candidateDocumentNumber"
-                                                    id="candidateDocumentNumber"/>
+                                                    value={dataUserLogged.documentNumber}
+                                                    id="candidateDocumentNumber" readOnly/>
                                             </Col>                                                
                                         </FormGroup>
                                         <FormGroup row>
@@ -126,7 +214,8 @@ export default class Candidature extends Component {
                                                     placeholder='(51) 99000-0000'
                                                     tag={ MaskedInput }
                                                     id="candidatePhoneNumber"
-                                                    name="candidatePhoneNumber"/>
+                                                    name="candidatePhoneNumber"
+                                                    onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -137,13 +226,15 @@ export default class Candidature extends Component {
                                                     placeholder='nome@teste.com'
                                                     tag={ MaskedInput }
                                                     id="candidateEmail"
+                                                    value={ dataUserLogged.email }
                                                     name="candidateEmail"/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
                                             <Label for="attachment" sm={3}>Currículo</Label>
                                             <Col sm={9}>
-                                                <CustomInput type="file" id="attachment" name="attachment" label="Selecionar arquivo" />
+                                                <CustomInput type="file" id="attachment" name="attachment" label="Selecionar arquivo"
+                                                             onBlur={ this.changeValuesState.bind( this ) } />
                                                 <FormText color="muted">
                                                     Formato aceito: PDF. Tamanho máximo: 10Mb
                                                 </FormText>
@@ -153,9 +244,7 @@ export default class Candidature extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' onClick={() => {this._nextStep()}} className="ml-auto px-4">
-                                            Enviar
-                                        </Button>
+                                        <Button color='primary'className="ml-auto px-4" onClick={ this.save.bind( this ) }>Enviar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>
@@ -166,6 +255,12 @@ export default class Candidature extends Component {
                             {/* <CampaignList /> */}
                         </Col>
                     </Row>
+                    <ToastContainer 
+                        position='top-right'
+                        autoClose={3000}
+                        draggable={false}
+                        hideProgressBar={true}
+                    />
                 </Container>
             </React.Fragment>
         )

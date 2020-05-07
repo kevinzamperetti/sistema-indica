@@ -82,7 +82,7 @@ export default class KeyWord extends Component {
 
     listAllOpportunities = async () => {
 		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-		const response = await API.get( '/opportunity', header )
+		const response = await API.get( '/opportunity?enabled=true', header )
         this.setState( { listOpportunities: response.data }  )
     }
 

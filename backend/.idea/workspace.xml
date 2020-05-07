@@ -2,30 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a94e705d-005c-4440-9723-5d4a69c4bbc1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/JwtRequestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/JwtRequestFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/BankData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/BankData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Indication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Indication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Opportunity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Opportunity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/CandidatureStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/CandidatureStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/IndicationStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/IndicationStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/OpportunityServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/OpportunityServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/BaseEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign$CampaignBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/Campaign.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User$UserBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/Entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/SistemaIndicaApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/kzs/com/br/sistemaindica/SistemaIndicaApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/IndicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/IndicationServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Indication/Indication.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Indication/Indication.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Opportunity/Opportunity.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Opportunity/Opportunity.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +70,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Parus/evidence-pos-processor-ms" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Parus/java-lib-parent" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -170,7 +152,7 @@
       <workItem from="1588596034952" duration="620000" />
       <workItem from="1588641264977" duration="3666000" />
       <workItem from="1588719955374" duration="9521000" />
-      <workItem from="1588765463096" duration="31396000" />
+      <workItem from="1588765463096" duration="41621000" />
     </task>
     <servers />
   </component>
@@ -209,69 +191,69 @@
     </state>
     <state width="1319" height="584" key="DebuggerActiveHint/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588819164258" />
     <state width="961" height="479" key="DebuggerActiveHint/0.0.1366.728@0.0.1366.728" timestamp="1588786988579" />
-    <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1588597479650">
+    <state x="740" y="278" key="FileChooserDialogImpl" timestamp="1588856770744">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="278" key="FileChooserDialogImpl/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588597479650" />
-    <state width="1877" height="396" key="GridCell.Tab.0.bottom" timestamp="1588820026535">
+    <state x="740" y="278" key="FileChooserDialogImpl/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588856770744" />
+    <state width="1877" height="396" key="GridCell.Tab.0.bottom" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.0.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026535" />
+    <state width="1877" height="396" key="GridCell.Tab.0.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.0.center" timestamp="1588820026534">
+    <state width="1877" height="396" key="GridCell.Tab.0.center" timestamp="1588881779925">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.0.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026534" />
+    <state width="1877" height="396" key="GridCell.Tab.0.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779925" />
     <state width="1323" height="227" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1588798505897" />
-    <state width="1877" height="396" key="GridCell.Tab.0.left" timestamp="1588820026534">
+    <state width="1877" height="396" key="GridCell.Tab.0.left" timestamp="1588881779925">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.0.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026534" />
+    <state width="1877" height="396" key="GridCell.Tab.0.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779925" />
     <state width="1323" height="227" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1588798505897" />
-    <state width="1877" height="396" key="GridCell.Tab.0.right" timestamp="1588820026535">
+    <state width="1877" height="396" key="GridCell.Tab.0.right" timestamp="1588881779925">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.0.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026535" />
+    <state width="1877" height="396" key="GridCell.Tab.0.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779925" />
     <state width="1323" height="227" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1588798505897" />
-    <state width="1877" height="396" key="GridCell.Tab.1.bottom" timestamp="1588820026341">
+    <state width="1877" height="396" key="GridCell.Tab.1.bottom" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.1.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026341" />
+    <state width="1877" height="396" key="GridCell.Tab.1.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.1.center" timestamp="1588820026341">
+    <state width="1877" height="396" key="GridCell.Tab.1.center" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.1.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026341" />
+    <state width="1877" height="396" key="GridCell.Tab.1.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.1.left" timestamp="1588820026341">
+    <state width="1877" height="396" key="GridCell.Tab.1.left" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.1.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026341" />
+    <state width="1877" height="396" key="GridCell.Tab.1.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.1.right" timestamp="1588820026341">
+    <state width="1877" height="396" key="GridCell.Tab.1.right" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.1.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026341" />
+    <state width="1877" height="396" key="GridCell.Tab.1.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.2.bottom" timestamp="1588820026342">
+    <state width="1877" height="396" key="GridCell.Tab.2.bottom" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.2.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026342" />
+    <state width="1877" height="396" key="GridCell.Tab.2.bottom/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.2.bottom/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.2.center" timestamp="1588820026341">
+    <state width="1877" height="396" key="GridCell.Tab.2.center" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.2.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026341" />
+    <state width="1877" height="396" key="GridCell.Tab.2.center/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.2.center/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.2.left" timestamp="1588820026341">
+    <state width="1877" height="396" key="GridCell.Tab.2.left" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.2.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026341" />
+    <state width="1877" height="396" key="GridCell.Tab.2.left/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.2.left/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
-    <state width="1877" height="396" key="GridCell.Tab.2.right" timestamp="1588820026342">
+    <state width="1877" height="396" key="GridCell.Tab.2.right" timestamp="1588881779926">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="396" key="GridCell.Tab.2.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588820026342" />
+    <state width="1877" height="396" key="GridCell.Tab.2.right/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588881779926" />
     <state width="1323" height="227" key="GridCell.Tab.2.right/0.0.1366.728@0.0.1366.728" timestamp="1588798505898" />
     <state x="440" y="97" key="SettingsEditor" timestamp="1588288245151">
       <screen x="0" y="0" width="1920" height="1040" />

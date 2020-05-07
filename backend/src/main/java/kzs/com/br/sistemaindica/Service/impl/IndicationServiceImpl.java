@@ -42,7 +42,7 @@ public class IndicationServiceImpl implements IndicationService {
     @Override
     public Indication save(Indication indication) {
         if (nonNull(indication.getId())) {
-            throw new OpportunityIdMustNotBeProvidedException("Id of Opportunity must not be provided.");
+            throw new IndicationIdMustNotBeProvidedException("Id of Indication must not be provided.");
         }
         verifyFields(indication);
         setOpportunity(indication);
@@ -71,10 +71,7 @@ public class IndicationServiceImpl implements IndicationService {
                 indication.getIndicationPhoneNumber()).isPresent()) {
             throw new IndicationThisPersonAlreadyHasIndicationException("This person already has indication");
         }
-
-
     }
-
 
     @Override
     public Indication edit(Indication indication) {
@@ -91,7 +88,7 @@ public class IndicationServiceImpl implements IndicationService {
         Indication indication = repository.findById(id)
                 .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
         if(!IndicationStatus.NEW.equals(indication.getStatus())) {
-            throw new OpportunityHasIndicationsAndCannotBeDeletedException("Opportunity has Indications and cannot be deleted.");
+            throw new IndicationIsInProgressAndCannotBeDeletedException("Indication is in progress and cannot be deleted.");
         } else {
             repository.delete(indication);
         }

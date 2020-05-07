@@ -4,6 +4,7 @@ import kzs.com.br.sistemaindica.Enum.CandidatureStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 import static javax.persistence.FetchType.LAZY;
@@ -35,6 +36,9 @@ public class Candidature extends BaseEntity {
 
 //    revisar tipo pra este campo
 //    private FileUpload attachment;
+
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
 
     @Column(name = "candidate_name", nullable = false)
     private String candidateName;
