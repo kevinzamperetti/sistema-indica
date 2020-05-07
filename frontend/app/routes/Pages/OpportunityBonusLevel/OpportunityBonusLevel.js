@@ -98,13 +98,14 @@ export default class OpportunityBonusLevel extends Component {
 
     save( evt ) {
 		evt.preventDefault();
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         const { name, bonusValue, enabled } = this.state
 		if ( name && bonusValue ) {
 			API.post( '/opportunityBonusLevel', {
                 name: name,
                 value: bonusValue.replace('.', ''),
                 enabled: enabled
-			} ).then( response => {
+			}, header ).then( response => {
                 toast.success(contentSuccess);
                 this.listAllOpportunityBonusLevel();
 				// console.log( response.data )
@@ -119,7 +120,8 @@ export default class OpportunityBonusLevel extends Component {
     }
     
     delete( evt, o ) {
-        API.delete( `/opportunityBonusLevel/${evt.id}`)
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        API.delete( `/opportunityBonusLevel/${evt.id}`, header )
         .then( response => {
         toast.success(contentSuccess);
         this.listAllOpportunityBonusLevel();
@@ -241,7 +243,9 @@ export default class OpportunityBonusLevel extends Component {
                                                             <span className="text-inverse"> { opportunityBonusLevel.name } </span>
                                                         </td>
                                                         <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> { opportunityBonusLevel.value } </span>
+                                                            <span className="text-inverse"> 
+                                                                { opportunityBonusLevel.value.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }
+                                                            </span>
                                                         </td>
                                                         <td className="align-middle" width='100%'>
                                                             <span className="text-inverse"> { opportunityBonusLevel.enabled === true ? 'Ativo' : 'Inativo' } </span>

@@ -43,13 +43,13 @@ export const RoutedContent = () => {
             <Route component={ Login } path="/pages/login" />
             <Route component={ Register } path="/pages/register" />
             
-            <Route path="/home/graphics" exact component={Analytics} />
-            <Route path="/pages/campaign" exact component={Campaign} />
-            <Route path="/pages/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
-            <Route path="/pages/opportunity" exact component={Opportunity} />
-            <Route path="/pages/key-word" exact component={KeyWord} />
-            <Route path="/pages/indication" exact component={Indication} />
-            <Route path="/pages/candidature" exact component={Candidature} />
+            <PrivateRoute path="/home/graphics" exact component={Analytics} />
+            <PrivateRoute path="/pages/campaign" exact component={Campaign} />
+            <PrivateRoute path="/pages/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
+            <PrivateRoute path="/pages/opportunity" exact component={Opportunity} />
+            <PrivateRoute path="/pages/key-word" exact component={KeyWord} />
+            <PrivateRoute path="/pages/indication" exact component={Indication} />
+            <PrivateRoute path="/pages/candidature" exact component={Candidature} />
             
             { /*    Layouts     */ }
             <Route path='/layouts/navbar' component={NavbarOnly} />

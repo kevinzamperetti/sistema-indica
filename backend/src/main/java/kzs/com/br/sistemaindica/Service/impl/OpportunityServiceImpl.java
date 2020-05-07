@@ -41,6 +41,7 @@ public class OpportunityServiceImpl implements OpportunityService {
         setCampaign(opportunity);
         setBonusLevel(opportunity);
         opportunity.setCreationDate(LocalDate.now());
+        checkCampaignExpirationDate(opportunity.getExpirationDate(), opportunity.getCampaign().getExpirationDate());
         return repository.save(opportunity); //ver se foi setado os objetos de campaign e opportunityBonusLevel
     }
 
@@ -54,6 +55,12 @@ public class OpportunityServiceImpl implements OpportunityService {
         OpportunityBonusLevel bonusLevel = bonusLevelRepository.findById(opportunity.getBonusLevel().getId())
                 .orElseThrow(() -> new OpportunityBonusLevelIdNotFoundException("Bonus Level not found."));
         opportunity.setBonusLevel(bonusLevel);
+    }
+
+    private void checkCampaignExpirationDate(LocalDate opportunityExpirationDate, LocalDate campaignExpirationDate) {
+        if (opportunityExpirationDate.isAfter(campaignExpirationDate)) {
+            throw new OpportunityExpirationDateAfterCampaignExpirationDateException("Opportunity Expiration Date is after Campaign Expiration Date.");
+        }
     }
 
     @Override

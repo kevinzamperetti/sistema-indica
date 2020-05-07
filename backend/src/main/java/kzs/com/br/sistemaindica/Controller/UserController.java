@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.Controller;
 
 import kzs.com.br.sistemaindica.Entity.User;
+import kzs.com.br.sistemaindica.Enum.UserProfile;
 import kzs.com.br.sistemaindica.Repository.UserRepository;
 import kzs.com.br.sistemaindica.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,11 @@ public class UserController {
     @GetMapping("/email")
     public ResponseEntity<Optional<User>> findByEmail(@RequestParam(name = "email") String email) {
         return ResponseEntity.ok(repository.findByEmail(email));
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<Optional<User>> findByName(@RequestParam(name = "name") String name,
+                                                     @RequestParam(name = "profile") UserProfile profile) {
+        return ResponseEntity.ok(repository.findByName(name, profile));
     }
 }

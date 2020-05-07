@@ -16,6 +16,14 @@ import { TableList } from '../../../components/Tables/TableList';
 
 import API from '../../../services/api';
 
+import {
+    createAutoCorrectedDatePipe,
+    createNumberMask,
+    emailMask
+} from 'text-mask-addons';
+// const autoCorrectedDatePipe = createAutoCorrectedDatePipe('mm/dd/yyyy');
+const dolarsMask = createNumberMask({ prefix: '$' });
+
 // ========== Toast Contents: ============
 // eslint-disable-next-line react/prop-types
 const contentSuccess = ({ closeToast }) => (
@@ -93,7 +101,7 @@ export default class Campaign extends Component {
     }
     
     listAllCampaigns = async () => {
-		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
 		const response = await API.get( '/campaign', header )
         this.setState( { listCampaign: response.data }  )
     }
@@ -103,11 +111,12 @@ export default class Campaign extends Component {
         const { name, expirationDate, enabled } = this.state
 		if ( name && expirationDate ) {
             const expirationDateFormatted = moment( expirationDate, 'DD/MM/YYYY',true).format("YYYY-MM-DD");
+            const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
 			API.post( '/campaign', {
                 name: name,
                 expirationDate: expirationDateFormatted,
                 enabled: enabled
-			} ).then( response => {
+			}, header ).then( response => {
                 toast.success(contentSuccess);
                 this.listAllCampaigns();
 			//this.props.history.push( "/login" )
@@ -122,7 +131,8 @@ export default class Campaign extends Component {
     }
 
     delete( evt, c ) {
-        API.delete( `/campaign/${evt.id}`)
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        API.delete( `/campaign/${evt.id}`, header)
         .then( response => {
         toast.success(contentSuccess);
         this.listAllCampaigns();
@@ -132,7 +142,7 @@ export default class Campaign extends Component {
             toast.error(contentError);
         } )
     }
-    
+
     render() {
         const { listCampaign } = this.state
         return (
@@ -230,7 +240,9 @@ export default class Campaign extends Component {
                                                             <span className="text-inverse"> { campaign.name } </span>
                                                         </td>
                                                         <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> { campaign.expirationDate } </span>
+                                                            <span className="text-inverse"> 
+                                                                { moment(campaign.expirationDate, "YYYY-MM-DD", true).format("DD/MM/YYYY") }
+                                                             </span>
                                                         </td>
                                                         <td className="align-middle" width='100%'>
                                                             <span className="text-inverse"> { campaign.enabled === true ? 'Ativo' : 'Inativo' } </span>

@@ -23,6 +23,13 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
     generate-ddl: true
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
 
   servlet:
     multipart:

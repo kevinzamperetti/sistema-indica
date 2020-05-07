@@ -87,12 +87,12 @@ export default class KeyWord extends Component {
     }
 
     listKeyWordsByOpportunity = async () => {
-		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const header = { headers: { Authorization: localStorage.getItem('Authorization') } }
         //const id = this.state.opportunityIdSelector.id ? this.state.opportunityIdSelector.id : 0;
         // const id = this.state.opportunityIdSelector ? this.state.opportunityIdSelector : 0;
         const response = await API.get( `/keyWord/opportunity/${opportunityIdSelector.value}`, header )
         this.setState( { listKeyWords: response.data } )
-        console.log('listKeyWords: ', this.state.listKeyWords)
+        // console.log('listKeyWords: ', this.state.listKeyWords)
     }    
 
     changeValuesState( evt ) {
@@ -127,6 +127,7 @@ export default class KeyWord extends Component {
 
     save( evt ) {
         evt.preventDefault();
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         const { word, opportunityIdSelector, enabled } = this.state
         if ( word && opportunityIdSelector ) {
              API.post( '/keyWord', {
@@ -135,7 +136,7 @@ export default class KeyWord extends Component {
                     id: opportunityIdSelector.id,
                 },
                 enabled: enabled
-            } ).then( response => {
+            }, header ).then( response => {
                 toast.success(contentSuccess);
                 this.listKeyWordsByOpportunity();
                 // console.log( response.data )
@@ -151,7 +152,8 @@ export default class KeyWord extends Component {
 
     delete( evt, k ) {
         // evt.preventDefault();
-        API.delete( `/keyWord/${evt.id}`)
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        API.delete( `/keyWord/${evt.id}`, header )
         .then( response => {
         toast.success(contentSuccess);
         this.listKeyWordsByOpportunity();
@@ -208,7 +210,8 @@ export default class KeyWord extends Component {
                                                 Palavra
                                             </Label>
                                             <Col sm={9}>
-                                                <Input type="text" name="word" id="word" placeholder="" onBlur={ this.changeValuesState.bind( this ) }/>
+                                                <Input type="text" name="word" id="word" placeholder="" className="text-uppercase mr-1"
+                                                       onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
                                     </Form>

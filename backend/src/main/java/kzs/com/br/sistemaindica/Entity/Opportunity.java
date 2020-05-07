@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import kzs.com.br.sistemaindica.Enum.OpportunityExperienceLevel;
 import lombok.*;
 
@@ -26,17 +27,19 @@ public class Opportunity extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(2000)")
     private String description;
 
+//    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_campaign", referencedColumnName = "id_campaign")
     private Campaign campaign;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "opportunity", fetch = LAZY)
     private Set<Indication> indications;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "opportunity", fetch = LAZY)
     private Set<KeyWord> keyWords;
 
@@ -44,6 +47,7 @@ public class Opportunity extends BaseEntity {
 //    @JoinColumn(name = "id_opportunity_bonus_level", referencedColumnName = "id_opportunity_bonus_level")
 //    private OpportunityBonusLevel bonusLevel;
 
+//    @JsonIgnore
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_opportunity_bonus_level", referencedColumnName = "id_opportunity_bonus_level")
     private OpportunityBonusLevel bonusLevel;

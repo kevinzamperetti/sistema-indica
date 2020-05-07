@@ -96,7 +96,6 @@ export default class Opportunity extends Component {
 		this.setState( { listOpportunityBonusLevel: response.data }  )
 	}
 
-    
     changeValuesState( evt ) {
 		const { name, value } = evt.target
 		// this.validarEmail( evt )
@@ -127,6 +126,7 @@ export default class Opportunity extends Component {
 
     save( evt ) {
         evt.preventDefault();
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         const { name, description, campaignIdSelector, opportunityBonusLevelIdSelector, experienceLevelSelector,
                 expirationDate, automaticEvaluationQuantity, enabled } = this.state
         
@@ -147,8 +147,9 @@ export default class Opportunity extends Component {
                 expirationDate: expirationDateFormatted,
                 automaticEvaluationQuantity: automaticEvaluationQuantity,
                 enabled: enabled
-            } ).then( response => {
+            }, header ).then( response => {
                 toast.success(contentSuccess);
+        		// this.props.history.push("/pages/key-word")
                 // console.log( response.data )
             } )
             .catch( erro => {
