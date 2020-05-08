@@ -21,10 +21,10 @@ export const DefaultNavbar = () => (
             </NavItem>
             <NavItem className="navbar-brand d-lg-none">
                 <Link to="/">
-                    <LogoThemed />
+                    <LogoThemed checkBackgroundMenu/>
                 </Link>
             </NavItem>
-            <NavItem className="d-none d-md-block">
+            {/* <NavItem className="d-none d-md-block">
                 <span className="navbar-text">
                     <Link to="/">
                         <i className="fa fa-home"></i>
@@ -42,11 +42,11 @@ export const DefaultNavbar = () => (
                 <span className="navbar-text">
                     Page Link
                 </span>
-            </NavItem>
+            </NavItem> */}
         </Nav>
         <Nav navbar className="ml-auto">
-            <NavbarActivityFeed />
-            <NavbarMessages className="ml-2" />
+            {/* <NavbarActivityFeed /> */}
+            {/* <NavbarMessages className="ml-2" /> */}
             <NavbarUser className="ml-2" />
         </Nav>
     </Navbar>

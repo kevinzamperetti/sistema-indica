@@ -22,7 +22,7 @@ const SidebarTopB = () => (
                             Back to Home
                         </UncontrolledTooltip>
 
-                        <VersionSelector
+                        {/* <VersionSelector
                             down
                             sidebar
                             dashboard="Airframe"
@@ -38,7 +38,7 @@ const SidebarTopB = () => (
                                     </div>
                                 </React.Fragment>
                             )}
-                        />
+                        /> */}
                     </div>
                 </div>
             </Sidebar.HideSlim>

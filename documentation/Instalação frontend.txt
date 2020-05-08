@@ -1,0 +1,13 @@
+npx create-react-app frontend
+
+npm install @material-ui/core
+
+npm install @material-ui/icons
+
+npm install typeface-roboto --save
+
+npm install --save react-router-dom
+
+npm install axios --save
+
+npm install --save react-toastify

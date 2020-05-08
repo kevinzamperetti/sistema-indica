@@ -1,6 +1,6 @@
 package kzs.com.br.sistemaindica.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +24,8 @@ public class BankData extends BaseEntity {
 //    @OneToOne(mappedBy = "bankData", fetch = FetchType.LAZY)
 //    private User user;
 
-    @JsonIgnore
+//    @JsonIgnore aqui
+    @JsonIgnoreProperties("bankData")
     @OneToMany(mappedBy = "bankData", fetch = FetchType.LAZY)
     private Set<User> users;
 
@@ -32,7 +33,7 @@ public class BankData extends BaseEntity {
     private String name;
 
     @Column(name = "number", nullable = false)
-    private Integer number;
+    private String number;
 
 //    @Column(name = "agency", nullable = false)
 //    private Integer agency;

@@ -3,6 +3,7 @@ package kzs.com.br.sistemaindica.Repository;
 import kzs.com.br.sistemaindica.Entity.BankData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -20,6 +21,6 @@ public interface BankDataRepository extends JpaRepository<BankData, Long> {
             " FROM BankData b " +
             " LEFT JOIN FETCH b.users " +
             "WHERE b.id = :id")
-    Optional<BankData> findById(Long id);
+    Optional<BankData> findById(@Param("id") Long id);
 
 }

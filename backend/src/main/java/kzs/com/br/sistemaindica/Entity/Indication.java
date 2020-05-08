@@ -1,9 +1,11 @@
 package kzs.com.br.sistemaindica.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import kzs.com.br.sistemaindica.Enum.IndicationStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 import static javax.persistence.FetchType.LAZY;
@@ -13,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @AttributeOverrides({@AttributeOverride(name="id", column=@Column(name="id_indication"))})
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = false, of={"name"})
+@EqualsAndHashCode(callSuper = false, of={"id"})
 @ToString(of = {"id"})
 @Builder
 @AllArgsConstructor
@@ -22,6 +24,8 @@ public class Indication extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnoreProperties({"indications", "indicationWinners"})
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     private User user;
@@ -30,14 +34,19 @@ public class Indication extends BaseEntity {
     @JoinColumn(name = "id_opportunity", referencedColumnName = "id_opportunity")
     private Opportunity opportunity;
 
+//    @JsonIgnoreProperties("indication") aqui
     @OneToMany(mappedBy = "indication", fetch = LAZY)
     private Set<IndicationHistory> indicationHistories;
 
 //    revisar tipo pra este campo
 //    private FileUpload attachment;
 
+//    @JsonIgnoreProperties("indication") aqui
     @OneToOne(mappedBy = "indication", fetch = LAZY)
     private IndicationWinner indicationWinner;
+
+    @Column(name = "creation_date")
+    private LocalDate creationDate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)

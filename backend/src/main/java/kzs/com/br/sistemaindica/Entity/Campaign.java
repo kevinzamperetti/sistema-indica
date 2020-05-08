@@ -29,8 +29,8 @@ public class Campaign extends  BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "has_reward", nullable = false)
-    private Boolean hasReward;
+//    @Column(name = "has_reward", nullable = false)
+//    private Boolean hasReward;
 
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
