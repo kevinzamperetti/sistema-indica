@@ -85,10 +85,11 @@ export default class Login extends Component {
 					isCollaborator: isCollaboratorSelector
             } ).then ( response => {
                 localStorage.setItem( 'Authorization' , response.data.token )
+                localStorage.setItem( 'Email', response.data.email )
                 localStorage.setItem( 'Name', response.data.name )
                 localStorage.setItem( 'Profile', response.data.profile )
                 localStorage.setItem( 'SectorCompany', response.data.sectorCompany )
-                // localStorage.setItem('UserId', userId ) implementar no back
+                // localStorage.setItem('UserId', userId ) implementar no back se quiser gravar só o id do user no localStorage
                 this.props.history.push('/home/graphics')
                 } )
             .catch( error => {

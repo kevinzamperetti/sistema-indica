@@ -99,8 +99,7 @@ export default class Register extends Component {
 	}	
 
 	listAllBanks = async () => {
-		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-		const response = await API.get( '/bankData', header )
+		const response = await API.get( '/bankData' )
 		this.setState( { listBanks: response.data }  )
 	}
 

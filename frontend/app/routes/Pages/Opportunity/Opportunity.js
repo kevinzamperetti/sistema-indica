@@ -86,13 +86,13 @@ export default class Opportunity extends Component {
 
     listAllCampaigns = async () => {
 		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-		const response = await API.get( '/campaign', header )
+		const response = await API.get( '/campaign?enabled=true', header )
 		this.setState( { listCampaign: response.data }  )
 	}
 
     listAllOpportunityBonusLevel = async () => {
 		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-		const response = await API.get( '/opportunityBonusLevel', header )
+		const response = await API.get( '/opportunityBonusLevel?enabled=true', header )
 		this.setState( { listOpportunityBonusLevel: response.data }  )
 	}
 

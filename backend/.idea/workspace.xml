@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a94e705d-005c-4440-9723-5d4a69c4bbc1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Entity/Candidature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/CandidatureStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/CandidatureStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/IndicationStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Enum/IndicationStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/IndicationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/kzs/com/br/sistemaindica/Service/impl/IndicationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Indication/Indication.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Indication/Indication.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/app/routes/Pages/Opportunity/Opportunity.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/app/routes/Pages/Opportunity/Opportunity.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,7 +148,7 @@
       <workItem from="1588596034952" duration="620000" />
       <workItem from="1588641264977" duration="3666000" />
       <workItem from="1588719955374" duration="9521000" />
-      <workItem from="1588765463096" duration="41621000" />
+      <workItem from="1588765463096" duration="42410000" />
     </task>
     <servers />
   </component>
@@ -269,10 +265,10 @@
     </state>
     <state x="668" y="347" key="com.intellij.ide.util.TipDialog/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588596040137" />
     <state x="475" y="243" key="com.intellij.ide.util.TipDialog/0.0.1366.728@0.0.1366.728" timestamp="1588765537438" />
-    <state x="264" y="102" width="1298" height="814" key="find.popup" timestamp="1588808347643">
+    <state x="264" y="102" width="1298" height="814" key="find.popup" timestamp="1588904924029">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="264" y="102" width="1298" height="814" key="find.popup/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588808347643" />
+    <state x="264" y="102" width="1298" height="814" key="find.popup/-1366.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1588904924029" />
     <state x="188" y="71" width="1000" height="629" key="find.popup/0.0.1366.728@0.0.1366.728" timestamp="1588795261369" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588807897401">
       <screen x="0" y="0" width="1920" height="1040" />
