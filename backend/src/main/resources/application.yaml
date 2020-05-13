@@ -30,7 +30,7 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-
+  #File Upload configuration
   servlet:
     multipart:
       enabled: true
@@ -38,6 +38,7 @@ spring:
       max-file-size: 200MB
       max-request-size: 215MB
 
+#File Upload Directory
 file:
   upload-dir: ./attachments/
 
