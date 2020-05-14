@@ -40,10 +40,15 @@ public class FileStorageServiceImpl {
 
     public String storeFile(MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String fileBaseName = FilenameUtils.getBaseName(fileName).concat("_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss")));
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename().replace(" ", "_").replaceAll("[^\\p{ASCII}]", ""));
+        String fileBaseName = FilenameUtils.getBaseName(fileName).concat("_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")));
         String fileExtension = FilenameUtils.getExtension(fileName);
         fileName = fileBaseName.concat("." + fileExtension);
+
+        if (!"pdf".toUpperCase().equals(fileExtension.toUpperCase())) {
+            throw new FileStorageException("Sorry! File whit extension dont accepted! " +
+                                           "Extension accepted: PDF, extension your file: " + fileExtension);
+        }
 
         try {
             // Check if the file's name contains invalid characters
