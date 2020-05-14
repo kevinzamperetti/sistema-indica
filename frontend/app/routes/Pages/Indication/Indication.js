@@ -129,9 +129,9 @@ export default class Indication extends Component {
           imageName: arquivo[0].name
         } )
         console.log('image: ' + this.state.image)
-      }
+    }
 
-      uploadAttachment( evt ) {
+    uploadAttachment( evt ) {
         evt.preventDefault();
         const header = { headers: {Authorization: localStorage.getItem('Authorization'), 'Content-type': 'multipart/form-data' } }
         const { image } = this.state
@@ -164,7 +164,7 @@ export default class Indication extends Component {
                 indicationPhoneNumber, indicationEmail, status, dataUserLogged,
                 image, fileNameAttachment, fileDownloadUriAttachment, fileTypeAttachment } = this.state
         if ( opportunityIdSelector && listOpportunities && indicationName &&
-                indicationPhoneNumber && indicationEmail && status, dataUserLogged ) {
+                indicationPhoneNumber && indicationEmail && status && dataUserLogged && image ) {
                 API.post( '/indication', {  
                     user: {
                         id: dataUserLogged.id
@@ -180,14 +180,13 @@ export default class Indication extends Component {
                     fileNameAttachment: fileNameAttachment,
                     fileDownloadUriAttachment: fileDownloadUriAttachment,
                     fileTypeAttachment: fileTypeAttachment
-                }, header )
+            }, header )
             .then( response => {
                 toast.success(contentSuccess);
-                console.log( response.data )
+                // console.log( response.data )
             } )
             .catch( erro => {
                 console.log( "Erro: " + erro ) 
-                console.log(response)
                 toast.error(contentError);
             } )
         } else {

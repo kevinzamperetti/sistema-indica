@@ -75,7 +75,12 @@ export default class Candidature extends Component {
             candidateEmail: '',
             candidateDocumentNumber: '',
             status: 'NEW',
-            dataUserLogged: {}
+            dataUserLogged: {},
+            image: '',
+            imageName: '',
+            fileNameAttachment: '',
+            fileDownloadUriAttachment: '',
+            fileTypeAttachment: ''
         }
     }
 
@@ -114,14 +119,52 @@ export default class Candidature extends Component {
 		} )
     }
 
-    save( evt ) {
+    changeValuesStateImage = evt => {
+        console.log( evt.target.files[0] )
+        const arquivo = Array.from( evt.target.files )
+        const formData = new FormData()
+        formData.append( "file", arquivo[0] )
+        this.setState( {
+          image: formData,
+          imageName: arquivo[0].name
+        } )
+        console.log('image: ' + this.state.image)
+    }
+
+    uploadAttachment( evt ) {
         evt.preventDefault();
+        const header = { headers: {Authorization: localStorage.getItem('Authorization'), 'Content-type': 'multipart/form-data' } }
+        const { image } = this.state
+        if ( image ) {
+            API.post( '/candidature/uploadAttachment', this.state.image, header )
+            .then( response => {
+                // toast.success(contentSuccess);
+                this.setState( {
+                    fileNameAttachment: response.data.fileName,
+                    fileDownloadUriAttachment: response.data.fileDownloadUri,
+                    fileTypeAttachment: response.data.fileType
+                } )
+
+                this.save();
+                // console.log( response.data )
+            } )
+            .catch( erro => {
+                console.log( "Erro: " + erro ) 
+                toast.error(contentError);
+            } )
+        } else {
+            toast.error(errorFillFields);
+        }
+    }
+
+    save( evt ) {
+        // evt.preventDefault();
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         const { opportunityIdSelector, listOpportunities, attachment, candidateName,
-                candidatePhoneNumber, candidateEmail, candidateDocumentNumber, status,
-                dataUserLogged } = this.state
-        if ( opportunityIdSelector && listOpportunities && attachment && candidatePhoneNumber &&
-             status, dataUserLogged ) {
+                candidatePhoneNumber, candidateEmail, candidateDocumentNumber, status, dataUserLogged,
+                image, fileNameAttachment, fileDownloadUriAttachment, fileTypeAttachment } = this.state
+        if ( opportunityIdSelector && listOpportunities && candidatePhoneNumber && 
+             status && dataUserLogged && image ) {
             API.post( '/candidature', {
                 user: {
                     id: dataUserLogged.id
@@ -133,8 +176,12 @@ export default class Candidature extends Component {
                 candidatePhoneNumber: candidatePhoneNumber,
                 candidateEmail: dataUserLogged.email,
                 candidateDocumentNumber: dataUserLogged.documentNumber,
-                status: status
-            }, header ).then( response => {
+                status: status,
+                fileNameAttachment: fileNameAttachment,
+                fileDownloadUriAttachment: fileDownloadUriAttachment,
+                fileTypeAttachment: fileTypeAttachment
+            }, header )
+            .then( response => {
                 toast.success(contentSuccess);
                 // console.log( response.data )
             } )
@@ -165,7 +212,7 @@ export default class Candidature extends Component {
                         <Col lg={ 12 }>
                             <Card className="mb-3">
                                 <CardBody>
-                                    <Form>
+                                    <Form enctype="multipart/form-data">
                                     <FormGroup row>
                                             <Label for="CampaignIdSelector" sm={3}>Oportunidade</Label>
                                             <Col sm={9}>
@@ -234,7 +281,9 @@ export default class Candidature extends Component {
                                             <Label for="attachment" sm={3}>Currículo</Label>
                                             <Col sm={9}>
                                                 <CustomInput type="file" id="attachment" name="attachment" label="Selecionar arquivo"
-                                                             onBlur={ this.changeValuesState.bind( this ) } />
+                                                             enctype="multipart/form-data"
+                                                            //  onBlur={ this.changeValuesState.bind( this ) } />
+                                                            onChange = { this.changeValuesStateImage.bind( this ) } />                                                            
                                                 <FormText color="muted">
                                                     Formato aceito: PDF. Tamanho máximo: 10Mb
                                                 </FormText>
@@ -244,7 +293,7 @@ export default class Candidature extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary'className="ml-auto px-4" onClick={ this.save.bind( this ) }>Enviar</Button>
+                                        <Button color='primary'className="ml-auto px-4" onClick={ this.uploadAttachment.bind( this ) }>Enviar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>
