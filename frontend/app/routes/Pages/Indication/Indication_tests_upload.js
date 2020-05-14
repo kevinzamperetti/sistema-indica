@@ -77,10 +77,7 @@ export default class Indication extends Component {
             status: 'NEW',
             dataUserLogged: {},
             image: '',
-            imageName: '',
-            fileNameAttachment: '',
-            fileDownloadUriAttachment: '',
-            fileTypeAttachment: ''
+            imageName: ''
 		}
     }
 
@@ -131,40 +128,117 @@ export default class Indication extends Component {
         console.log('image: ' + this.state.image)
       }
 
-      uploadAttachment( evt ) {
-        evt.preventDefault();
-        const header = { headers: {Authorization: localStorage.getItem('Authorization'), 'Content-type': 'multipart/form-data' } }
-        const { image } = this.state
-        if ( image ) {
-            API.post( '/indication/uploadAttachment', this.state.image, header )
-            .then( response => {
-                // toast.success(contentSuccess);
-                this.setState( {
-                    fileNameAttachment: response.data.fileName,
-                    fileDownloadUriAttachment: response.data.fileDownloadUri,
-                    fileTypeAttachment: response.data.fileType
-                } )
+    //   save( evt ) {
+    //     evt.preventDefault();
+    //     const header = { headers: {Authorization: localStorage.getItem('Authorization'), 'Content-type': 'multipart/form-data' } }
+    //     const { image } = this.state
+    //     if ( image ) {
+    //         API.post( '/file/uploadFile', this.state.image, header )
+    //         .then( response => {
+    //             toast.success(contentSuccess);
+    //             // console.log( response.data )
+    //         } )
+    //         .catch( erro => {
+    //             console.log( "Erro: " + erro ) 
+    //             toast.error(contentError);
+    //         } )
+    //     } else {
+    //         toast.error(errorFillFields);
+    //     }
+    // }
 
-                this.save();
-                // console.log( response.data )
-            } )
-            .catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
-            } )
-        } else {
-            toast.error(errorFillFields);
-        }
-    }
+    // save( evt ) {
+    //     evt.preventDefault();
+    //     const header = { headers: {Authorization: localStorage.getItem('Authorization'), params: {'Content-type': 'multipart/form-data'} } }
+    //     console.log('header: ' + header)
+    //     const { opportunityIdSelector, listOpportunities, attachment, indicationName,
+    //             indicationPhoneNumber, indicationEmail, status,
+    //             dataUserLogged, image } = this.state
+    //     if ( opportunityIdSelector && listOpportunities && indicationName &&
+    //          indicationPhoneNumber && indicationEmail && status, dataUserLogged ) {
+            
+    //         // const response = API.fetch('http://localhost:8080/api/indication', {
+    //         //     method: 'POST',
+    //         //     headers: { 'Content-Type': 'multipart/form-data' },
+    //         //     body:  {
+    //         //                 user: {
+    //         //                     id: dataUserLogged.id
+    //         //                 },
+    //         //                 opportunity: {
+    //         //                     id: opportunityIdSelector.id
+    //         //                 },	
+    //         //                 indicationName: indicationName,
+    //         //                 indicationPhoneNumber: indicationPhoneNumber,
+    //         //                 indicationEmail: indicationEmail,
+    //         //                 userDocumentNumber: dataUserLogged.documentNumber,
+    //         //                 status: status,
+    //         //     },
+    //         //     params: image
+    //         // } )
+
+    //         // API.post( '/indication', {  
+    //         //     user: {
+    //         //         id: dataUserLogged.id
+    //         //     },
+    //         //     opportunity: {
+    //         //         id: opportunityIdSelector.id
+    //         //     },	
+    //         //     indicationName: indicationName,
+    //         //     indicationPhoneNumber: indicationPhoneNumber,
+    //         //     indicationEmail: indicationEmail,
+    //         //     userDocumentNumber: dataUserLogged.documentNumber,
+    //         //     status: status
+    //         // }, header, this.state.image )
+
+    //         var formData = new FormData();
+    //         formData.append("indication", JSON.stringify({
+    //             user: {
+    //                 id: dataUserLogged.id
+    //             },
+    //             opportunity: {
+    //                 id: opportunityIdSelector.id
+    //             },	
+    //             indicationName: indicationName,
+    //             indicationPhoneNumber: indicationPhoneNumber,
+    //             indicationEmail: indicationEmail,
+    //             userDocumentNumber: dataUserLogged.documentNumber,
+    //             status: status
+    //         }));
+    //         formData.append("file", this.state.image);
+
+    //         const response = fetch("http://localhost:8080/api/indication", {
+    //             method: "POST",
+    //             headers: { 
+    //                  Authorization: localStorage.getItem('Authorization'),
+    //                  'Content-type': 'multipart/form-data'
+    //             },
+    //             body: formData
+    //         })
+    //         console.log(response)
+    //         // .then( response => {
+    //         //     toast.success(contentSuccess);
+    //         //     // console.log( response.data )
+    //         // } )
+    //         // .catch( erro => {
+    //         //     console.log( "Erro: " + erro ) 
+    //         //     toast.error(contentError);
+    //         // } )
+    //     } else {
+    //         toast.error(errorFillFields);
+    //     }
+    // }
 
     save( evt ) {
-        // evt.preventDefault();
-        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const { opportunityIdSelector, listOpportunities, attachment, indicationName,
-                indicationPhoneNumber, indicationEmail, status, dataUserLogged,
-                image, fileNameAttachment, fileDownloadUriAttachment, fileTypeAttachment } = this.state
-        if ( opportunityIdSelector && listOpportunities && indicationName &&
-                indicationPhoneNumber && indicationEmail && status, dataUserLogged ) {
+            evt.preventDefault();
+            // const header = { headers: {Authorization: localStorage.getItem('Authorization'), params: {'Content-type': 'multipart/form-data'} } }
+            const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+            // console.log('header: ' + header)
+            const { opportunityIdSelector, listOpportunities, attachment, indicationName,
+                    indicationPhoneNumber, indicationEmail, status,
+                    dataUserLogged, image } = this.state
+            if ( opportunityIdSelector && listOpportunities && indicationName &&
+                 indicationPhoneNumber && indicationEmail && status, dataUserLogged ) {
+                
                 API.post( '/indication', {  
                     user: {
                         id: dataUserLogged.id
@@ -177,23 +251,22 @@ export default class Indication extends Component {
                     indicationEmail: indicationEmail,
                     userDocumentNumber: dataUserLogged.documentNumber,
                     status: status,
-                    fileNameAttachment: fileNameAttachment,
-                    fileDownloadUriAttachment: fileDownloadUriAttachment,
-                    fileTypeAttachment: fileTypeAttachment
+                    filex: image
                 }, header )
-            .then( response => {
-                toast.success(contentSuccess);
-                console.log( response.data )
-            } )
-            .catch( erro => {
-                console.log( "Erro: " + erro ) 
+   
                 console.log(response)
-                toast.error(contentError);
-            } )
-        } else {
-            toast.error(errorFillFields);
+                .then( response => {
+                    toast.success(contentSuccess);
+                    // console.log( response.data )
+                } )
+                .catch( erro => {
+                    console.log( "Erro: " + erro ) 
+                    toast.error(contentError);
+                } )
+            } else {
+                toast.error(errorFillFields);
+            }
         }
-    }
     
     render() {
         const { listOpportunities, dataUserLogged } = this.state
@@ -305,7 +378,7 @@ export default class Indication extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' className="ml-auto px-4" onClick={ this.uploadAttachment.bind( this ) }>Indicar</Button>
+                                        <Button color='primary' className="ml-auto px-4" onClick={ this.save.bind( this ) }>Indicar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>
