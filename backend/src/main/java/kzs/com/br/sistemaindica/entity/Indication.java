@@ -41,10 +41,13 @@ public class Indication extends BaseEntity {
 //    revisar tipo pra este campo
 //    private FileUpload attachment;
 
+    @Column(name = "file_name_attachment")
     private String fileNameAttachment;
 
+    @Column(name = "file_downloadUri_attachment")
     private String fileDownloadUriAttachment;
 
+    @Column(name = "file_type_attachment")
     private String fileTypeAttachment;
 
 //    @JsonIgnoreProperties("indication") aqui

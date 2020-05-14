@@ -2,12 +2,14 @@ package kzs.com.br.sistemaindica.controller;
 
 import kzs.com.br.sistemaindica.entity.Candidature;
 import kzs.com.br.sistemaindica.enums.CandidatureStatus;
+import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.CandidatureRepository;
 import kzs.com.br.sistemaindica.service.CandidatureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -43,6 +45,11 @@ public class CandidatureController {
     @PostMapping
     public ResponseEntity<Candidature> save(@RequestBody Candidature candidature) {
         return ResponseEntity.status(CREATED).body(service.save(candidature));
+    }
+
+    @PostMapping(path = "/uploadAttachment")
+    public UploadFileResponse uploadAttachment(@RequestParam("file") MultipartFile file) {
+        return service.uploadAttachment(file);
     }
 
     @DeleteMapping(path = "/{id}")

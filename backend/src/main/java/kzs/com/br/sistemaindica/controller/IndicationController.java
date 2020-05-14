@@ -53,7 +53,6 @@ public class IndicationController {
         return service.uploadAttachment(file);
     }
 
-
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "id") Long id) {
         service.delete(id);
