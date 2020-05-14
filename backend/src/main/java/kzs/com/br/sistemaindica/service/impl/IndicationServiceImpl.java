@@ -5,12 +5,16 @@ import kzs.com.br.sistemaindica.entity.Opportunity;
 import kzs.com.br.sistemaindica.entity.User;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import kzs.com.br.sistemaindica.exception.*;
+import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.IndicationRepository;
 import kzs.com.br.sistemaindica.repository.OpportunityRepository;
 import kzs.com.br.sistemaindica.repository.UserRepository;
 import kzs.com.br.sistemaindica.service.IndicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,6 +31,8 @@ public class IndicationServiceImpl implements IndicationService {
     private final OpportunityRepository opportunityRepository;
 
     private final UserRepository userRepository;
+
+    private final FileStorageServiceImpl fileStorageService;
 
     @Override
     public List<Indication> findIndicationByStatus(IndicationStatus status) {
@@ -51,6 +57,19 @@ public class IndicationServiceImpl implements IndicationService {
         indication.setCreationDate(LocalDate.now());
         checkIfTheIndicationAlreadyExists(indication);
         return repository.save(indication);
+    }
+
+    @Override
+    public UploadFileResponse uploadAttachment(@RequestParam("file") MultipartFile file) {
+        String fileName = fileStorageService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
     }
 
     private void setOpportunity(Indication indication) {

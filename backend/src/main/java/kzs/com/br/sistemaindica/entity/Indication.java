@@ -41,6 +41,12 @@ public class Indication extends BaseEntity {
 //    revisar tipo pra este campo
 //    private FileUpload attachment;
 
+    private String fileNameAttachment;
+
+    private String fileDownloadUriAttachment;
+
+    private String fileTypeAttachment;
+
 //    @JsonIgnoreProperties("indication") aqui
     @OneToOne(mappedBy = "indication", fetch = LAZY)
     private IndicationWinner indicationWinner;
