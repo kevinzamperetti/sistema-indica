@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.service;
 
 import kzs.com.br.sistemaindica.entity.Candidature;
+import kzs.com.br.sistemaindica.entity.dto.CandidatureQuantityDto;
 import kzs.com.br.sistemaindica.enums.CandidatureStatus;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,4 +22,6 @@ public interface CandidatureService {
     Candidature edit(Candidature candidature);
 
     void delete(Long id);
+
+    CandidatureQuantityDto totalCandidaturiesByStatus();
 }

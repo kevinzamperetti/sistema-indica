@@ -43,4 +43,24 @@ public interface CandidatureRepository extends JpaRepository<Candidature, Long> 
                                                                                         @Param("name") String name,
                                                                                         @Param("phone") String phone);
 
+    @Query("SELECT count(c) " +
+            " FROM Candidature c " +
+            "WHERE c.status = 'NEW'")
+    int countCandidatureStatusNew();
+
+    @Query("SELECT count(c) " +
+            " FROM Candidature c " +
+            "WHERE c.status = 'IN_PROGRESS'")
+    int countCandidatureStatusInProgress();
+
+    @Query("SELECT count(c) " +
+            " FROM Candidature c " +
+            "WHERE c.status = 'HIRED'")
+    int countCandidatureStatusHired();
+
+    @Query("SELECT count(c) " +
+            " FROM Candidature c " +
+            "WHERE c.status = 'FINISHED'")
+    int countCandidatureStatusFinished();
+
 }

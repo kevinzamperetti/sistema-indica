@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.controller;
 
 import kzs.com.br.sistemaindica.entity.Candidature;
+import kzs.com.br.sistemaindica.entity.dto.CandidatureQuantityDto;
 import kzs.com.br.sistemaindica.enums.CandidatureStatus;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.CandidatureRepository;
@@ -28,13 +29,17 @@ public class CandidatureController {
 
     @GetMapping
     public ResponseEntity<List<Candidature>> listAll(@RequestParam(value = "status", required = false) CandidatureStatus status) {
-//        repository.findCandidatureByStatus(status);
         return ResponseEntity.ok(service.findCandidatureByStatus(status));
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Candidature> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(service.findById(id));
+    }
+
+    @GetMapping(path = "/countByStatus")
+    public ResponseEntity<CandidatureQuantityDto> totalIndicationsByStatus() {
+        return ResponseEntity.ok(service.totalCandidaturiesByStatus());
     }
 
     @PutMapping(path = "/{id}")

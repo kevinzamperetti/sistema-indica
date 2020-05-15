@@ -3,6 +3,7 @@ package kzs.com.br.sistemaindica.service.impl;
 import kzs.com.br.sistemaindica.entity.Indication;
 import kzs.com.br.sistemaindica.entity.Opportunity;
 import kzs.com.br.sistemaindica.entity.User;
+import kzs.com.br.sistemaindica.entity.dto.IndicationQuantityDto;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import kzs.com.br.sistemaindica.exception.*;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
@@ -144,6 +145,16 @@ public class IndicationServiceImpl implements IndicationService {
         if (indication.getUser().getName().equals(indication.getIndicationName())) {
             throw new IndicationCannotBePerformedForYouException("Indication cannot be performed for you.");
         }
+    }
+
+    @Override
+    public IndicationQuantityDto totalIndicationsByStatus() {
+        return IndicationQuantityDto.builder()
+                .qtyIndicationsNew(repository.countIndicationStatusNew())
+                .qtyIndicationsInProgress(repository.countIndicationStatusInProgress())
+                .qtyIndicationsHired(repository.countIndicationStatusHired())
+                .qtyIndicationsFinihsed(repository.countIndicationStatusFinished())
+                .build();
     }
 
 }

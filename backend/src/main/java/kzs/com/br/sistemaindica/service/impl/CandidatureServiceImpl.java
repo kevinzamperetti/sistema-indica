@@ -3,6 +3,7 @@ package kzs.com.br.sistemaindica.service.impl;
 import kzs.com.br.sistemaindica.entity.Candidature;
 import kzs.com.br.sistemaindica.entity.Opportunity;
 import kzs.com.br.sistemaindica.entity.User;
+import kzs.com.br.sistemaindica.entity.dto.CandidatureQuantityDto;
 import kzs.com.br.sistemaindica.enums.CandidatureStatus;
 import kzs.com.br.sistemaindica.exception.*;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
@@ -137,5 +138,15 @@ public class CandidatureServiceImpl implements CandidatureService {
         if (isNull(candidature.getCandidateEmail())) {
             throw new CandidatureCandidateEmailNotProvidedException("Candidate Email of Candidature not provided.");
         }
+    }
+
+    @Override
+    public CandidatureQuantityDto totalCandidaturiesByStatus() {
+        return CandidatureQuantityDto.builder()
+                .qtyCandidaturiesNew(repository.countCandidatureStatusNew())
+                .qtyCandidaturiesInProgress(repository.countCandidatureStatusInProgress())
+                .qtyCandidaturiesHired(repository.countCandidatureStatusHired())
+                .qtyCandidaturiesFinihsed(repository.countCandidatureStatusFinished())
+                .build();
     }
 }
