@@ -32,8 +32,6 @@ export class SidebarMiddleNav extends React.Component {
                         <SidebarMenu.Item title="Níveis de Bonificação" to='/pages/opportunity-bonus-level' exact />
                         <SidebarMenu.Item title="Oportunidades" to='/pages/opportunity' exact />
                         <SidebarMenu.Item title="Palavras Chave" to='/pages/key-word' exact />
-                        {/* <SidebarMenu.Item title="Realizar Indicação" to='/pages/indication' exact />
-                        <SidebarMenu.Item title="Realizar Candidatura" to='/pages/candidature' exact /> */}
                     </SidebarMenu.Item>
                 </SidebarMenu >
             )
@@ -42,13 +40,15 @@ export class SidebarMiddleNav extends React.Component {
                 // - Externo pode indicar e candidatar, ver listagem de acompanhamento de indicações e gráficos de indicações e candidaturas...
                 <SidebarMenu>
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-home"></i>} title="Início">
-                        <SidebarMenu.Item title="Gráficos" to='/home/graphics' exact />
+                        <SidebarMenu.Item title="Gráficos" to='/home/graphics-external' exact />
                     </SidebarMenu.Item>
-                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-archive"></i>} title="Indicar alguém">
-                        <SidebarMenu.Item title="Realizar Indicação" to='/pages/indication' exact />
+                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-group"></i>} title="Indicações">
+                        <SidebarMenu.Item title="Realizar" to='/pages/indication' exact />
+                        <SidebarMenu.Item title="Acompanhar" to='/pages/indication-list' exact />
                     </SidebarMenu.Item>
-                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-archive"></i>} title="Candidatar-se">
-                        <SidebarMenu.Item title="Realizar Candidatura" to='/pages/candidature' exact />
+                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-file-text"></i>} title="Candidaturas">
+                        <SidebarMenu.Item title="Realizar" to='/pages/candidature' exact />
+                        <SidebarMenu.Item title="Acompanhar" to='/pages/candidature-list' exact />
                     </SidebarMenu.Item>
                 </SidebarMenu >
             )
@@ -57,10 +57,11 @@ export class SidebarMiddleNav extends React.Component {
                 // - Colaborador só pode indicar, ver listagem de acompanhamento de indicações e gráficos de indicações...
                 <SidebarMenu>
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-home"></i>} title="Início">
-                        <SidebarMenu.Item title="Gráficos" to='/home/graphics' exact />
+                        <SidebarMenu.Item title="Gráficos" to='/home/graphics-collaborator' exact />
                     </SidebarMenu.Item>
-                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-archive"></i>} title="Indicar alguém">
-                        <SidebarMenu.Item title="Realizar Indicação" to='/pages/indication' exact />
+                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-group"></i>} title="Indicações">
+                        <SidebarMenu.Item title="Realizar" to='/pages/indication' exact />
+                        <SidebarMenu.Item title="Acompanhar" to='/pages/indication-list' exact />
                     </SidebarMenu.Item>
                 </SidebarMenu >
             )

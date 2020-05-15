@@ -90,7 +90,16 @@ export default class Login extends Component {
                 localStorage.setItem( 'Profile', response.data.profile )
                 localStorage.setItem( 'SectorCompany', response.data.sectorCompany )
                 // localStorage.setItem('UserId', userId ) implementar no back se quiser gravar só o id do user no localStorage
-                this.props.history.push('/home/graphics')
+                if (response.data.profile === 'ADMINISTRATOR') {
+                    this.props.history.push('/home/graphics')
+                } else if (response.data.profile === 'EXTERNAL') {
+                    this.props.history.push('/home/graphics-external')
+                } else if (response.data.profile === 'COLLABORATOR') {
+                this.props.history.push('/home/graphics-collaborator')
+                } else {
+                    this.props.history.push('/pages/error-404')
+                }
+
                 } )
             .catch( error => {
                 // this.setState( {

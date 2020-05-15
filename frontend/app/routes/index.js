@@ -11,6 +11,10 @@ import {PrivateRoute} from './components/PrivateRoute/PrivateRoute'
 
 // ----------- Pages Imports ---------------
 import Analytics from './Dashboards/Analytics';
+import Administrator from './Dashboards/Administrator';
+import External from './Dashboards/External';
+import Collaborator from './Dashboards/Collaborator';
+
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Campaign from './Pages/Campaign';
@@ -43,7 +47,9 @@ export const RoutedContent = () => {
             <Route component={ Login } path="/pages/login" />
             <Route component={ Register } path="/pages/register" />
             
-            <PrivateRoute path="/home/graphics" exact component={Analytics} />
+            <PrivateRoute path="/home/graphics" exact component={Administrator} />
+            <PrivateRoute path="/home/graphics-collaborator" exact component={Collaborator} />
+            <PrivateRoute path="/home/graphics-external" exact component={External} />
             <PrivateRoute path="/pages/campaign" exact component={Campaign} />
             <PrivateRoute path="/pages/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
             <PrivateRoute path="/pages/opportunity" exact component={Opportunity} />
