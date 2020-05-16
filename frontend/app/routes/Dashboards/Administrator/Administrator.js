@@ -46,19 +46,21 @@ export class Administrator extends React.Component {
         layouts: _.clone(LAYOUT),
         qtyIndicationsNew: '',
         qtyIndicationsInProgress: '',
-        qtyIndicationsFinihsed: '',
+        qtyIndicationsDiscarded: '',
         qtyIndicationsHired: '',
         qtyCandidaturiesNew: '',
         qtyCandidaturiesInProgress: '',
-        qtyCandidaturiesFinihsed: '',
-        qtyCandidaturiesHired: ''
+        qtyCandidaturiesDiscarded: '',
+        qtyCandidaturiesHired: '',
+        qtyOpportunitiesEnabled: '',
+        qtyOpportunitiesDisabled: ''
     }
 
     componentDidMount() {
         this.listTotalIndications();
         this.listTotalCandidaturies();
+        this.listTotalOpportunities();
 	}	
-
 
     _resetLayout = () => {
         this.setState({
@@ -72,7 +74,7 @@ export class Administrator extends React.Component {
 		this.setState( { 
             qtyIndicationsNew: response.data.qtyIndicationsNew,
             qtyIndicationsInProgress: response.data.qtyIndicationsInProgress,
-            qtyIndicationsFinihsed: response.data.qtyIndicationsFinihsed,
+            qtyIndicationsDiscarded: response.data.qtyIndicationsDiscarded,
             qtyIndicationsHired: response.data.qtyIndicationsHired,
         }  )
     }
@@ -83,15 +85,24 @@ export class Administrator extends React.Component {
 		this.setState( { 
             qtyCandidaturiesNew: response.data.qtyCandidaturiesNew,
             qtyCandidaturiesInProgress: response.data.qtyCandidaturiesInProgress,
-            qtyCandidaturiesFinihsed: response.data.qtyCandidaturiesFinihsed,
+            qtyCandidaturiesDiscarded: response.data.qtyCandidaturiesDiscarded,
             qtyCandidaturiesHired: response.data.qtyCandidaturiesHired
         }  )
     }
 
+    listTotalOpportunities = async () => {
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        const response = await API.get( '/opportunity/countByStatus', header )
+		this.setState( { 
+            qtyOpportunitiesEnabled: response.data.qtyOpportunitiesEnabled,
+            qtyOpportunitiesDisabled: response.data.qtyOpportunitiesDisabled
+        }  )
+    }
+
     render() {
-        const { layouts, qtyIndicationsNew, qtyIndicationsInProgress, qtyIndicationsFinihsed, qtyIndicationsHired,
-                qtyCandidaturiesNew, qtyCandidaturiesInProgress, qtyCandidaturiesFinihsed, qtyCandidaturiesHired } = this.state;
-        
+        const { layouts, qtyIndicationsNew, qtyIndicationsInProgress, qtyIndicationsDiscarded, qtyIndicationsHired,
+                qtyCandidaturiesNew, qtyCandidaturiesInProgress, qtyCandidaturiesDiscarded, qtyCandidaturiesHired,
+                qtyOpportunitiesEnabled, qtyOpportunitiesDisabled } = this.state;
         return (
             <React.Fragment>
                 <Container fluid={ false }>
@@ -116,22 +127,22 @@ export class Administrator extends React.Component {
                                 </CardHeader>
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
-                                    <SessionByDevice 
-                                            title="Abertos"
+                                        <SessionByDevice 
+                                            title="Abertas"
                                             color="red"
-                                            valuePercent="40"
-                                            value="40"
+                                            valuePercent={qtyOpportunitiesEnabled}
+                                            value={qtyOpportunitiesEnabled}
                                         />
                                         <SessionByDevice 
                                             title="Finalizadas"
                                             color="success"
-                                            valuePercent="60"
-                                            value="60"
+                                            valuePercent={qtyOpportunitiesDisabled}
+                                            value={qtyOpportunitiesDisabled}
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value="50" style={{height: "5px"}} />
-                                        <Progress bar color="success" value="25" style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyOpportunitiesEnabled * 100} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyOpportunitiesDisabled * 100} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
@@ -145,7 +156,7 @@ export class Administrator extends React.Component {
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
                                         <SessionByDevice 
-                                            title="Abertos"
+                                            title="Abertas"
                                             color="red"
                                             valuePercent={qtyIndicationsNew}
                                             value={qtyIndicationsNew}
@@ -163,17 +174,17 @@ export class Administrator extends React.Component {
                                             value={qtyIndicationsHired}
                                         />
                                         <SessionByDevice 
-                                            title="Finalizados"
+                                            title="Descartadas"
                                             color="purple"
-                                            valuePercent={qtyIndicationsFinihsed}
-                                            value={qtyIndicationsFinihsed}
+                                            valuePercent={qtyIndicationsDiscarded}
+                                            value={qtyIndicationsDiscarded}
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value="50" style={{height: "5px"}} />
-                                        <Progress bar color="primary" value="25" style={{height: "5px"}} />
-                                        <Progress bar color="success" value="25" style={{height: "5px"}} />
-                                        <Progress bar color="purple" value="25" style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyIndicationsNew * 100} style={{height: "5px"}} />
+                                        <Progress bar color="primary" value={qtyIndicationsInProgress * 100} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyIndicationsHired * 100} style={{height: "5px"}} />
+                                        <Progress bar color="purple" value={qtyIndicationsDiscarded * 100} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
@@ -187,7 +198,7 @@ export class Administrator extends React.Component {
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
                                     <SessionByDevice 
-                                            title="Abertos"
+                                            title="Abertas"
                                             color="red"
                                             valuePercent={qtyCandidaturiesNew}
                                             value={qtyCandidaturiesNew}
@@ -205,17 +216,17 @@ export class Administrator extends React.Component {
                                             value={qtyCandidaturiesHired}
                                         />
                                         <SessionByDevice 
-                                            title="Finalizados"
+                                            title="Descartadas"
                                             color="purple"
-                                            valuePercent={qtyCandidaturiesFinihsed}
-                                            value={qtyCandidaturiesFinihsed}
+                                            valuePercent={qtyCandidaturiesDiscarded}
+                                            value={qtyCandidaturiesDiscarded}
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value="50" style={{height: "5px"}} />
-                                        <Progress bar color="primary" value="25" style={{height: "5px"}} />
-                                        <Progress bar color="success" value="25" style={{height: "5px"}} />
-                                        <Progress bar color="purple" value="25" style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyCandidaturiesNew * 100} style={{height: "5px"}} />
+                                        <Progress bar color="primary" value={qtyCandidaturiesInProgress * 100} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyCandidaturiesHired * 100} style={{height: "5px"}} />
+                                        <Progress bar color="purple" value={qtyCandidaturiesDiscarded * 100} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
