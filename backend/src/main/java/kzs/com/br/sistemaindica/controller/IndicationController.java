@@ -2,6 +2,7 @@ package kzs.com.br.sistemaindica.controller;
 
 import kzs.com.br.sistemaindica.entity.Indication;
 import kzs.com.br.sistemaindica.entity.dto.IndicationQuantityDto;
+import kzs.com.br.sistemaindica.entity.dto.IndicationUserQuantityDto;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.IndicationRepository;
@@ -42,6 +43,12 @@ public class IndicationController {
     @GetMapping(path = "/countByStatus")
     public ResponseEntity<IndicationQuantityDto> totalIndicationsByStatus() {
         return ResponseEntity.ok(service.totalIndicationsByStatus());
+    }
+
+    @GetMapping(path = "/countByUser")
+    public ResponseEntity<IndicationUserQuantityDto> totalIndicationsByUser(
+            @RequestParam(value = "userEmail", required = false) String userEmail) {
+        return ResponseEntity.ok(service.totalIndicationsByUser(userEmail));
     }
 
     @PutMapping(path = "/{id}")

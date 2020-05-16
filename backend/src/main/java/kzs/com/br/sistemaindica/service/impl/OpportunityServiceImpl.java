@@ -3,6 +3,7 @@ package kzs.com.br.sistemaindica.service.impl;
 import kzs.com.br.sistemaindica.entity.Campaign;
 import kzs.com.br.sistemaindica.entity.Opportunity;
 import kzs.com.br.sistemaindica.entity.OpportunityBonusLevel;
+import kzs.com.br.sistemaindica.entity.dto.OpportunityQuantityDto;
 import kzs.com.br.sistemaindica.exception.*;
 import kzs.com.br.sistemaindica.repository.CampaignRepository;
 import kzs.com.br.sistemaindica.repository.OpportunityBonusLevelRepository;
@@ -111,6 +112,14 @@ public class OpportunityServiceImpl implements OpportunityService {
         if (isNull(opportunity.getEnabled())) {
             throw new OpportunityEnabledNotProvidedException("Enabled of Opportunity not provided.");
         }
+    }
+
+    @Override
+    public OpportunityQuantityDto totalOpportunitiesByStatus() {
+        return OpportunityQuantityDto.builder()
+                .qtyOpportunitiesEnabled(repository.countOpportunitiesByEnabledIsTrue())
+                .qtyOpportunitiesDisabled(repository.countOpportunitiesByEnabledIsFalse())
+                .build();
     }
 
 }

@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.controller;
 
 import kzs.com.br.sistemaindica.entity.Opportunity;
+import kzs.com.br.sistemaindica.entity.dto.OpportunityQuantityDto;
 import kzs.com.br.sistemaindica.repository.OpportunityRepository;
 import kzs.com.br.sistemaindica.service.OpportunityService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,11 @@ public class OpportunityController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<Opportunity> edit(@PathVariable(value = "id") Long id, @RequestBody Opportunity opportunity) {
         return ResponseEntity.status(ACCEPTED).body(service.edit(opportunity));
+    }
+
+    @GetMapping(path = "/countByStatus")
+    public ResponseEntity<OpportunityQuantityDto> totalOpportunitiesByStatus() {
+        return ResponseEntity.ok(service.totalOpportunitiesByStatus());
     }
 
     @PostMapping

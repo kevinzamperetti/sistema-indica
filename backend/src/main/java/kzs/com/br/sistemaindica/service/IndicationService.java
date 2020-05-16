@@ -2,6 +2,7 @@ package kzs.com.br.sistemaindica.service;
 
 import kzs.com.br.sistemaindica.entity.Indication;
 import kzs.com.br.sistemaindica.entity.dto.IndicationQuantityDto;
+import kzs.com.br.sistemaindica.entity.dto.IndicationUserQuantityDto;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,4 +25,7 @@ public interface IndicationService {
     void delete(Long id);
 
     IndicationQuantityDto totalIndicationsByStatus();
+
+    IndicationUserQuantityDto totalIndicationsByUser(String userEmail);
+
 }

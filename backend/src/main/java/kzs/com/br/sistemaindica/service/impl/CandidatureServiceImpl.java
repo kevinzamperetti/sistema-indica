@@ -146,7 +146,7 @@ public class CandidatureServiceImpl implements CandidatureService {
                 .qtyCandidaturiesNew(repository.countCandidatureStatusNew())
                 .qtyCandidaturiesInProgress(repository.countCandidatureStatusInProgress())
                 .qtyCandidaturiesHired(repository.countCandidatureStatusHired())
-                .qtyCandidaturiesFinihsed(repository.countCandidatureStatusFinished())
+                .qtyCandidaturiesDiscarded(repository.countCandidatureStatusDiscarded())
                 .build();
     }
 }

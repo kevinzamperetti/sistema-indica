@@ -5,6 +5,7 @@ import { Container, FloatGrid as Grid, Card, CardBody, Progress, CardHeader } fr
 import { applyColumn } from '../../../components/FloatGrid';
 import { HeaderMain } from "../../components/HeaderMain";
 import classes from './Collaborator.scss';
+import API from '../../../services/api';
 
 const LAYOUT = {
     'opportunity': { md: 6, h: 6, maxH: 9, minW: 3 },
@@ -43,8 +44,18 @@ SessionByDevice.propTypes = {
 
 export class Collaborator extends React.Component {
     state = {
-        layouts: _.clone(LAYOUT)
+        layouts: _.clone(LAYOUT),
+        qtyOpportunitiesEnabled: '',
+        qtyOpportunitiesDisabled: '',
+        qtyIndicationsInProgressByUser: '',
+        qtyIndicationsHiredByUser: '',
+        qtyIndicationsDiscardedByUser: ''
     }
+
+    componentDidMount() {
+        this.listTotalOpportunities();
+        this.listTotalIndicationsByUser();
+	}
 
     _resetLayout = () => {
         this.setState({
@@ -52,8 +63,29 @@ export class Collaborator extends React.Component {
         })
     }
 
+    listTotalOpportunities = async () => {
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        const response = await API.get( '/opportunity/countByStatus', header )
+		this.setState( { 
+            qtyOpportunitiesEnabled: response.data.qtyOpportunitiesEnabled,
+            qtyOpportunitiesDisabled: response.data.qtyOpportunitiesDisabled
+        }  )
+    }
+
+    listTotalIndicationsByUser = async () => {
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        const userEmail = localStorage.getItem('Email')
+        const response = await API.get( `/indication/countByUser?userEmail=${userEmail}`, header )
+		this.setState( { 
+            qtyIndicationsInProgressByUser: response.data.qtyIndicationsInProgressByUser,
+            qtyIndicationsHiredByUser: response.data.qtyIndicationsHiredByUser,
+            qtyIndicationsDiscardedByUser: response.data.qtyIndicationsDiscardedByUser
+        }  )
+    }
+
     render() {
-        const { layouts } = this.state;
+        const { layouts, qtyOpportunitiesEnabled, qtyOpportunitiesDisabled, qtyIndicationsInProgressByUser,
+                qtyIndicationsHiredByUser, qtyIndicationsDiscardedByUser } = this.state;
 
         return (
             <React.Fragment>
@@ -80,70 +112,56 @@ export class Collaborator extends React.Component {
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
                                         <SessionByDevice 
-                                            title="Abertos"
+                                            title="Abertas"
                                             color="red"
-                                            valuePercent="50"
-                                            value="50"
+                                            valuePercent={qtyOpportunitiesEnabled}
+                                            value={qtyOpportunitiesEnabled}
                                         />
                                         <SessionByDevice 
-                                            title="Em andamento"
-                                            color="primary"
-                                            valuePercent="25"
-                                            value="25"
-                                        />
-                                        <SessionByDevice 
-                                            title="Finalizados"
+                                            title="Finalizadas"
                                             color="success"
-                                            valuePercent="25"
-                                            value="25"
+                                            valuePercent={qtyOpportunitiesDisabled}
+                                            value={qtyOpportunitiesDisabled}
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value="50" style={{height: "5px"}} />
-                                        <Progress bar color="primary" value="25" style={{height: "5px"}} />
-                                        <Progress bar color="success" value="25" style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyOpportunitiesEnabled * 100} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyOpportunitiesDisabled * 100} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
                         </Grid.Col>
                         {/* Indicações realizadas por você */}
                         <Grid.Col { ...(applyColumn('indication', layouts)) }>
-                            <Card>
+                        <Card>
                                 <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h6">
                                     <i className="fa fa-ellipsis-v text-body mr-2"></i> Indicações realizadas por você
                                 </CardHeader>
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
                                         <SessionByDevice 
-                                            title="Abertos"
-                                            color="red"
-                                            valuePercent="50"
-                                            value="50"
-                                        />
-                                        <SessionByDevice 
                                             title="Em andamento"
                                             color="primary"
-                                            valuePercent="25"
-                                            value="25"
+                                            valuePercent={qtyIndicationsInProgressByUser}
+                                            value={qtyIndicationsInProgressByUser}
                                         />
                                         <SessionByDevice 
                                             title="Contratadas"
                                             color="success"
-                                            valuePercent="5"
-                                            value="5"
+                                            valuePercent={qtyIndicationsHiredByUser}
+                                            value={qtyIndicationsHiredByUser}
                                         />
                                         <SessionByDevice 
-                                            title="Finalizados"
-                                            color="purple"
-                                            valuePercent="20"
-                                            value="20"
+                                            title="Descartadas"
+                                            color="red"
+                                            valuePercent={qtyIndicationsDiscardedByUser}
+                                            value={qtyIndicationsDiscardedByUser}
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value="50" style={{height: "5px"}} />
-                                        <Progress bar color="primary" value="25" style={{height: "5px"}} />
-                                        <Progress bar color="success" value="25" style={{height: "5px"}} />
-                                        <Progress bar color="purple" value="25" style={{height: "5px"}} />
+                                        <Progress bar color="primary" value={qtyIndicationsInProgressByUser * 100} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyIndicationsHiredByUser * 100} style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyIndicationsDiscardedByUser * 100} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>

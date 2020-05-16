@@ -5,6 +5,7 @@ public enum IndicationStatus {
     NEW,
     IN_PROGRESS,
     HIRED,
+    DISCARDED,
     FINISHED,
 
 

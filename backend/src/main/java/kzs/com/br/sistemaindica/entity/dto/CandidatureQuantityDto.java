@@ -15,6 +15,6 @@ public class CandidatureQuantityDto {
 
     private int qtyCandidaturiesHired;
 
-    private int qtyCandidaturiesFinihsed;
+    private int qtyCandidaturiesDiscarded;
 
 }

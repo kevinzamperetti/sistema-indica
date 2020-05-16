@@ -62,7 +62,26 @@ public interface IndicationRepository extends JpaRepository<Indication, Long> {
 
     @Query("SELECT count(i) " +
             " FROM Indication i " +
-            "WHERE i.status = 'FINISHED'")
-    int countIndicationStatusFinished();
+            "WHERE i.status = 'DISCARDED'")
+    int countIndicationStatusDiscarded();
+
+    @Query("SELECT count(i) " +
+            " FROM Indication i " +
+            "WHERE i.user.email = :email" +
+            "  AND i.status in ('NEW', 'IN_PROGRESS')")
+    int countIndicationsInProgressByUser(@Param("email") String email);
+
+    @Query("SELECT count(i) " +
+            " FROM Indication i " +
+            "WHERE i.user.email = :email" +
+            "  AND i.status = 'HIRED'")
+    int countIndicationsHiredByUser(@Param("email") String email);
+
+    @Query("SELECT count(i) " +
+            " FROM Indication i " +
+            "WHERE i.user.email = :email" +
+            "  AND i.status = 'DISCARDED'")
+    int countIndicationsDiscardedByUser(@Param("email") String email);
+
 
 }

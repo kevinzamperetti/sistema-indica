@@ -15,6 +15,6 @@ public class IndicationQuantityDto {
 
     private int qtyIndicationsHired;
 
-    private int qtyIndicationsFinihsed;
+    private int qtyIndicationsDiscarded;
 
 }

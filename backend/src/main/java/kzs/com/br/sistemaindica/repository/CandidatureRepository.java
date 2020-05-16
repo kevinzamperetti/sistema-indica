@@ -60,7 +60,7 @@ public interface CandidatureRepository extends JpaRepository<Candidature, Long> 
 
     @Query("SELECT count(c) " +
             " FROM Candidature c " +
-            "WHERE c.status = 'FINISHED'")
-    int countCandidatureStatusFinished();
+            "WHERE c.status = 'DISCARDED'")
+    int countCandidatureStatusDiscarded();
 
 }

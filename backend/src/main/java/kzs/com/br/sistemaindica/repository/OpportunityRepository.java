@@ -31,4 +31,8 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Long> 
             "ORDER BY o.name")
     Set<Opportunity> findOpportunityByEnabled(@Param("enabled") Boolean enabled);
 
+    int countOpportunitiesByEnabledIsTrue();
+
+    int countOpportunitiesByEnabledIsFalse();
+
 }

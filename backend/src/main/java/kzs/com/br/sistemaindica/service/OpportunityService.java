@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.service;
 
 import kzs.com.br.sistemaindica.entity.Opportunity;
+import kzs.com.br.sistemaindica.entity.dto.OpportunityQuantityDto;
 
 public interface OpportunityService {
 
@@ -11,4 +12,7 @@ public interface OpportunityService {
     Opportunity edit(Opportunity opportunity);
 
     void delete(Long id);
+
+    OpportunityQuantityDto totalOpportunitiesByStatus();
+
 }
