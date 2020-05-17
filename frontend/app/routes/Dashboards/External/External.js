@@ -104,8 +104,8 @@ export class External extends React.Component {
                         {/* Oportunidades */}
                         <Grid.Col { ...(applyColumn('opportunity', layouts)) }>
                             <Card>
-                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h6">
-                                    <i className="fa fa-ellipsis-v text-body mr-2"></i> Oportunidades
+                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
+                                    Oportunidades
                                 </CardHeader>
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
@@ -123,8 +123,8 @@ export class External extends React.Component {
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value={qtyOpportunitiesEnabled * 100} style={{height: "5px"}} />
-                                        <Progress bar color="success" value={qtyOpportunitiesDisabled * 100} style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyOpportunitiesEnabled} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyOpportunitiesDisabled} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
@@ -132,8 +132,8 @@ export class External extends React.Component {
                         {/* Indicações */}
                         <Grid.Col { ...(applyColumn('indication', layouts)) }>
                             <Card>
-                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h6">
-                                    <i className="fa fa-ellipsis-v text-body mr-2"></i> Indicações realizadas por você
+                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
+                                    Indicações realizadas por você
                                 </CardHeader>
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
@@ -157,9 +157,9 @@ export class External extends React.Component {
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="primary" value={qtyIndicationsInProgressByUser * 100} style={{height: "5px"}} />
-                                        <Progress bar color="success" value={qtyIndicationsHiredByUser * 100} style={{height: "5px"}} />
-                                        <Progress bar color="red" value={qtyIndicationsDiscardedByUser * 100} style={{height: "5px"}} />
+                                        <Progress bar color="primary" value={qtyIndicationsInProgressByUser} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyIndicationsHiredByUser} style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyIndicationsDiscardedByUser} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>

@@ -122,8 +122,8 @@ export class Administrator extends React.Component {
                         rowHeight={ 55 }>
                         <Grid.Col { ...(applyColumn('opportunity', layouts)) }>
                             <Card>
-                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h6">
-                                    <i className="fa fa-ellipsis-v text-body mr-2"></i> Oportunidades
+                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
+                                    Oportunidades
                                 </CardHeader>
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
@@ -141,8 +141,8 @@ export class Administrator extends React.Component {
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value={qtyOpportunitiesEnabled * 100} style={{height: "5px"}} />
-                                        <Progress bar color="success" value={qtyOpportunitiesDisabled * 100} style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyOpportunitiesEnabled} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyOpportunitiesDisabled} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
@@ -150,8 +150,8 @@ export class Administrator extends React.Component {
                         {/* Indicações */}
                         <Grid.Col { ...(applyColumn('indication', layouts)) }>
                             <Card>
-                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h6">
-                                    <i className="fa fa-ellipsis-v text-body mr-2"></i> Indicações
+                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
+                                    Indicações
                                 </CardHeader>
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
@@ -181,10 +181,10 @@ export class Administrator extends React.Component {
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value={qtyIndicationsNew * 100} style={{height: "5px"}} />
-                                        <Progress bar color="primary" value={qtyIndicationsInProgress * 100} style={{height: "5px"}} />
-                                        <Progress bar color="success" value={qtyIndicationsHired * 100} style={{height: "5px"}} />
-                                        <Progress bar color="purple" value={qtyIndicationsDiscarded * 100} style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyIndicationsNew} style={{height: "5px"}} />
+                                        <Progress bar color="primary" value={qtyIndicationsInProgress} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyIndicationsHired} style={{height: "5px"}} />
+                                        <Progress bar color="purple" value={qtyIndicationsDiscarded} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
@@ -192,8 +192,8 @@ export class Administrator extends React.Component {
                         {/* Candidaturas */}
                         <Grid.Col { ...(applyColumn('candidature', layouts)) }>
                             <Card>
-                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h6">
-                                    <i className="fa fa-ellipsis-v text-body mr-2"></i> Candidaturas
+                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
+                                    Candidaturas
                                 </CardHeader>
                                 <CardBody className="d-flex flex-column">
                                     <div className={classes['sessions']}>
@@ -223,10 +223,10 @@ export class Administrator extends React.Component {
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value={qtyCandidaturiesNew * 100} style={{height: "5px"}} />
-                                        <Progress bar color="primary" value={qtyCandidaturiesInProgress * 100} style={{height: "5px"}} />
-                                        <Progress bar color="success" value={qtyCandidaturiesHired * 100} style={{height: "5px"}} />
-                                        <Progress bar color="purple" value={qtyCandidaturiesDiscarded * 100} style={{height: "5px"}} />
+                                        <Progress bar color="red" value={qtyCandidaturiesNew} style={{height: "5px"}} />
+                                        <Progress bar color="primary" value={qtyCandidaturiesInProgress} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyCandidaturiesHired} style={{height: "5px"}} />
+                                        <Progress bar color="purple" value={qtyCandidaturiesDiscarded} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
