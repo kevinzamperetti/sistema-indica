@@ -40,36 +40,102 @@ import { SidebarASidebar } from './../layout/components/SidebarASidebar';
 
 //------ Route Definitions --------
 // eslint-disable-next-line no-unused-vars
-export const RoutedContent = () => {
-    return (
-        <Switch>
-            <Redirect from="/" to="/pages/login" exact />
-            <Route component={ Login } path="/pages/login" />
-            <Route component={ Register } path="/pages/register" />
-            
-            <PrivateRoute path="/home/graphics" exact component={Administrator} />
-            <PrivateRoute path="/home/graphics-collaborator" exact component={Collaborator} />
-            <PrivateRoute path="/home/graphics-external" exact component={External} />
-            <PrivateRoute path="/pages/campaign" exact component={Campaign} />
-            <PrivateRoute path="/pages/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
-            <PrivateRoute path="/pages/opportunity" exact component={Opportunity} />
-            <PrivateRoute path="/pages/key-word" exact component={KeyWord} />
-            <PrivateRoute path="/pages/indication" exact component={Indication} />
-            <PrivateRoute path="/pages/candidature" exact component={Candidature} />
-            
-            { /*    Layouts     */ }
-            <Route path='/layouts/navbar' component={NavbarOnly} />
-            <Route path='/layouts/sidebar' component={SidebarDefault} />
-            <Route path='/layouts/sidebar-a' component={SidebarA} />
-            <Route path="/layouts/sidebar-with-navbar" component={SidebarWithNavbar} />
-            <Route path='/layouts/dnd-layout' component={DragAndDropLayout} />
-            <Route path='/icons' exact component={Icons} />
+export class RoutedContent extends React.Component {
+    render() {
+        if ( localStorage.getItem('Profile') === 'ADMINISTRATOR' ) {
+            return (
+                <Switch>
+                    <Redirect from="/" to="/pages/login" exact />
+                    <Route component={ Login } path="/pages/login" />
+                    <Route component={ Register } path="/pages/register" />
+                    {/* Administrator */}
+                    <PrivateRoute path="/administrator/home" exact component={Administrator} />
+                    <PrivateRoute path="/administrator/campaign" exact component={Campaign} />
+                    <PrivateRoute path="/administrator/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
+                    <PrivateRoute path="/administrator/opportunity" exact component={Opportunity} />
+                    <PrivateRoute path="/administrator/key-word" exact component={KeyWord} />
 
-            { /*    404    */ }
-            <Redirect to="/pages/error-404" />
-        </Switch>
-    );
-};
+                    <PrivateRoute path="/administrator/indication-list" exact component={KeyWord} />
+                    <PrivateRoute path="/administrator/candidature-list" exact component={KeyWord} />
+
+                    { /*    404    */ }
+                    <Redirect to="/pages/error-404" />
+                </Switch>
+            )
+        } else if ( localStorage.getItem('Profile') === 'EXTERNAL' ) {
+            return (
+                <Switch>
+                    <Redirect from="/" to="/pages/login" exact />
+                    <Route component={ Login } path="/pages/login" />
+                    <Route component={ Register } path="/pages/register" />
+                    {/* External */}
+                    <PrivateRoute path="/external/home" exact component={External} />
+                    <PrivateRoute path="/external/candidature" exact component={Candidature} />
+                    <PrivateRoute path="/external/indication" exact component={Indication} />
+                    { /*    404    */ }
+                    <Redirect to="/pages/error-404" />
+                </Switch>
+            )
+        } else if ( localStorage.getItem('Profile') === 'COLLABORATOR' ) {
+            return (
+                <Switch>
+                    <Redirect from="/" to="/pages/login" exact />
+                    <Route component={ Login } path="/pages/login" />
+                    <Route component={ Register } path="/pages/register" />
+                    {/* Collaborator */}
+                    <PrivateRoute path="/collaborator/home" exact component={Collaborator} />
+                    <PrivateRoute path="/collaborator/indication" exact component={Indication} />
+                    { /*    404    */ }
+                    <Redirect to="/pages/error-404" />
+                </Switch>
+            )
+        } else {
+            return (
+                <Switch>
+                    <Redirect from="/" to="/pages/login" exact />
+                    <Route component={ Login } path="/pages/login" />
+                    <Route component={ Register } path="/pages/register" />
+                   { /*    404    */ }
+                    <Redirect to="/pages/error-404" />
+                </Switch>
+            )
+        }
+    }
+}   
+    // return (
+    //     <Switch>
+    //         <Redirect from="/" to="/pages/login" exact />
+    //         <Route component={ Login } path="/pages/login" />
+    //         <Route component={ Register } path="/pages/register" />
+    //         {/* Administrator */}
+    //         <PrivateRoute path="/home/graphics" exact component={Administrator} />
+    //         <PrivateRoute path="/pages/campaign" exact component={Campaign} />
+    //         <PrivateRoute path="/pages/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
+    //         <PrivateRoute path="/pages/opportunity" exact component={Opportunity} />
+    //         <PrivateRoute path="/pages/key-word" exact component={KeyWord} />
+
+    //         {/* Collaborator */}
+    //         <PrivateRoute path="/home/graphics-collaborator" exact component={Collaborator} />
+    //         <PrivateRoute path="/pages/indication" exact component={Indication} />
+
+    //         {/* External */}
+    //         <PrivateRoute path="/home/graphics-external" exact component={External} />
+    //         <PrivateRoute path="/pages/candidature" exact component={Candidature} />
+    //         <PrivateRoute path="/pages/indication" exact component={Indication} />
+            
+    //         { /*    Layouts     */ }
+    //         <Route path='/layouts/navbar' component={NavbarOnly} />
+    //         <Route path='/layouts/sidebar' component={SidebarDefault} />
+    //         <Route path='/layouts/sidebar-a' component={SidebarA} />
+    //         <Route path="/layouts/sidebar-with-navbar" component={SidebarWithNavbar} />
+    //         <Route path='/layouts/dnd-layout' component={DragAndDropLayout} />
+    //         <Route path='/icons' exact component={Icons} />
+
+    //         { /*    404    */ }
+    //         <Redirect to="/pages/error-404" />
+    //     </Switch>
+    // );
+// };
 
 //------ Custom Layout Parts --------
 export const RoutedNavbars  = () => (
