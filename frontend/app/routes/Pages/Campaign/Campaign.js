@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
+import MUIDataTable from "mui-datatables";
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import MaskedInput from 'react-text-mask';
 import Toggle from 'react-toggle';
 import moment from 'moment';
 import { HeaderDemo } from "../../components/HeaderDemo";
-//import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
-// import { CampaignList } from './CampaignList/CampaignList'
 import { 
-    Button, ButtonGroup , Container, Row, Col, Card, CardBody, CardFooter,
-    Form, FormGroup, Label, Media, Input,Table
+    Badge, Button, Container, Row, Col, Card, CardBody, CardFooter,
+    Form, FormGroup, Label, Media, Input
 } from '../../../components';
 
-
-import { TableList } from '../../../components/Tables/TableList';
-
+import Util from '../../../components/Util/Util';
 import API from '../../../services/api';
 
 import {
@@ -21,6 +19,7 @@ import {
     createNumberMask,
     emailMask
 } from 'text-mask-addons';
+
 // const autoCorrectedDatePipe = createAutoCorrectedDatePipe('mm/dd/yyyy');
 const dolarsMask = createNumberMask({ prefix: '$' });
 
@@ -80,6 +79,7 @@ const errorFillFields = ({ closeToast }) => (
 export default class Campaign extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
 			name: '',
             expirationDate: '',
@@ -88,7 +88,7 @@ export default class Campaign extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.listAllCampaigns();
     }
 
@@ -145,6 +145,17 @@ export default class Campaign extends Component {
 
     render() {
         const { listCampaign } = this.state
+        const columns = ["Nome", "Data de Expiração", "Situação", ""];
+        const data = listCampaign.length > 0
+                        ? listCampaign.map( ( campaign ) => 
+                            [ campaign.name, moment(campaign.expirationDate, "YYYY-MM-DD", true).format("DD/MM/YYYY"),
+                              <Badge pill color={this.util.setEnabledColor(campaign.enabled)}>
+                                {this.util.setEnabledName(campaign.enabled)}
+                              </Badge>,
+                              <Link className="fa fa-close" onClick={ this.delete.bind( this, campaign ) }/>
+                            ] )
+                        : []
+        const options = this.util.optionsMUIDataTable;
         return (
             <React.Fragment>
                 <Container>
@@ -214,65 +225,11 @@ export default class Campaign extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            {/* <CampaignList /> */}
-                            {/* <TableList title="Campanhas de Indicação" dataList={listCampaign} /> */}
-                            <Table className="mb-0" bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th colSpan="4" className="align-middle">Campanhas de Indicação cadastradas</th>
-                                    </tr>
-                                </thead>
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Data de Expiração</th>
-                                        <th>Situação</th>
-                                        <th colSpan="2" className="align-center">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { listCampaign.length > 0 ?
-                                        <React.Fragment>
-                                            { listCampaign.map( ( campaign ) => { 
-                                                return (
-                                                    <tr key={campaign.id}>
-                                                        <td className="align-self-center" width='100%'>
-                                                            <span className="text-inverse"> { campaign.name } </span>
-                                                        </td>
-                                                        <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> 
-                                                                { moment(campaign.expirationDate, "YYYY-MM-DD", true).format("DD/MM/YYYY") }
-                                                             </span>
-                                                        </td>
-                                                        <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> { campaign.enabled === true ? 'Ativo' : 'Inativo' } </span>
-                                                        </td>
-                                                        <td className="align-middle text-right">
-                                                            <ButtonGroup>
-                                                                <Button color="link" className="text-decoration-none">
-                                                                    <i className="fa fa-edit"></i>
-                                                                </Button>
-                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, campaign ) }>
-                                                                    <i className="fa fa-close"></i>
-                                                                </Button>
-                                                            </ButtonGroup>
-                                                        </td>
-                                                    </tr>
-                                                    ) } 
-                                                )
-                                            }
-                                        </React.Fragment>
-                                        :
-                                            <tr>
-                                                <td>
-                                                    <span className="text-inverse">
-                                                        Não existem dados para serem listados
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                    }
-                                </tbody>
-                            </Table>
+                            <MUIDataTable
+                                title={""}
+                                data={data}
+                                columns={columns}
+                                options={options}/>
                         </Col>
                     </Row>
                     <ToastContainer 

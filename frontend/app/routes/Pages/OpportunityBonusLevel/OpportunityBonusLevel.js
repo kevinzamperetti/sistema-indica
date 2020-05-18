@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import MUIDataTable from "mui-datatables";
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 // import DatePicker, { setDefaultLocale } from 'react-datepicker';
 import MaskedInput from 'react-text-mask';
@@ -6,9 +8,10 @@ import Toggle from 'react-toggle';
 import { createNumberMask } from 'text-mask-addons';
 import { HeaderDemo } from "../../components/HeaderDemo";
 import { 
-    Button, ButtonGroup, Container, Row, Col, Card, CardBody, CardFooter,
+    Badge, Button, ButtonGroup, Container, Row, Col, Card, CardBody, CardFooter,
     Form, FormGroup, Label, Media, Input, InputGroup, InputGroupAddon, Table
 } from '../../../components';
+import Util from '../../../components/Util/Util';
 import API from '../../../services/api';
 
 // const realMaskDecimal = createNumberMask({ prefix: 'R$', allowDecimal: true, thousandsSeparatorSymbol: ".", decimalSymbol : "," });
@@ -70,6 +73,7 @@ const errorFillFields = ({ closeToast }) => (
 export default class OpportunityBonusLevel extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
 			name: '',
 			bonusValue: '',
@@ -78,7 +82,7 @@ export default class OpportunityBonusLevel extends Component {
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.listAllOpportunityBonusLevel();
     }
 
@@ -134,6 +138,18 @@ export default class OpportunityBonusLevel extends Component {
     
     render() {
         const { listOpportunityBonusLevel } = this.state
+        const columns = ["Nome", "Valor", "Situação", ""];
+        const data = listOpportunityBonusLevel.length > 0
+                        ? listOpportunityBonusLevel.map( ( opportunityBonusLevel ) => 
+                            [ opportunityBonusLevel.name,
+                              opportunityBonusLevel.value.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}),
+                              <Badge pill color={this.util.setEnabledColor(opportunityBonusLevel.enabled)}>
+                                {this.util.setEnabledName(opportunityBonusLevel.enabled)}
+                              </Badge>,
+                              <Link className="fa fa-close" onClick={ this.delete.bind( this, opportunityBonusLevel ) }/>
+                            ] )
+                        : []
+        const options = this.util.optionsMUIDataTable;
         return (
             <React.Fragment>
                 <Container>
@@ -218,64 +234,11 @@ export default class OpportunityBonusLevel extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            {/* <CampaignList /> */}
-                            <Table className="mb-0" bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th colSpan="4" className="align-middle">Campanhas de Indicação cadastradas</th>
-                                    </tr>
-                                </thead>
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Valor</th>
-                                        <th>Situação</th>
-                                        <th colSpan="2" className="align-center">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { listOpportunityBonusLevel.length > 0 ?
-                                        <React.Fragment>
-                                            { listOpportunityBonusLevel.map( ( opportunityBonusLevel ) => { 
-                                                return (
-                                                    <tr key={opportunityBonusLevel.id}>
-                                                        <td className="align-self-center" width='100%'>
-                                                            <span className="text-inverse"> { opportunityBonusLevel.name } </span>
-                                                        </td>
-                                                        <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> 
-                                                                { opportunityBonusLevel.value.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) }
-                                                            </span>
-                                                        </td>
-                                                        <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> { opportunityBonusLevel.enabled === true ? 'Ativo' : 'Inativo' } </span>
-                                                        </td>
-                                                        <td className="align-middle text-right">
-                                                            <ButtonGroup>
-                                                                <Button color="link" className="text-decoration-none">
-                                                                    <i className="fa fa-edit"></i>
-                                                                </Button>
-                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, opportunityBonusLevel ) }>
-                                                                    <i className="fa fa-close"></i>
-                                                                </Button>
-                                                            </ButtonGroup>
-                                                        </td>
-                                                    </tr>
-                                                    ) } 
-                                                )
-                                            }
-                                        </React.Fragment>
-                                        :
-                                            <tr>
-                                                <td>
-                                                    <span className="text-inverse">
-                                                        Não existem dados para serem listados
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                    }
-                                </tbody>
-                            </Table>
+                            <MUIDataTable
+                                title={""}
+                                data={data}
+                                columns={columns}
+                                options={options}/>
                         </Col>
                     </Row>
                     <ToastContainer 

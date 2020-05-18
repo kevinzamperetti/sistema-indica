@@ -3,6 +3,92 @@ import { Link } from 'react-router-dom';
 
 export default class Util extends React.Component {
 
+    optionsMUIDataTable = {
+        filterType: "dropdown",
+        responsive: 'stacked',
+        selectableRows: "none",
+        download: false,
+        viewColumns: false,
+        textLabels: {
+            body: {
+              noMatch: "Nenhum registro encontrado",
+              toolTip: "Ordernar",
+              columnHeaderTooltip: column => `Ordernar por ${column.label}`
+            },
+            pagination: {
+              next: "Próxima página",
+              previous: "Página anterior",
+              rowsPerPage: "Linhas por página:",
+              displayRows: "do",
+            },
+            toolbar: {
+              search: "Procurar",
+              downloadCsv: "Download CSV",
+              print: "Imprimir",
+              viewColumns: "Exibir Colunas",
+              filterTable: "Tabela de Filtro",
+            },
+            filter: {
+              all: "Todos",
+              title: "FILTROS",
+              reset: "REDEFINIR",
+            },
+            viewColumns: {
+              title: "Mostrar Colunas",
+              titleAria: "Mostrar/Ocultar Colunas da Tabela",
+            },
+            selectedRows: {
+              text: "linha(s) selecionada(s)",
+              delete: "Excluir",
+              deleteAria: "Excluir linhas selecionadas",
+            },
+          }
+    };
+
+    optionsMUIDataTableWithOutPrintAndFilter = {
+        filterType: "dropdown",
+        responsive: 'stacked',
+        selectableRows: "none",
+        download: false,
+        print: false,
+        filter: false,
+        viewColumns: false,
+        textLabels: {
+            body: {
+              noMatch: "Nenhum registro encontrado",
+              toolTip: "Ordernar",
+              columnHeaderTooltip: column => `Ordernar por ${column.label}`
+            },
+            pagination: {
+              next: "Próxima página",
+              previous: "Página anterior",
+              rowsPerPage: "Linhas por página:",
+              displayRows: "do",
+            },
+            toolbar: {
+              search: "Procurar",
+              downloadCsv: "Download CSV",
+              print: "Imprimir",
+              viewColumns: "Exibir Colunas",
+              filterTable: "Tabela de Filtro",
+            },
+            filter: {
+              all: "Todos",
+              title: "FILTROS",
+              reset: "REDEFINIR",
+            },
+            viewColumns: {
+              title: "Mostrar Colunas",
+              titleAria: "Mostrar/Ocultar Colunas da Tabela",
+            },
+            selectedRows: {
+              text: "linha(s) selecionada(s)",
+              delete: "Excluir",
+              deleteAria: "Excluir linhas selecionadas",
+            },
+          }
+    };
+
 	logout() {
 		localStorage.removeItem('Authorization')
 		localStorage.removeItem('Email')
@@ -10,6 +96,70 @@ export default class Util extends React.Component {
 		localStorage.removeItem('Profile')
 		localStorage.removeItem('SectorCompany')
 	} 
+	
+	setIndicationStatusColor(status) {
+        if (status === 'FINISHED') {
+            return "secondary"
+        } else if (status === 'IN_PROGRESS') {
+            return "primary"
+        } else if (status === 'NEW') {
+            return "warning"
+        } else if (status === 'HIRED') {
+            return "success"
+        }
+    }
+
+    setIndicationStatusName(status) {
+        if (status === 'FINISHED') {
+            return "Finalizada"
+        } else if (status === 'IN_PROGRESS') {
+            return "Em andamento"
+        } else if (status === 'NEW') {
+            return "Nova"
+        } else if (status === 'HIRED') {
+            return "Contratada"
+        }
+    }
+
+	setCandidatureStatusColor(status) {
+        if (status === 'FINISHED') {
+            return "secondary"
+        } else if (status === 'IN_PROGRESS') {
+            return "primary"
+        } else if (status === 'NEW') {
+            return "warning"
+        } else if (status === 'HIRED') {
+            return "success"
+        }
+    }
+
+    setCandidatureStatusName(status) {
+        if (status === 'FINISHED') {
+            return "Finalizada"
+        } else if (status === 'IN_PROGRESS') {
+            return "Em andamento"
+        } else if (status === 'NEW') {
+            return "Nova"
+        } else if (status === 'HIRED') {
+            return "Contratada"
+        }
+    }
+
+    setEnabledColor(enabled) {
+        if (enabled === true) {
+            return "success"
+        } else {
+            return "secondary"
+        }
+    }
+
+    setEnabledName(enabled) {
+        if (enabled === true) {
+            return "Ativo"
+        } else {
+            return "Inativo"
+        }
+    }
 
 	render() {
 		return (

@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
+import MUIDataTable from "mui-datatables";
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { HeaderDemo } from "../../components/HeaderDemo";
 import { 
-    Button, ButtonGroup, Container, Row, Col, Card, CardBody, CardFooter, CustomInput,
+    Badge, Button, ButtonGroup, Container, Row, Col, Card, CardBody, CardFooter, CustomInput,
     Form, FormGroup, Label, Media, Input, Table
 } from '../../../components';
-
-// import { BasicBehaviors, InputSize, ControllingSelections } from '../../../routes/Forms/Typeahead/components';
-// import { TrTableBordered } from '../../Tables/Tables/components/TrTableBordered';
-
+import Util from '../../../components/Util/Util';
 import API from '../../../services/api';
 
 // ========== Toast Contents: ============
@@ -67,6 +66,7 @@ const errorFillFields = ({ closeToast }) => (
 export default class KeyWord extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
             word: '',
 			opportunityIdSelector: '',
@@ -76,7 +76,7 @@ export default class KeyWord extends Component {
 		}
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.listAllOpportunities();
     }
 
@@ -166,6 +166,15 @@ export default class KeyWord extends Component {
     
     render() {
         const { listOpportunities, listKeyWords } = this.state
+        const columns = ["Palavras chaves cadastradas para esta oportunidade", ""];
+        const data = listKeyWords.length > 0
+                        ? listKeyWords.map( ( keyWord ) => 
+                            [ keyWord.word,
+                              <Link className="fa fa-close" onClick={ this.delete.bind( this, keyWord ) }/>
+                            ] )
+                        : []
+        const options = this.util.optionsMUIDataTableWithOutPrintAndFilter
+
         return (
             <React.Fragment>
                 <Container>
@@ -226,50 +235,11 @@ export default class KeyWord extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <Table className="mb-0" bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th colSpan="2" className="align-middle">Palavras chaves cadastradas para esta oportunidade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { listKeyWords.length > 0 ?
-                                        <React.Fragment>
-                                            { listKeyWords.map( ( keyWord ) => { 
-                                                return (
-                                                    <tr key={keyWord.id}>
-                                                        <td className="align-middle" width='100%'>
-                                                                        <span className="text-inverse">
-                                                                            { keyWord.word }
-                                                                        </span>
-                                                        </td>
-                                                        <td className="align-middle text-right">
-                                                            <ButtonGroup>
-                                                                {/* <Button color="link" className="text-decoration-none">
-                                                                    <i className="fa fa-edit"></i>
-                                                                </Button> */}
-                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, keyWord ) }>
-                                                                    <i className="fa fa-close"></i>
-                                                                </Button>
-                                                            </ButtonGroup>
-                                                        </td>
-                                                    </tr>
-                                                    ) } 
-                                                )
-                                            }
-                                        </React.Fragment>
-                                        :
-                                            <tr>
-                                                <td>
-                                                    <span className="text-inverse">
-                                                        Não existem palavras chaves cadastradas para esta oportunidade
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                    
-                            </Table>
+                            <MUIDataTable
+                                title={""}
+                                data={data}
+                                columns={columns}
+                                options={options}/>
                         </Col>
                     </Row>
                     <ToastContainer 

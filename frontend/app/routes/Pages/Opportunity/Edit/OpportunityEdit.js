@@ -327,11 +327,6 @@ export default class OpportunityEdit extends Component {
                             </Card>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col>
-                            {/* <CampaignList /> */}
-                        </Col>
-                    </Row>
                     <ToastContainer 
                         position='top-right'
                         autoClose={3000}

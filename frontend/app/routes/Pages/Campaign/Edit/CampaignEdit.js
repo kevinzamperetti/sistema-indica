@@ -20,8 +20,6 @@ import {
 } from '../../../components';
 
 import { HeaderDemo } from "../../components/HeaderDemo";
-//import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
-import { CampaignList } from './CampaignList/CampaignList'
 
 import API from '../../../services/api';
 
@@ -214,11 +212,6 @@ export default class CampaignEdit extends Component {
                                     </div>
                                 </CardFooter>
                             </Card>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            {/* <CampaignList /> */}
                         </Col>
                     </Row>
                     <ToastContainer 

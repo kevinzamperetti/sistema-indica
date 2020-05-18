@@ -63,6 +63,7 @@
     "holderjs": "^2.9.6",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
+    "mui-datatables": "^2.14.0",
     "node-fetch": "^2.6.0",
     "numeral": "^2.0.6",
     "prop-types": "^15.7.2",

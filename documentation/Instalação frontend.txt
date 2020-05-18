@@ -11,3 +11,6 @@ npm install --save react-router-dom
 npm install axios --save
 
 npm install --save react-toastify
+
+npm install mui-datatables --save
+(documentação: https://github.com/gregnb/mui-datatables)
