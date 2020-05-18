@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Container, FloatGrid as Grid, Card, CardBody, Progress, CardHeader } from '../../../components';
+import { Container, FloatGrid as Grid, Card, CardBody, Progress, CardHeader, Col, Row, Table, Badge } from '../../../components';
 import { applyColumn } from '../../../components/FloatGrid';
 import { HeaderMain } from "../../components/HeaderMain";
 import classes from './Collaborator.scss';
@@ -96,6 +96,29 @@ export class Collaborator extends React.Component {
                             className="mt-0"
                         />
                     </div>
+                    <Row className="mb-5">
+                        <Col lg={ 3 }>
+                            <div className="hr-text hr-text-left my-2">
+                                <span>Oportunidades</span>
+                            </div>
+                            <Table size="sm">
+                                <tbody>
+                                    <tr>
+                                        <td className="text-inverse bt-0">Abertas</td>
+                                        <td className="text-right bt-0">
+                                            <Badge color="success" pill>{qtyOpportunitiesEnabled}</Badge>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-inverse">Finalizadas</td>
+                                        <td className="text-right">
+                                            <Badge color="secondary" pill>{qtyOpportunitiesDisabled}</Badge>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </Col>
+                    </Row>
                 </Container>
 
                 <Grid>
@@ -104,7 +127,7 @@ export class Collaborator extends React.Component {
                         onLayoutChange={ layouts => this.setState({ layouts }) }
                         columnSizes={ this.state.layouts }
                         rowHeight={ 55 }>
-                        <Grid.Col { ...(applyColumn('opportunity', layouts)) }>
+                        {/* <Grid.Col { ...(applyColumn('opportunity', layouts)) }>
                             <Card>
                                 <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
                                     Oportunidades
@@ -130,7 +153,7 @@ export class Collaborator extends React.Component {
                                     </Progress>
                                 </CardBody>
                             </Card>
-                        </Grid.Col>
+                        </Grid.Col> */}
                         {/* Indicações realizadas por você */}
                         <Grid.Col { ...(applyColumn('indication', layouts)) }>
                         <Card>

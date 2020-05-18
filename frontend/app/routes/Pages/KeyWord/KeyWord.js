@@ -72,7 +72,7 @@ export default class KeyWord extends Component {
 			opportunityIdSelector: '',
             listOpportunities: '',
             listKeyWords: '',
-            enabled: false
+            found: false
 		}
     }
 
@@ -128,14 +128,14 @@ export default class KeyWord extends Component {
     save( evt ) {
         evt.preventDefault();
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const { word, opportunityIdSelector, enabled } = this.state
+        const { word, opportunityIdSelector, found } = this.state
         if ( word && opportunityIdSelector ) {
              API.post( '/keyWord', {
                 word: word.toUpperCase(),
                 opportunity: {
                     id: opportunityIdSelector.id,
                 },
-                enabled: enabled
+                found: found
             }, header ).then( response => {
                 toast.success(contentSuccess);
                 this.listKeyWordsByOpportunity();

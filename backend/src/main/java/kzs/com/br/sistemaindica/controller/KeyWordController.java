@@ -24,8 +24,8 @@ public class KeyWordController {
     private final KeyWordService service;
 
     @GetMapping
-    public ResponseEntity<List<KeyWord>> listAll(@RequestParam(value = "enabled", required = false) Boolean enabled) {
-        return ResponseEntity.ok(repository.findKeyWordByEnabled(enabled));
+    public ResponseEntity<List<KeyWord>> listAll() {
+        return ResponseEntity.ok(repository.findKeyWordByEnabled());
     }
 
     @GetMapping(path = "/{id}")

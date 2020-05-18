@@ -74,8 +74,8 @@ public class KeyWordServiceImpl implements KeyWordService {
         if (isNull(keyWord.getOpportunity())) {
             throw new KeyWordOpportunityNotProvidedException("Opportunity of Key Word not provided.");
         }
-        if (isNull(keyWord.getEnabled())) {
-            throw new KeyWordEnabledNotProvidedException("Enabled of Key Word not provided.");
+        if (isNull(keyWord.getFound())) {
+            throw new KeyWordFoundNotProvidedException("Field 'Found' of Key Word not provided.");
         }
     }
 

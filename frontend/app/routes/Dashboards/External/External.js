@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { Container, FloatGrid as Grid, Card, CardBody, Progress, CardHeader } from '../../../components';
+import { Container, FloatGrid as Grid, Card, CardBody, Progress, CardHeader, Col, Row, Table, Badge } from '../../../components';
 import { applyColumn } from '../../../components/FloatGrid';
 import { HeaderMain } from "../../components/HeaderMain";
 import classes from './External.scss';
@@ -95,6 +95,29 @@ export class External extends React.Component {
                             className="mt-0"
                         />
                     </div>
+                    <Row className="mb-5">
+                        <Col lg={ 3 }>
+                            <div className="hr-text hr-text-left my-2">
+                                <span>Oportunidades</span>
+                            </div>
+                            <Table size="sm">
+                                <tbody>
+                                    <tr>
+                                        <td className="text-inverse bt-0">Abertas</td>
+                                        <td className="text-right bt-0">
+                                            <Badge color="success" pill>{qtyOpportunitiesEnabled}</Badge>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-inverse">Finalizadas</td>
+                                        <td className="text-right">
+                                            <Badge color="secondary" pill>{qtyOpportunitiesDisabled}</Badge>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </Col>
+                    </Row>
                 </Container>
                 <Grid>
                     <Grid.Row
@@ -102,7 +125,7 @@ export class External extends React.Component {
                         columnSizes={ this.state.layouts }
                         rowHeight={ 55 }>
                         {/* Oportunidades */}
-                        <Grid.Col { ...(applyColumn('opportunity', layouts)) }>
+                        {/* <Grid.Col { ...(applyColumn('opportunity', layouts)) }>
                             <Card>
                                 <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
                                     Oportunidades
@@ -111,24 +134,24 @@ export class External extends React.Component {
                                     <div className={classes['sessions']}>
                                         <SessionByDevice 
                                             title="Abertas"
-                                            color="red"
+                                            color="success"
                                             valuePercent={qtyOpportunitiesEnabled}
                                             value={qtyOpportunitiesEnabled}
                                         />
                                         <SessionByDevice 
                                             title="Finalizadas"
-                                            color="success"
+                                            color="secondary"
                                             valuePercent={qtyOpportunitiesDisabled}
                                             value={qtyOpportunitiesDisabled}
                                         />
                                     </div>
                                     <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="red" value={qtyOpportunitiesEnabled} style={{height: "5px"}} />
-                                        <Progress bar color="success" value={qtyOpportunitiesDisabled} style={{height: "5px"}} />
+                                        <Progress bar color="success" value={qtyOpportunitiesEnabled} style={{height: "5px"}} />
+                                        <Progress bar color="secondary" value={qtyOpportunitiesDisabled} style={{height: "5px"}} />
                                     </Progress>
                                 </CardBody>
                             </Card>
-                        </Grid.Col> 
+                        </Grid.Col>  */}
                         {/* Indicações */}
                         <Grid.Col { ...(applyColumn('indication', layouts)) }>
                             <Card>

@@ -9,7 +9,6 @@ import Util from '../../../components/Util/Util';
 // const avatarImg = randomAvatar();
 const avatarImg = '';
 
-//const SidebarTopA = () => (
 export class SidebarTopA extends React.Component {
     constructor( props ) {
         super( props )
@@ -79,7 +78,8 @@ export class SidebarTopA extends React.Component {
                 { /* END: Sidebar Default */ }
 
                 { /* START: Sidebar Slim */ }
-                <Sidebar.ShowSlim>
+                {/* aqui foto do usuário menu contraído */}
+                {/* <Sidebar.ShowSlim>
                     <Sidebar.Section>
                         <Avatar.Image
                             size="sm"
@@ -98,11 +98,9 @@ export class SidebarTopA extends React.Component {
                             ]}
                         />
                     </Sidebar.Section>
-                </Sidebar.ShowSlim>
+                </Sidebar.ShowSlim> */}
                 { /* END: Sidebar Slim */ }
             </React.Fragment>
         )
     }
 }
-
-//export { SidebarTopA };

@@ -29,6 +29,6 @@ public class KeyWord extends BaseEntity {
     @Column(nullable = false)
     private String word;
 
-    private Boolean enabled;
+    private Boolean found;
 
 }
