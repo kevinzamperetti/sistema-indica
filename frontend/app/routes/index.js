@@ -39,6 +39,7 @@ import { SidebarANavbar } from './../layout/components/SidebarANavbar';
 import { SidebarASidebar } from './../layout/components/SidebarASidebar';
 import IndicationList from './Pages/Indication/List/IndicationList';
 import CandidatureList from './Pages/Candidature/List/CandidatureList';
+import IndicationEdit from './Pages/Indication/Edit/IndicationEdit';
 
 //------ Route Definitions --------
 // eslint-disable-next-line no-unused-vars
@@ -58,6 +59,7 @@ export class RoutedContent extends React.Component {
                     <PrivateRoute path="/administrator/key-word" exact component={KeyWord} />
 
                     <PrivateRoute path="/administrator/indication-list" exact component={IndicationList} />
+                    <PrivateRoute path="/administrator/indication/:id" exact component={IndicationEdit} />
                     <PrivateRoute path="/administrator/candidature-list" exact component={CandidatureList} />
 
                     { /*    404    */ }

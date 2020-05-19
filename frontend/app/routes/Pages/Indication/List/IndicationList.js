@@ -42,7 +42,7 @@ export default class IndicationList extends Component {
                               <Badge pill color={this.util.setIndicationStatusColor(indication.status)}>
                                   {this.util.setIndicationStatusName(indication.status)}
                               </Badge>,
-                              <Link className="fa fa-search" to={`administrator/indication/${indication.id}`} />
+                              <Link className="fa fa-search" to={`/administrator/indication/${indication.id}`} />
                                ] )
                         : []
         const options = this.util.optionsMUIDataTable;
