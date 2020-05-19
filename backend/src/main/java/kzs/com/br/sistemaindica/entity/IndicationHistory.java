@@ -4,6 +4,7 @@ import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 import static javax.persistence.FetchType.LAZY;
 
@@ -22,6 +23,9 @@ public class IndicationHistory extends BaseEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_indication", referencedColumnName = "id_indication")
     private Indication indication;
+
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
