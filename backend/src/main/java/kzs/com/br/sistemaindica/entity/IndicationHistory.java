@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import lombok.*;
 
@@ -20,6 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class IndicationHistory extends BaseEntity {
 
+    @JsonIgnoreProperties("indicationHistories")
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_indication", referencedColumnName = "id_indication")
     private Indication indication;

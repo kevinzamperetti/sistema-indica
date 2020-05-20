@@ -2,6 +2,7 @@ package kzs.com.br.sistemaindica.controller;
 
 import kzs.com.br.sistemaindica.entity.Candidature;
 import kzs.com.br.sistemaindica.entity.dto.CandidatureQuantityDto;
+import kzs.com.br.sistemaindica.entity.dto.CandidatureStatusDto;
 import kzs.com.br.sistemaindica.enums.CandidatureStatus;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.CandidatureRepository;
@@ -45,6 +46,11 @@ public class CandidatureController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<Candidature> edit(@PathVariable(value = "id") Long id, @RequestBody Candidature candidature) {
         return ResponseEntity.status(ACCEPTED).body(service.edit(candidature));
+    }
+
+    @PutMapping(path = "/{id}/updateStatus")
+    public ResponseEntity<Candidature> edit(@PathVariable(value = "id") Long id, @RequestBody CandidatureStatusDto candidatureStatusDto) {
+        return ResponseEntity.status(ACCEPTED).body(service.updateStatus(candidatureStatusDto));
     }
 
     @PostMapping

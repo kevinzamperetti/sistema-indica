@@ -2,6 +2,7 @@ package kzs.com.br.sistemaindica.controller;
 
 import kzs.com.br.sistemaindica.entity.Indication;
 import kzs.com.br.sistemaindica.entity.dto.IndicationQuantityDto;
+import kzs.com.br.sistemaindica.entity.dto.IndicationStatusDto;
 import kzs.com.br.sistemaindica.entity.dto.IndicationUserQuantityDto;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
@@ -54,6 +55,11 @@ public class IndicationController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<Indication> edit(@PathVariable(value = "id") Long id, @RequestBody Indication indication) {
         return ResponseEntity.status(ACCEPTED).body(service.edit(indication));
+    }
+
+    @PutMapping(path = "/{id}/updateStatus")
+    public ResponseEntity<Indication> edit(@PathVariable(value = "id") Long id, @RequestBody IndicationStatusDto indicationStatusDto) {
+        return ResponseEntity.status(ACCEPTED).body(service.updateStatus(indicationStatusDto));
     }
 
     @PostMapping

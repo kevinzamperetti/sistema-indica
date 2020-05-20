@@ -2,6 +2,7 @@ package kzs.com.br.sistemaindica.service;
 
 import kzs.com.br.sistemaindica.entity.Indication;
 import kzs.com.br.sistemaindica.entity.dto.IndicationQuantityDto;
+import kzs.com.br.sistemaindica.entity.dto.IndicationStatusDto;
 import kzs.com.br.sistemaindica.entity.dto.IndicationUserQuantityDto;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
@@ -21,6 +22,8 @@ public interface IndicationService {
     UploadFileResponse uploadAttachment(@RequestParam("file") MultipartFile file);
 
     Indication edit(Indication indication);
+
+    Indication updateStatus(IndicationStatusDto indicationStatusDto);
 
     void delete(Long id);
 

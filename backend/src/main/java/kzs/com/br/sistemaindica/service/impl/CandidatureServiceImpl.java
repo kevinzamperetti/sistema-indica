@@ -4,15 +4,18 @@ import kzs.com.br.sistemaindica.entity.Candidature;
 import kzs.com.br.sistemaindica.entity.Opportunity;
 import kzs.com.br.sistemaindica.entity.User;
 import kzs.com.br.sistemaindica.entity.dto.CandidatureQuantityDto;
+import kzs.com.br.sistemaindica.entity.dto.CandidatureStatusDto;
 import kzs.com.br.sistemaindica.enums.CandidatureStatus;
 import kzs.com.br.sistemaindica.exception.*;
 import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.CandidatureRepository;
 import kzs.com.br.sistemaindica.repository.OpportunityRepository;
 import kzs.com.br.sistemaindica.repository.UserRepository;
+import kzs.com.br.sistemaindica.service.CandidatureHistoryService;
 import kzs.com.br.sistemaindica.service.CandidatureService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,6 +35,8 @@ public class CandidatureServiceImpl implements CandidatureService {
     private final OpportunityRepository opportunityRepository;
 
     private final UserRepository userRepository;
+
+    private final CandidatureHistoryService candidatureHistoryService;
 
     private final FileStorageServiceImpl fileStorageService;
 
@@ -56,7 +61,10 @@ public class CandidatureServiceImpl implements CandidatureService {
         setUser(candidature);
         candidature.setCreationDate(LocalDate.now());
         checkIfTheCandidatureAlreadyExists(candidature);
-        return repository.save(candidature);
+
+        Candidature candidatureSaved = repository.save(candidature);
+        setCandidatureHistory(candidatureSaved);
+        return candidatureSaved;
     }
 
     @Override
@@ -101,6 +109,27 @@ public class CandidatureServiceImpl implements CandidatureService {
         verifyFields(candidature);
         return repository.save(candidature);
     }
+
+    @Override
+    @Transactional
+    public Candidature updateStatus(CandidatureStatusDto candidatureStatusDto) {
+        if (isNull(candidatureStatusDto.getStatus())) {
+            throw new CandidatureStatusNotProvidedException("Status for update of Candidature not provided.");
+        }
+        Candidature candidature = repository.findById(candidatureStatusDto.getId())
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+
+        candidature.setStatus(candidatureStatusDto.getStatus());
+
+        Candidature candidatureSaved = repository.save(candidature);
+        setCandidatureHistory(candidatureSaved);
+        return candidatureSaved;
+    }
+
+    private void setCandidatureHistory(Candidature candidature) {
+        candidatureHistoryService.save(candidature);
+    }
+
 
     @Override
     public void delete(Long id) {

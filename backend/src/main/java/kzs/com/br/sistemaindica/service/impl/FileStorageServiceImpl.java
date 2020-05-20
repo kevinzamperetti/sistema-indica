@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -40,9 +39,11 @@ public class FileStorageServiceImpl {
 
     public String storeFile(MultipartFile file) {
         // Normalize file name
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename().replace(" ", "_").replaceAll("[^\\p{ASCII}]", ""));
+//        String fileName = StringUtils.cleanPath(file.getOriginalFilename().replace(" ", "_").replaceAll("[^\\p{ASCII}]", ""));
+        String fileName = "Curriculo";
         String fileBaseName = FilenameUtils.getBaseName(fileName).concat("_" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")));
-        String fileExtension = FilenameUtils.getExtension(fileName);
+//        String fileExtension = FilenameUtils.getExtension(fileName);
+        String fileExtension = FilenameUtils.getExtension(file.getOriginalFilename());
         fileName = fileBaseName.concat("." + fileExtension);
 
         if (!"pdf".toUpperCase().equals(fileExtension.toUpperCase())) {

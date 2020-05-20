@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.entity;
 
-import kzs.com.br.sistemaindica.enums.IndicationStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import kzs.com.br.sistemaindica.enums.CandidatureStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class CandidatureHistory extends BaseEntity {
 
+    @JsonIgnoreProperties({"candidatureHistories", "indications"})
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_candidature", referencedColumnName = "id_candidature")
     private Candidature candidature;
@@ -29,6 +31,6 @@ public class CandidatureHistory extends BaseEntity {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private IndicationStatus status;
+    private CandidatureStatus status;
 
 }

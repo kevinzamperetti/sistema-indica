@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import lombok.*;
@@ -34,7 +35,8 @@ public class Indication extends BaseEntity {
     @JoinColumn(name = "id_opportunity", referencedColumnName = "id_opportunity")
     private Opportunity opportunity;
 
-//    @JsonIgnoreProperties("indication") aqui
+    @JsonIgnoreProperties("indication") //aqui
+    @JsonIgnore
     @OneToMany(mappedBy = "indication", fetch = LAZY)
     private Set<IndicationHistory> indicationHistories;
 
@@ -50,7 +52,7 @@ public class Indication extends BaseEntity {
     @Column(name = "file_type_attachment")
     private String fileTypeAttachment;
 
-//    @JsonIgnoreProperties("indication") aqui
+    @JsonIgnoreProperties("indication") //aqui
     @OneToOne(mappedBy = "indication", fetch = LAZY)
     private IndicationWinner indicationWinner;
 

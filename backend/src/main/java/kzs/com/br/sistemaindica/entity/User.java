@@ -1,5 +1,6 @@
 package kzs.com.br.sistemaindica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import kzs.com.br.sistemaindica.enums.UserProfile;
 import lombok.*;
@@ -66,11 +67,11 @@ public class User extends BaseEntity {
     @Column(name = "bank_account")
     private String bankAccount;
 
-//    @JsonIgnoreProperties({"user", "indications", "bankData"}) aqui
+    @JsonIgnoreProperties({"user", "indications", "bankData"}) //aqui
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<Indication> indications;
 
-//    @JsonIgnore aqui
+    @JsonIgnore //aqui
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<IndicationWinner> indicationWinners;
 

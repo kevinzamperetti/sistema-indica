@@ -17,8 +17,8 @@ public interface IndicationRepository extends JpaRepository<Indication, Long> {
             " FROM Indication i" +
             " LEFT JOIN FETCH i.user u" +
             " LEFT JOIN FETCH i.opportunity o " +
-            " LEFT JOIN FETCH i.indicationHistories ih " +
-            " LEFT JOIN FETCH i.indicationWinner iw " +
+            " LEFT JOIN i.indicationHistories ih " +
+            " LEFT JOIN i.indicationWinner iw " +
             "WHERE i.id = :id")
     Optional<Indication> findById(@Param("id") Long id);
 
@@ -26,8 +26,8 @@ public interface IndicationRepository extends JpaRepository<Indication, Long> {
             " FROM Indication i " +
             " JOIN FETCH i.user u " +
             " LEFT JOIN FETCH i.opportunity o " +
-            " LEFT JOIN FETCH i.indicationHistories ih " +
-            " LEFT JOIN FETCH i.indicationWinner iw " +
+//            " LEFT JOIN FETCH i.indicationHistories ih " +
+//            " LEFT JOIN FETCH i.indicationWinner iw " +
             "WHERE (:status IS NULL OR i.status = :status) " +
             "ORDER BY i.creationDate, i.status")
     List<Indication> findIndicationByStatus(@Param("status") IndicationStatus status);

@@ -3,6 +3,7 @@ package kzs.com.br.sistemaindica.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="indication_winner")
@@ -21,6 +22,9 @@ public class IndicationWinner extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     private User user;
+
+    @Column(name = "creation_date", nullable = false)
+    private LocalDateTime creationDate;
 
     @OneToOne
     @JoinColumn(name = "id_indication", referencedColumnName = "id_indication")

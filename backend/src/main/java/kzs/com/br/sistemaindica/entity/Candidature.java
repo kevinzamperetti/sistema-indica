@@ -1,5 +1,7 @@
 package kzs.com.br.sistemaindica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import kzs.com.br.sistemaindica.enums.CandidatureStatus;
 import lombok.*;
 
@@ -23,6 +25,7 @@ public class Candidature extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnoreProperties({"indications", "indicationWinners"})
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     private User user;
@@ -31,6 +34,7 @@ public class Candidature extends BaseEntity {
     @JoinColumn(name = "id_opportunity", referencedColumnName = "id_opportunity")
     private Opportunity opportunity;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "candidature", fetch = LAZY)
     private Set<CandidatureHistory> candidatureHistories;
 

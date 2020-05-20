@@ -25,7 +25,7 @@ public interface CandidatureRepository extends JpaRepository<Candidature, Long> 
             " FROM Candidature c " +
             " JOIN FETCH c.user u " +
             " LEFT JOIN FETCH c.opportunity o " +
-            " LEFT JOIN FETCH c.candidatureHistories ch " +
+//            " LEFT JOIN FETCH c.candidatureHistories ch " +
             "WHERE (:status IS NULL OR c.status = :status) " +
             "ORDER BY c.creationDate, c.status")
     List<Candidature> findCandidatureByStatus(@Param("status") CandidatureStatus status);

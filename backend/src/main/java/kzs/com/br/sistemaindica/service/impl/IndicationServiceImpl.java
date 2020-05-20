@@ -4,6 +4,7 @@ import kzs.com.br.sistemaindica.entity.Indication;
 import kzs.com.br.sistemaindica.entity.Opportunity;
 import kzs.com.br.sistemaindica.entity.User;
 import kzs.com.br.sistemaindica.entity.dto.IndicationQuantityDto;
+import kzs.com.br.sistemaindica.entity.dto.IndicationStatusDto;
 import kzs.com.br.sistemaindica.entity.dto.IndicationUserQuantityDto;
 import kzs.com.br.sistemaindica.enums.IndicationStatus;
 import kzs.com.br.sistemaindica.exception.*;
@@ -11,9 +12,12 @@ import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.IndicationRepository;
 import kzs.com.br.sistemaindica.repository.OpportunityRepository;
 import kzs.com.br.sistemaindica.repository.UserRepository;
+import kzs.com.br.sistemaindica.service.IndicationHistoryService;
 import kzs.com.br.sistemaindica.service.IndicationService;
+import kzs.com.br.sistemaindica.service.IndicationWinnerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,6 +37,10 @@ public class IndicationServiceImpl implements IndicationService {
     private final OpportunityRepository opportunityRepository;
 
     private final UserRepository userRepository;
+
+    private final IndicationHistoryService indicationHistoryService;
+
+    private final IndicationWinnerService indicationWinnerService;
 
     private final FileStorageServiceImpl fileStorageService;
 
@@ -58,7 +66,10 @@ public class IndicationServiceImpl implements IndicationService {
         validateUserAndIndication(indication);
         indication.setCreationDate(LocalDate.now());
         checkIfTheIndicationAlreadyExists(indication);
-        return repository.save(indication);
+
+        Indication indicationSaved = repository.save(indication);
+        setIndicationHistory(indicationSaved);
+        return indicationSaved;
     }
 
     @Override
@@ -102,6 +113,33 @@ public class IndicationServiceImpl implements IndicationService {
         findById(indication.getId());
         verifyFields(indication);
         return repository.save(indication);
+    }
+
+    @Override
+    @Transactional
+    public Indication updateStatus(IndicationStatusDto indicationStatusDto) {
+        if (isNull(indicationStatusDto.getStatus())) {
+            throw new IndicationStatusNotProvidedException("Status for update of Indication not provided.");
+        }
+        Indication indication = repository.findById(indicationStatusDto.getId())
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+
+        indication.setStatus(indicationStatusDto.getStatus());
+
+        Indication indicationSaved = repository.save(indication);
+        setIndicationHistory(indicationSaved);
+        if (IndicationStatus.HIRED.equals(indicationStatusDto.getStatus())) {
+            setIndicationWinner(indicationSaved);
+        }
+        return indicationSaved;
+    }
+
+    private void setIndicationHistory(Indication indication) {
+        indicationHistoryService.save(indication);
+    }
+
+    private void setIndicationWinner(Indication indication) {
+        indicationWinnerService.save(indication);
     }
 
     @Override
