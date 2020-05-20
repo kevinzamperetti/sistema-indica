@@ -56,6 +56,13 @@ public class IndicationServiceImpl implements IndicationService {
     }
 
     @Override
+    public List<Indication> findByUser(Long id) {
+        userRepository.findById(id)
+                .orElseThrow(() -> new UserIdNotFoundException("User not found."));
+        return repository.findByUser(id);
+    }
+
+    @Override
     public Indication save(Indication indication) {
         if (nonNull(indication.getId())) {
             throw new IndicationIdMustNotBeProvidedException("Id of Indication must not be provided.");

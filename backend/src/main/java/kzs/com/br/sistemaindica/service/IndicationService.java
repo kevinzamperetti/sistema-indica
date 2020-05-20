@@ -17,6 +17,8 @@ public interface IndicationService {
 
     Indication findById(Long id);
 
+    List<Indication> findByUser(Long id);
+
     Indication save(Indication indication);
 
     UploadFileResponse uploadAttachment(@RequestParam("file") MultipartFile file);

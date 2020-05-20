@@ -23,6 +23,16 @@ public interface IndicationRepository extends JpaRepository<Indication, Long> {
     Optional<Indication> findById(@Param("id") Long id);
 
     @Query("SELECT i " +
+            " FROM Indication i" +
+            " LEFT JOIN FETCH i.user u" +
+            " LEFT JOIN FETCH i.opportunity o " +
+//            " LEFT JOIN i.indicationHistories ih " +
+//            " LEFT JOIN i.indicationWinner iw " +
+            "WHERE u.id = :id " +
+            "ORDER BY i.creationDate, i.status")
+    List<Indication> findByUser(@Param("id") Long id);
+
+    @Query("SELECT i " +
             " FROM Indication i " +
             " JOIN FETCH i.user u " +
             " LEFT JOIN FETCH i.opportunity o " +

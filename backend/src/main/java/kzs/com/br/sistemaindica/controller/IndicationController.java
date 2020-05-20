@@ -41,6 +41,11 @@ public class IndicationController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping(path = "/user/{id}")
+    public ResponseEntity<List<Indication>> findByUser(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(service.findByUser(id));
+    }
+
     @GetMapping(path = "/countByStatus")
     public ResponseEntity<IndicationQuantityDto> totalIndicationsByStatus() {
         return ResponseEntity.ok(service.totalIndicationsByStatus());

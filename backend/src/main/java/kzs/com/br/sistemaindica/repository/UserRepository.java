@@ -31,8 +31,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u " +
             " FROM User u " +
             " LEFT JOIN FETCH u.bankData " +
-            " LEFT JOIN FETCH u.indications i " +
-            " LEFT JOIN FETCH u.indicationWinners iw  " +
+//            " LEFT JOIN FETCH u.indications i " +
+//            " LEFT JOIN FETCH u.indicationWinners iw  " +
             "WHERE u.name = :name " +
             "  AND u.profile = :profile ")
     Optional<User> findByName(@Param("name") String name, @Param("profile") UserProfile profile);
