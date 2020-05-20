@@ -1,3 +1,4 @@
 import CandidatureList from './CandidatureList';
+import CandidatureExternalList from './CandidatureExternalList';
 
-export default CandidatureList; 
+export default { CandidatureList, CandidatureExternalList }; 

@@ -91,8 +91,8 @@ export default class Register extends Component {
 			bankAgency: '',
 			bankAccount: '',
 			listBanks: []
+		}
 	}
-}
 
 	componentDidMount() {
 		this.listAllBanks()
@@ -236,7 +236,6 @@ export default class Register extends Component {
 							</ThemeConsumer>
 						</Form>
 						<div className="d-flex mb-5">
-							<Link to="/pages/forgot-password" className="text-decoration-none">Esqueceu sua senha?</Link>
 							<Link to="/pages/login" className="ml-auto text-decoration-none">Login</Link>
 						</div>
 						<FooterAuth />

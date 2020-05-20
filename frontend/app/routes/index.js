@@ -17,6 +17,7 @@ import Collaborator from './Dashboards/Collaborator';
 
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import ForgotPassword from './Pages/ForgotPassword';
 import Campaign from './Pages/Campaign';
 import OpportunityBonusLevel from './Pages/OpportunityBonusLevel'
 import Opportunity from './Pages/Opportunity'
@@ -43,6 +44,12 @@ import IndicationEdit from './Pages/Indication/Edit/IndicationEdit';
 import CandidatureEdit from './Pages/Candidature/Edit/CandidatureEdit';
 import OpportunityList from './Pages/Opportunity/List/OpportunityList';
 import OpportunityEdit from './Pages/Opportunity/Edit/OpportunityEdit';
+import IndicationExternalList from './Pages/Indication/List/IndicationExternalList';
+import IndicationCollaboratorList from './Pages/Indication/List/IndicationCollaboratorList';
+import IndicationExternalEdit from './Pages/Indication/Edit/IndicationExternalEdit';
+import IndicationCollaboratorEdit from './Pages/Indication/Edit/IndicationCollaboratorEdit';
+import CandidatureExternalList from './Pages/Candidature/List/CandidatureExternalList';
+import CandidatureExternalEdit from './Pages/Candidature/Edit/CandidatureExternalEdit';
 
 //------ Route Definitions --------
 // eslint-disable-next-line no-unused-vars
@@ -54,19 +61,18 @@ export class RoutedContent extends React.Component {
                     <Redirect from="/" to="/pages/login" exact />
                     <Route component={ Login } path="/pages/login" />
                     <Route component={ Register } path="/pages/register" />
+                    <Route component={ ForgotPassword } path="/pages/forgot-password" />
+
                     {/* Administrator */}
                     <PrivateRoute path="/administrator/home" exact component={Administrator} />
                     <PrivateRoute path="/administrator/campaign" exact component={Campaign} />
                     <PrivateRoute path="/administrator/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
                     <PrivateRoute path="/administrator/opportunity" exact component={Opportunity} />
                     <PrivateRoute path="/administrator/key-word" exact component={KeyWord} />
-
                     <PrivateRoute path="/administrator/indication-list" exact component={IndicationList} />
                     <PrivateRoute path="/administrator/indication/:id" exact component={IndicationEdit} />
-
                     <PrivateRoute path="/administrator/candidature-list" exact component={CandidatureList} />
                     <PrivateRoute path="/administrator/candidature/:id" exact component={CandidatureEdit} />
-
                     <PrivateRoute path="/administrator/opportunity-list" exact component={OpportunityList} />
                     <PrivateRoute path="/administrator/opportunity/:id" exact component={OpportunityEdit} />
 
@@ -80,10 +86,17 @@ export class RoutedContent extends React.Component {
                     <Redirect from="/" to="/pages/login" exact />
                     <Route component={ Login } path="/pages/login" />
                     <Route component={ Register } path="/pages/register" />
+                    <Route component={ ForgotPassword } path="/pages/forgot-password" />
+
                     {/* External */}
                     <PrivateRoute path="/external/home" exact component={External} />
                     <PrivateRoute path="/external/candidature" exact component={Candidature} />
                     <PrivateRoute path="/external/indication" exact component={Indication} />
+                    <PrivateRoute path="/external/indication-list" exact component={IndicationExternalList} />
+                    <PrivateRoute path="/external/indication/:id" exact component={IndicationExternalEdit} />
+                    <PrivateRoute path="/external/candidature-list" exact component={CandidatureExternalList} />
+                    <PrivateRoute path="/external/candidature/:id" exact component={CandidatureExternalEdit} />
+
                     { /*    404    */ }
                     <Redirect to="/pages/error-404" />
                 </Switch>
@@ -94,9 +107,15 @@ export class RoutedContent extends React.Component {
                     <Redirect from="/" to="/pages/login" exact />
                     <Route component={ Login } path="/pages/login" />
                     <Route component={ Register } path="/pages/register" />
+                    <Route component={ ForgotPassword } path="/pages/forgot-password" />
+
                     {/* Collaborator */}
                     <PrivateRoute path="/collaborator/home" exact component={Collaborator} />
                     <PrivateRoute path="/collaborator/indication" exact component={Indication} />
+                    <PrivateRoute path="/collaborator/indication-list" exact component={IndicationCollaboratorList} />
+                    <PrivateRoute path="/collaborator/indication/:id" exact component={IndicationCollaboratorEdit} />
+
+
                     { /*    404    */ }
                     <Redirect to="/pages/error-404" />
                 </Switch>
@@ -107,6 +126,8 @@ export class RoutedContent extends React.Component {
                     <Redirect from="/" to="/pages/login" exact />
                     <Route component={ Login } path="/pages/login" />
                     <Route component={ Register } path="/pages/register" />
+                    <Route component={ ForgotPassword } path="/pages/forgot-password" />
+
                    { /*    404    */ }
                     <Redirect to="/pages/error-404" />
                 </Switch>
