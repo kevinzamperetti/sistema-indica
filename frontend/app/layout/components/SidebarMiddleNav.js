@@ -24,15 +24,16 @@ export class SidebarMiddleNav extends React.Component {
             return (
                 // - Administrador acessa telas de gráficos, cadastros e listagem de acompanhamento de indicações/candidaturas...
                 <SidebarMenu>
-                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-home"></i>} title="Início"  to='/administrator/home' exact/>
+                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-home"></i>} title="Início" to='/administrator/home' exact />
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-archive"></i>} title="Cadastros">
                         <SidebarMenu.Item title="Campanhas de Indicação" to='/administrator/campaign' exact />
                         <SidebarMenu.Item title="Níveis de Bonificação" to='/administrator/opportunity-bonus-level' exact />
-                        <SidebarMenu.Item title="Oportunidades" to='/administrator/opportunity' exact />
+                        <SidebarMenu.Item title="Oportunidade" to='/administrator/opportunity' exact />
                         <SidebarMenu.Item title="Palavras Chave" to='/administrator/key-word' exact />
                     </SidebarMenu.Item>
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-group"></i>} title="Indicações" to='/administrator/indication-list' exact />
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-file-text"></i>} title="Candidaturas" to='/administrator/candidature-list' exact/>
+                    <SidebarMenu.Item icon={<i className="fa fa-fw fa-file-text"></i>} title="Oportunidades" to='/administrator/opportunity-list' exact/>
                 </SidebarMenu >
             )
         } else if ( localStorage.getItem('Profile') === 'EXTERNAL' ) {
@@ -40,6 +41,7 @@ export class SidebarMiddleNav extends React.Component {
                 // - Externo pode indicar e candidatar, ver listagem de acompanhamento de indicações e gráficos de indicações e candidaturas...
                 <SidebarMenu>
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-home"></i>} title="Início" to='/external/home' exact />
+                    </SidebarMenu.Item>
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-group"></i>} title="Indicações">
                         <SidebarMenu.Item title="Realizar" to='/external/indication' exact />
                         <SidebarMenu.Item title="Acompanhar" to='/external/indication-list' exact />

@@ -67,6 +67,12 @@ export class Administrator extends React.Component {
         this.listTotalOpportunities();
 	}	
 
+    componentWillMount() {
+        this.listTotalIndications();
+        this.listTotalCandidaturies();
+        this.listTotalOpportunities();
+	}	
+
     _resetLayout = () => {
         this.setState({
             layouts: _.clone(LAYOUT)

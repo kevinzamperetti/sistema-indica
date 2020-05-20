@@ -40,6 +40,9 @@ import { SidebarASidebar } from './../layout/components/SidebarASidebar';
 import IndicationList from './Pages/Indication/List/IndicationList';
 import CandidatureList from './Pages/Candidature/List/CandidatureList';
 import IndicationEdit from './Pages/Indication/Edit/IndicationEdit';
+import CandidatureEdit from './Pages/Candidature/Edit/CandidatureEdit';
+import OpportunityList from './Pages/Opportunity/List/OpportunityList';
+import OpportunityEdit from './Pages/Opportunity/Edit/OpportunityEdit';
 
 //------ Route Definitions --------
 // eslint-disable-next-line no-unused-vars
@@ -60,7 +63,12 @@ export class RoutedContent extends React.Component {
 
                     <PrivateRoute path="/administrator/indication-list" exact component={IndicationList} />
                     <PrivateRoute path="/administrator/indication/:id" exact component={IndicationEdit} />
+
                     <PrivateRoute path="/administrator/candidature-list" exact component={CandidatureList} />
+                    <PrivateRoute path="/administrator/candidature/:id" exact component={CandidatureEdit} />
+
+                    <PrivateRoute path="/administrator/opportunity-list" exact component={OpportunityList} />
+                    <PrivateRoute path="/administrator/opportunity/:id" exact component={OpportunityEdit} />
 
                     { /*    404    */ }
                     <Redirect to="/pages/error-404" />

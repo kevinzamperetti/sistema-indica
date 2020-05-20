@@ -29,7 +29,7 @@ export default class IndicationList extends Component {
 
     listAllIndications = async () => {
 		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const response = await API.get( '/indication?enabled=true', header )
+        const response = await API.get( '/indication', header )
         this.setState( { listIndications: response.data }  )
     }
 

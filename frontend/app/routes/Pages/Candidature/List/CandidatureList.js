@@ -42,7 +42,7 @@ export default class CandidatureList extends Component {
                               <Badge pill color={this.util.setCandidatureStatusColor(candidature.status)}>
                                   {this.util.setCandidatureStatusName(candidature.status)}
                               </Badge>,
-                              <Link className="fa fa-search" to={`administrator/candidature/${candidature.id}`} />
+                              <Link className="fa fa-search" to={`/administrator/candidature/${candidature.id}`} />
                                ] )
                         : []
         const options = this.util.optionsMUIDataTable;

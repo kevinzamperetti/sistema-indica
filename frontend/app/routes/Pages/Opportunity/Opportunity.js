@@ -171,7 +171,7 @@ export default class Opportunity extends Component {
                             <HeaderDemo 
                                 no=''
                                 title="Cadastro de Oportunidades" 
-                                subTitle="Visualize e cadastre Oportunidades. É possível vincular as oportunidades à Campanhas de Indicação se desejar."
+                                subTitle="Cadastre Oportunidades. É possível vincular as oportunidades à Campanhas de Indicação se desejar."
                             />
                         </Col>
                     </Row>

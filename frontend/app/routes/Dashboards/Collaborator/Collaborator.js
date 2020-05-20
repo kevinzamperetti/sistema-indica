@@ -57,6 +57,11 @@ export class Collaborator extends React.Component {
         this.listTotalIndicationsByUser();
 	}
 
+    componentWillMount() {
+        this.listTotalOpportunities();
+        this.listTotalIndicationsByUser();
+	}
+
     _resetLayout = () => {
         this.setState({
             layouts: _.clone(LAYOUT)
