@@ -177,11 +177,11 @@ export default class Register extends Component {
 								</FormText>
 							</FormGroup>
 							<FormGroup>
-								<Label for="password">Password</Label>
+								<Label for="password">Senha</Label>
 								<Input type="password" name="password" id="password" placeholder="Senha..." className="bg-white" />
 							</FormGroup>
 							<FormGroup>
-								<Label for="repeatPassword">Repeat Password</Label>
+								<Label for="repeatPassword">Repetir Senha</Label>
 								<Input type="password" name="password" id="repeatPassword" placeholder="Password..." className="bg-white" />
 							</FormGroup>
 							<FormGroup>

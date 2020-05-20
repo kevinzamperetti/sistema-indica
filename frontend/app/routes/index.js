@@ -50,6 +50,10 @@ import IndicationExternalEdit from './Pages/Indication/Edit/IndicationExternalEd
 import IndicationCollaboratorEdit from './Pages/Indication/Edit/IndicationCollaboratorEdit';
 import CandidatureExternalList from './Pages/Candidature/List/CandidatureExternalList';
 import CandidatureExternalEdit from './Pages/Candidature/Edit/CandidatureExternalEdit';
+import ProfileAdministratorEdit from './Pages/Profile/ProfileAdministratorEdit';
+import ProfileExternalEdit from './Pages/Profile/ProfileExternalEdit';
+import ProfileCollaboratorEdit from './Pages/Profile/ProfileCollaboratorEdit';
+import AccountEdit from './Pages/Profile/AccountEdit/AccountEdit';
 
 //------ Route Definitions --------
 // eslint-disable-next-line no-unused-vars
@@ -64,6 +68,7 @@ export class RoutedContent extends React.Component {
                     <Route component={ ForgotPassword } path="/pages/forgot-password" />
 
                     {/* Administrator */}
+                    <PrivateRoute path="/administrator/profile-details" exact component={ProfileAdministratorEdit} />
                     <PrivateRoute path="/administrator/home" exact component={Administrator} />
                     <PrivateRoute path="/administrator/campaign" exact component={Campaign} />
                     <PrivateRoute path="/administrator/opportunity-bonus-level" exact component={OpportunityBonusLevel} />
@@ -89,6 +94,8 @@ export class RoutedContent extends React.Component {
                     <Route component={ ForgotPassword } path="/pages/forgot-password" />
 
                     {/* External */}
+                    <PrivateRoute path="/external/profile-details" exact component={ProfileExternalEdit} />
+                    <PrivateRoute path="/external/account-edit" exact component={AccountEdit} />
                     <PrivateRoute path="/external/home" exact component={External} />
                     <PrivateRoute path="/external/candidature" exact component={Candidature} />
                     <PrivateRoute path="/external/indication" exact component={Indication} />
@@ -110,6 +117,8 @@ export class RoutedContent extends React.Component {
                     <Route component={ ForgotPassword } path="/pages/forgot-password" />
 
                     {/* Collaborator */}
+                    <PrivateRoute path="/collaborator/profile-details" exact component={ProfileCollaboratorEdit} />
+                    <PrivateRoute path="/collaborator/account-edit" exact component={AccountEdit} />
                     <PrivateRoute path="/collaborator/home" exact component={Collaborator} />
                     <PrivateRoute path="/collaborator/indication" exact component={Indication} />
                     <PrivateRoute path="/collaborator/indication-list" exact component={IndicationCollaboratorList} />
