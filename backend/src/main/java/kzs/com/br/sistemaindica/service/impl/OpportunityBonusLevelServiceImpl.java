@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.springframework.util.StringUtils.hasText;
 
 @Service
 @RequiredArgsConstructor
@@ -53,7 +54,7 @@ public class OpportunityBonusLevelServiceImpl implements OpportunityBonusLevelSe
     }
 
     private void verifyFields(OpportunityBonusLevel opportunityBonusLevel) {
-        if (isNull(opportunityBonusLevel.getName())) {
+        if (!hasText(opportunityBonusLevel.getName())) {
             throw new OpportunityBonusLevelNameNotProvidedException("Name of Bonus Level not provided.");
         }
         if (isNull(opportunityBonusLevel.getValue())) {

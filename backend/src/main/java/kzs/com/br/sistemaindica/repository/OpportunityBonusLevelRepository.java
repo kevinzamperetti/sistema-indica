@@ -16,7 +16,7 @@ public interface OpportunityBonusLevelRepository extends JpaRepository<Opportuni
             " FROM OpportunityBonusLevel o " +
             " LEFT JOIN FETCH o.opportunities op " +
             "WHERE (:enabled IS NULL OR o.enabled = :enabled) " +
-            "ORDER BY o.value")
+            "ORDER BY o.enabled DESC, o.value")
     Set<OpportunityBonusLevel> findOpportunityBonusLevelByEnabled(@Param("enabled") Boolean enabled);
 
     @Query("SELECT o " +

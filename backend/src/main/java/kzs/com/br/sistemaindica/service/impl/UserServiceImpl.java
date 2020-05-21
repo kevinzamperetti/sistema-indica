@@ -2,6 +2,7 @@ package kzs.com.br.sistemaindica.service.impl;
 
 import kzs.com.br.sistemaindica.entity.BankData;
 import kzs.com.br.sistemaindica.entity.User;
+import kzs.com.br.sistemaindica.entity.dto.BankDataDto;
 import kzs.com.br.sistemaindica.exception.*;
 import kzs.com.br.sistemaindica.repository.BankDataRepository;
 import kzs.com.br.sistemaindica.repository.UserRepository;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import static java.util.Objects.isNull;
 import static kzs.com.br.sistemaindica.util.Cryptography.cryptographyPassword;
+import static org.springframework.util.StringUtils.hasText;
 
 @Service
 @RequiredArgsConstructor
@@ -40,8 +42,49 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public User edit(User user) {
+        if (isNull(user.getId())) {
+            throw new UserIdNotProvidedException("Id of User not provided.");
+        }
+        repository.findById(user.getId())
+                .orElseThrow(() -> new UserIdNotFoundException("User not found."));
+
+        //        verifyDataUser(user);
+        user.setPassword(cryptographyPassword(user.getPassword()));
+        return repository.save(user);
+    }
+
+    @Override
+    public User editBankData(BankDataDto bankDataDto) {
+        User user = repository.findById(bankDataDto.getIdUser())
+                .orElseThrow(() -> new UserIdNotFoundException("User not found."));
+
+        verifyDataForUpdateBankData(bankDataDto);
+
+        BankData bankData = bankDataRepository.findById(bankDataDto.getBankDataId())
+                .orElseThrow(() -> new BankDataNotProvidedException("Bank Data not found."));
+
+        user.setBankData(bankData);
+        user.setBankAgency(bankDataDto.getBankAgency());
+        user.setBankAccount(bankDataDto.getBankAccount());
+        return repository.save(user);
+    }
+
+    private void verifyDataForUpdateBankData(BankDataDto bankDataDto) {
+        if (isNull(bankDataDto.getBankDataId())) {
+            throw new BankDataNotProvidedException("Bank Data not provided.");
+        }
+        if (isNull(bankDataDto.getBankAgency())) {
+            throw new UserBankAgencyNotProvidedException("Bank Agency of User not provided.");
+        }
+        if (isNull(bankDataDto.getBankAccount())) {
+            throw new UserBankAccountNotProvidedException("Bank Account of User not provided.");
+        }
+    }
+
     private void verifyDataUser(User user) {
-        if (isNull(user.getName())) {
+        if (!hasText(user.getName())) {
             throw new UserNameNotProvidedException("Name of user not provided.");
         }
 

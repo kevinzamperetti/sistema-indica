@@ -11,6 +11,7 @@ import java.time.LocalDate;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.springframework.util.StringUtils.hasText;
 
 @Service
 @RequiredArgsConstructor
@@ -59,7 +60,7 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     private void verifyFields(Campaign campaign) {
-        if (isNull(campaign.getName())) {
+        if (!hasText(campaign.getName())) {
             throw new CampaignNameNotProvidedException("Name of Campaign not provided.");
         }
         if (isNull(campaign.getExpirationDate())) {

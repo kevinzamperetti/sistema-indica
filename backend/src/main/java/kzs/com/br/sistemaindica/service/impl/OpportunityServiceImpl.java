@@ -16,6 +16,7 @@ import java.time.LocalDate;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
+import static org.springframework.util.StringUtils.hasText;
 
 @Service
 @RequiredArgsConstructor
@@ -88,10 +89,10 @@ public class OpportunityServiceImpl implements OpportunityService {
     }
 
     private void verifyFields(Opportunity opportunity) {
-        if (isNull(opportunity.getName())) {
+        if (!hasText(opportunity.getName())) {
             throw new OpportunityNameNotProvidedException("Name of Opportunity not provided.");
         }
-        if (isNull(opportunity.getDescription())) {
+        if (!hasText(opportunity.getDescription())) {
             throw new OpportunityDescriptionNotProvidedException("Description of Opportunity not provided.");
         }
         if (isNull(opportunity.getCampaign())) {

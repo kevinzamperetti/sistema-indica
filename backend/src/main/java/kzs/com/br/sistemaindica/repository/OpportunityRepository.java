@@ -28,11 +28,17 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Long> 
             " LEFT JOIN FETCH o.indications " +
             " LEFT JOIN FETCH o.keyWords " +
             "WHERE (:enabled IS NULL OR o.enabled = :enabled) " +
-            "ORDER BY o.name")
+            "ORDER BY o.expirationDate, o.name")
     Set<Opportunity> findOpportunityByEnabled(@Param("enabled") Boolean enabled);
 
+    @Query("SELECT count(o) " +
+            " FROM Opportunity o " +
+            "WHERE o.enabled = true")
     int countOpportunitiesByEnabledIsTrue();
 
+    @Query("SELECT count(o) " +
+            " FROM Opportunity o " +
+            "WHERE o.enabled = false")
     int countOpportunitiesByEnabledIsFalse();
 
 }

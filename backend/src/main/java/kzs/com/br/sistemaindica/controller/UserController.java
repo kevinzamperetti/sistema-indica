@@ -1,6 +1,7 @@
 package kzs.com.br.sistemaindica.controller;
 
 import kzs.com.br.sistemaindica.entity.User;
+import kzs.com.br.sistemaindica.entity.dto.BankDataDto;
 import kzs.com.br.sistemaindica.enums.UserProfile;
 import kzs.com.br.sistemaindica.repository.UserRepository;
 import kzs.com.br.sistemaindica.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @CrossOrigin
@@ -27,6 +29,16 @@ public class UserController {
     @PostMapping(path = "/register")
     public ResponseEntity<User> save(@RequestBody User user) throws IllegalAccessException {
         return ResponseEntity.status(CREATED).body(service.save(user));
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<User> edit(@PathVariable(value = "id") Long id, @RequestBody User user) {
+        return ResponseEntity.status(ACCEPTED).body(service.edit(user));
+    }
+
+    @PutMapping(path = "/{id}/bankData")
+    public ResponseEntity<User> editBankData(@PathVariable(value = "id") Long id, @RequestBody BankDataDto bankDataDto) {
+        return ResponseEntity.status(ACCEPTED).body(service.editBankData(bankDataDto));
     }
 
     @GetMapping

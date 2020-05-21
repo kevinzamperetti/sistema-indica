@@ -42,7 +42,7 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserProfile profile;
 
-    @Column(name = "document_number", nullable = false)
+    @Column(name = "document_number")
     private String documentNumber;
 
     @Column(name = "sector_company")

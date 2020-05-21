@@ -22,7 +22,7 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
             " FROM Campaign c " +
             " LEFT JOIN FETCH c.opportunities o " +
             "WHERE (:enabled IS NULL OR c.enabled = :enabled) " +
-            "ORDER BY c.expirationDate DESC")
+            "ORDER BY c.enabled DESC, c.expirationDate")
     Set<Campaign> findCampaignByEnabled(@Param("enabled") Boolean enabled);
 
 }
