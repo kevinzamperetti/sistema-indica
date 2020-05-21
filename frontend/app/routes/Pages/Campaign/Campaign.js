@@ -118,6 +118,7 @@ export default class Campaign extends Component {
                 enabled: enabled
 			}, header ).then( response => {
                 toast.success(contentSuccess);
+                document.getElementById("form-campaign").reset();
                 this.listAllCampaigns();
 			//this.props.history.push( "/login" )
 			} )
@@ -176,7 +177,7 @@ export default class Campaign extends Component {
                         <Col lg={ 12 }>
                             <Card className="mb-3">
                                 <CardBody>
-                                    <Form>
+                                    <Form id="form-campaign">
                                     {/* <Form onSubmit={ this.save.bind( this ) }> */}
                                         <FormGroup row>
                                             <Label for="input" sm={3}>

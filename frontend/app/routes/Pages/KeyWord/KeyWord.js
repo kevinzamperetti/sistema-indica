@@ -156,6 +156,7 @@ export default class KeyWord extends Component {
         API.delete( `/keyWord/${evt.id}`, header )
         .then( response => {
         toast.success(contentSuccess);
+        document.getElementById("form-key-word").reset();
         this.listKeyWordsByOpportunity();
         } )
         .catch( erro => {
@@ -191,7 +192,7 @@ export default class KeyWord extends Component {
                         <Col lg={ 12 }>
                             <Card className="mb-3">
                                 <CardBody>
-                                    <Form>
+                                    <Form id="form-key-word">
                                         <FormGroup row>
                                             <Label for="opportunityIdSelector" sm={3}>Oportunidade</Label>
                                             <Col sm={9}>

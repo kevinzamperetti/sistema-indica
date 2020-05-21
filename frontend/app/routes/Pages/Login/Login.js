@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-
+import { Route, Switch, Redirect } from 'react-router';
 import {
     Form,
     FormGroup,
@@ -90,15 +90,19 @@ export default class Login extends Component {
                 localStorage.setItem( 'Profile', response.data.profile )
                 localStorage.setItem( 'SectorCompany', response.data.sectorCompany )
                 // localStorage.setItem('UserId', userId ) implementar no back se quiser gravar só o id do user no localStorage
-                if (response.data.profile === 'ADMINISTRATOR') {
+                if (response.data.profile == "ADMINISTRATOR") {
                     this.props.history.push('/administrator/home')
-                } else if (response.data.profile === 'EXTERNAL') {
+                } else if (response.data.profile == "EXTERNAL") {
                     this.props.history.push('/external/home')
-                } else if (response.data.profile === 'COLLABORATOR') {
-                this.props.history.push('/collaborator/home')
-                } else {
-                    this.props.history.push('/pages/error-404')
+                } else if (response.data.profile == "COLLABORATOR"){
+                    this.props.history.push('/collaborator/home')
                 }
+
+                // } else if (response.data.profile == 'COLLABORATOR') {
+                //     this.props.history.push('/collaborator/home')
+                // } else {
+                //     this.props.history.push('/pages/error-404')
+                // }
 
                 } )
             .catch( error => {

@@ -111,6 +111,7 @@ export default class OpportunityBonusLevel extends Component {
                 enabled: enabled
 			}, header ).then( response => {
                 toast.success(contentSuccess);
+                document.getElementById("form-opportunity-bonus-level").reset();
                 this.listAllOpportunityBonusLevel();
 				// console.log( response.data )
 			} )
@@ -170,7 +171,7 @@ export default class OpportunityBonusLevel extends Component {
                         <Col lg={ 12 }>
                             <Card className="mb-3">
                                 <CardBody>
-                                    <Form>
+                                    <Form id="form-opportunity-bonus-level">
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
                                                 Nome

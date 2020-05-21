@@ -42,13 +42,16 @@ SessionByDevice.propTypes = {
 }
 
 export class External extends React.Component {
-    state = {
-        layouts: _.clone(LAYOUT),
-        qtyOpportunitiesEnabled: '',
-        qtyOpportunitiesDisabled: '',
-        qtyIndicationsInProgressByUser: '',
-        qtyIndicationsHiredByUser: '',
-        qtyIndicationsDiscardedByUser: ''
+    constructor( props ) {
+        super( props )
+        this.state = {
+            layouts: _.clone(LAYOUT),
+            qtyOpportunitiesEnabled: '',
+            qtyOpportunitiesDisabled: '',
+            qtyIndicationsInProgressByUser: '',
+            qtyIndicationsHiredByUser: '',
+            qtyIndicationsDiscardedByUser: ''
+        }    
     }
 
     componentDidMount() {
@@ -56,11 +59,6 @@ export class External extends React.Component {
         this.listTotalIndicationsByUser();
     }
     
-    componentWillMount() {
-        this.listTotalOpportunities();
-        this.listTotalIndicationsByUser();
-    }
-
     _resetLayout = () => {
         this.setState({
             layouts: _.clone(LAYOUT)
@@ -129,35 +127,7 @@ export class External extends React.Component {
                         onLayoutChange={ layouts => this.setState({ layouts }) }
                         columnSizes={ this.state.layouts }
                         rowHeight={ 55 }>
-                        {/* Oportunidades */}
-                        {/* <Grid.Col { ...(applyColumn('opportunity', layouts)) }>
-                            <Card>
-                                <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
-                                    Oportunidades
-                                </CardHeader>
-                                <CardBody className="d-flex flex-column">
-                                    <div className={classes['sessions']}>
-                                        <SessionByDevice 
-                                            title="Abertas"
-                                            color="success"
-                                            valuePercent={qtyOpportunitiesEnabled}
-                                            value={qtyOpportunitiesEnabled}
-                                        />
-                                        <SessionByDevice 
-                                            title="Finalizadas"
-                                            color="secondary"
-                                            valuePercent={qtyOpportunitiesDisabled}
-                                            value={qtyOpportunitiesDisabled}
-                                        />
-                                    </div>
-                                    <Progress multi className={ classes['sessions-progress'] } style={{height: "5px"}}>
-                                        <Progress bar color="success" value={qtyOpportunitiesEnabled} style={{height: "5px"}} />
-                                        <Progress bar color="secondary" value={qtyOpportunitiesDisabled} style={{height: "5px"}} />
-                                    </Progress>
-                                </CardBody>
-                            </Card>
-                        </Grid.Col>  */}
-                        {/* Indicações */}
+                        
                         <Grid.Col { ...(applyColumn('indication', layouts)) }>
                             <Card>
                                 <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">

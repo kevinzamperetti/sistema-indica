@@ -149,6 +149,7 @@ export default class Opportunity extends Component {
                 enabled: enabled
             }, header ).then( response => {
                 toast.success(contentSuccess);
+                document.getElementById("form-opportunity").reset();
         		// this.props.history.push("/pages/key-word")
                 // console.log( response.data )
             } )
@@ -179,7 +180,7 @@ export default class Opportunity extends Component {
                         <Col lg={ 12 }>
                             <Card className="mb-3">
                                 <CardBody>
-                                    <Form>
+                                    <Form id="form-opportunity">
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
                                                 Nome

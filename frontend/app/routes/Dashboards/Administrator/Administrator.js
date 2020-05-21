@@ -47,27 +47,24 @@ SessionByDevice.propTypes = {
 }
 
 export class Administrator extends React.Component {
-    state = {
-        layouts: _.clone(LAYOUT),
-        qtyIndicationsNew: '',
-        qtyIndicationsInProgress: '',
-        qtyIndicationsDiscarded: '',
-        qtyIndicationsHired: '',
-        qtyCandidaturiesNew: '',
-        qtyCandidaturiesInProgress: '',
-        qtyCandidaturiesDiscarded: '',
-        qtyCandidaturiesHired: '',
-        qtyOpportunitiesEnabled: '',
-        qtyOpportunitiesDisabled: ''
+    constructor( props ) {
+        super( props )
+        this.state = {
+            layouts: _.clone(LAYOUT),
+            qtyIndicationsNew: '',
+            qtyIndicationsInProgress: '',
+            qtyIndicationsDiscarded: '',
+            qtyIndicationsHired: '',
+            qtyCandidaturiesNew: '',
+            qtyCandidaturiesInProgress: '',
+            qtyCandidaturiesDiscarded: '',
+            qtyCandidaturiesHired: '',
+            qtyOpportunitiesEnabled: '',
+            qtyOpportunitiesDisabled: ''
+        }
     }
 
     componentDidMount() {
-        this.listTotalIndications();
-        this.listTotalCandidaturies();
-        this.listTotalOpportunities();
-	}	
-
-    componentWillMount() {
         this.listTotalIndications();
         this.listTotalCandidaturies();
         this.listTotalOpportunities();
@@ -123,78 +120,9 @@ export class Administrator extends React.Component {
                             className="mt-0"
                         />
                     </div>
-                    {/* <Row className="mb-5">
-                        <Col lg={ 3 }>
-                            <div className="hr-text hr-text-left my-2">
-                                <span>Indicações</span>
-                            </div>
-                            <Table size="sm">
-                                <tbody>
-                                    <tr>
-                                        <td className="text-inverse bt-0">Abertas</td>
-                                        <td className="text-right bt-0">
-                                            <Badge color="red" pill>{qtyIndicationsNew}</Badge>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-inverse">Em andamento</td>
-                                        <td className="text-right">
-                                            <Badge color="primary" pill>{qtyIndicationsInProgress}</Badge>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-inverse">Contratadas</td>
-                                        <td className="text-right">
-                                            <Badge color="success" pill>{qtyIndicationsHired}</Badge>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-inverse">Descartadas</td>
-                                        <td className="text-right">
-                                            <Badge color="secondary" pill>{qtyIndicationsDiscarded}</Badge>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </Col>
-                        <Col lg={ 3 }>
-                            <div className="hr-text hr-text-left my-2">
-                                <span>Candidaturas</span>
-                            </div>
-                            <Table size="sm">
-                                <tbody>
-                                    <tr>
-                                        <td className="text-inverse bt-0">Abertas</td>
-                                        <td className="text-right bt-0">
-                                            <Badge color="red" pill>{qtyCandidaturiesNew}</Badge>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-inverse">Em andamento</td>
-                                        <td className="text-right">
-                                            <Badge color="primary" pill>{qtyCandidaturiesInProgress}</Badge>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-inverse">Contratadas</td>
-                                        <td className="text-right">
-                                            <Badge color="success" pill>{qtyCandidaturiesHired}</Badge>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-inverse">Descartadas</td>
-                                        <td className="text-right">
-                                            <Badge color="secondary" pill>{qtyCandidaturiesDiscarded}</Badge>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </Col>
-                    </Row> */}
                 </Container>
 
                 <Grid>
-                    {/* Oportunidades */}
                     <Grid.Row
                         onLayoutChange={ layouts => this.setState({ layouts }) }
                         columnSizes={ this.state.layouts }
@@ -226,7 +154,7 @@ export class Administrator extends React.Component {
                                 </CardBody>
                             </Card>
                         </Grid.Col>
-                        {/* Indicações */}
+                        
                         <Grid.Col { ...(applyColumn('indication', layouts)) }>
                             <Card>
                                 <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">
@@ -268,7 +196,7 @@ export class Administrator extends React.Component {
                                 </CardBody>
                             </Card>
                         </Grid.Col>
-                        {/* Candidaturas */}
+                        
                         <Grid.Col { ...(applyColumn('candidature', layouts)) }>
                             <Card>
                                 <CardHeader className="bb-0 pt-3 pb-0 bg-none" tag="h5">

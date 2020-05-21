@@ -1,16 +1,70 @@
 import React, { Component } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import { Container, Row, Col, Input, Card, Button, CardBody, CardFooter, 
-         CustomInput, CardTitle, Label, FormGroup, Form } from '../../../../components';
+         CustomInput, CardTitle, Label, FormGroup, Form, Media } from '../../../../components';
 import { HeaderMain } from "../../../components/HeaderMain";
 import { ProfileLeftNav } from "../../../components/Profile/ProfileLeftNav";
 import { ProfileHeader } from "../../../components/Profile/ProfileHeader";
 import API from '../../../../services/api';
+
+// ========== Toast Contents: ============
+// eslint-disable-next-line react/prop-types
+const contentSuccess = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-check"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Successo!
+            </Media>
+            <p>
+                Dados bancários alterados com sucesso!
+            </p>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const contentError = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Erro ao alterar dados
+            </p>
+        </Media>
+    </Media>
+);
+
+// eslint-disable-next-line react/prop-types
+const errorFillFields = ({ closeToast }) => (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Existem campos não preeenchidos.
+            </p>
+        </Media>
+    </Media>
+);
 
 export default class AccountEdit extends Component {
     constructor( props ) {
         super( props )
         this.state = {
             bankIdSelector: '',
+            bankData: '',
             bankAgency: '',
             bankAccount: '',
             listBanks: [],
@@ -30,6 +84,7 @@ export default class AccountEdit extends Component {
         this.setState( { 
             dataUserLogged: response.data,
             bankIdSelector: response.data.bankData,
+            bankData: response.data.bankData,
             bankAgency: response.data.bankAgency,
             bankAccount: response.data.bankAccount
         } )
@@ -41,17 +96,49 @@ export default class AccountEdit extends Component {
     }
     
 	changeValuesStateBank( evt ) {
-		let { listBanks } = this.state
+        evt.preventDefault();
+        let { listBanks } = this.state
 		let { name } = evt.target
 		const itemID = evt.target.value
-		const res = listBanks.find( p => p.id == itemID )
+        const res = listBanks.find( p => p.id == itemID )
+        console.log('res: ' + res.id)
+        console.log('name: ' + [name])
 		this.setState( { 
-						[name] : res
-		} )
+            [name] : res
+        } )
 	}    
-    
+
+    changeValuesState( evt ) {
+		const { name, value } = evt.target
+		this.setState( {
+			[name]: value
+        })
+    }
+
+    edit( evt ) {
+        evt.preventDefault();
+		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+        const { bankIdSelector, bankAgency, bankAccount } = this.state
+        if ( bankAgency && bankAccount ) {
+             API.put( `/user/${this.state.dataUserLogged.id}/bankData`, {
+                idUser: this.state.dataUserLogged.id,   
+                bankDataId: bankIdSelector.id,
+                bankAgency: bankAgency,
+                bankAccount: bankAccount
+            }, header ).then( response => {
+                toast.success(contentSuccess);
+            } )
+            .catch( erro => {
+                console.log( "Erro: " + erro ) 
+                toast.error(contentError);
+            } )
+        } else {
+            toast.error(errorFillFields);
+        }
+    }
+
     render() {
-        const { listBanks, bankAgency, bankAccount, bankIdSelector } = this.state
+        const { listBanks, bankAgency, bankAccount, bankData } = this.state
         return (
             <React.Fragment>
                 <Container>
@@ -74,16 +161,16 @@ export default class AccountEdit extends Component {
                                                 <span className="text-danger">*</span> Banco
                                             </Label>
                                             <Col sm={6}>
-                                                <CustomInput type="select" name="bankIdSelector" id="bankIdSelector" onChange={ this.changeValuesStateBank.bind( this ) } >
-                                                    <option value="" selected>Selecione seu banco...</option>
-                                                    <option key={bankIdSelector.id} id={ bankIdSelector.id } value={ bankIdSelector.id } selected>{bankIdSelector.name}</option>
+                                                <CustomInput type="select" name="bankIdSelector" id="bankIdSelector" onClick={ this.changeValuesStateBank.bind( this ) } >
+                                                    {/* <option value="" selected>Selecione seu banco...</option> */}
+                                                    <option key={bankData.id} id={ bankData.id } value={ bankData.id } selected>{bankData.name}</option>
                                                     { listBanks.length > 0 ?
                                                         <React.Fragment>
                                                             { listBanks.map( ( bank ) => { 
-                                                                if (bankIdSelector != bank.id) {
+                                                                if (bankData.id != bank.id) {
                                                                     return(
                                                                         <option key={bank.id} id={ bank.id } value={ bank.id } 
-                                                                                onChange={ this.changeValuesStateBank.bind( this ) }>{ bank.number +"-"+ bank.name }
+                                                                                onBlur={ this.changeValuesStateBank.bind( this ) }>{ bank.name }
                                                                         </option>
                                                                     )
                                                                 }
@@ -105,7 +192,8 @@ export default class AccountEdit extends Component {
                                                     name="bankAgency"
                                                     id="bankAgency"
                                                     defaultValue={bankAgency}
-                                                    placeholder="Número da Agência..." />
+                                                    placeholder="Número da Agência..." 
+                                                    onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -119,7 +207,8 @@ export default class AccountEdit extends Component {
                                                     name="bankAccount" 
                                                     id="bankAccount" 
                                                     defaultValue={bankAccount} 
-                                                    placeholder="Número da Conta..." />
+                                                    placeholder="Número da Conta..."
+                                                    onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
 
@@ -127,12 +216,18 @@ export default class AccountEdit extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' className="ml-auto px-4">Alterar</Button>
+                                        <Button color='primary' className="ml-auto px-4" onClick={ this.edit.bind( this ) }>Alterar</Button>
                                     </div>
                                 </CardFooter>
                             </Card>
                         </Col>
                     </Row>
+                    <ToastContainer 
+                        position='top-right'
+                        autoClose={3000}
+                        draggable={false}
+                        hideProgressBar={true}
+                    />
                 </Container>
             </React.Fragment>
         )

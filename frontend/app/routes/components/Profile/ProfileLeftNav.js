@@ -9,7 +9,7 @@ export class ProfileLeftNav extends Component {
     }
 
     render() {
-        if ( localStorage.getItem('Profile') === 'ADMINISTRATOR' ) {
+        if ( localStorage.getItem('Profile') == "ADMINISTRATOR" ) {
             return (
                 <React.Fragment>
                     <div className="mb-4">
@@ -23,7 +23,7 @@ export class ProfileLeftNav extends Component {
                     </div>
                 </React.Fragment>
             )
-        } else if ( localStorage.getItem('Profile') === 'EXTERNAL' ) {
+        } else if ( localStorage.getItem('Profile') == "EXTERNAL" ) {
             return (
                 <React.Fragment>
                     <div className="mb-4">
@@ -42,7 +42,7 @@ export class ProfileLeftNav extends Component {
                     </div>
                 </React.Fragment>
             )
-        } else if ( localStorage.getItem('Profile') === 'COLLABORATOR' ) {
+        } else if ( localStorage.getItem('Profile') == "COLLABORATOR" ) {
             return (
                 <React.Fragment>
                     <div className="mb-4">
@@ -67,9 +67,9 @@ export class ProfileLeftNav extends Component {
                     <div className="mb-4">
                         <Nav pills vertical>
                             <NavItem>
-                                <NavLink tag={ RouterNavLink } to="/pages/error-404">
+                                {/* <NavLink tag={ RouterNavLink } to="/pages/error-404">
                                     Minha Conta
-                                </NavLink>
+                                </NavLink> */}
                             </NavItem>
                         </Nav>
                     </div>

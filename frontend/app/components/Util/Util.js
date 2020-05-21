@@ -148,7 +148,7 @@ export default class Util extends React.Component {
   goPreviousPage() {
     history.go(-1);
   }
-	
+  
 	setIndicationStatusColor(status) {
     if (status === 'FINISHED') {
         return "secondary"

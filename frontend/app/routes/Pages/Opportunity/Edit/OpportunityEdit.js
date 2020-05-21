@@ -91,7 +91,6 @@ export default class OpportunityEdit extends Component {
     
     changeValuesState( evt ) {
 		const { name, value } = evt.target
-		// this.validarEmail( evt )
 		this.setState( {
 			[name]: value
         })

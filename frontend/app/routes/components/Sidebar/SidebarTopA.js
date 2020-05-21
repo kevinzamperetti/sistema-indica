@@ -17,7 +17,7 @@ export class SidebarTopA extends React.Component {
 
 
     render() {
-        if ( localStorage.getItem('Profile') === 'ADMINISTRATOR' ) {
+        if ( localStorage.getItem('Profile') == 'ADMINISTRATOR' ) {
             return (
                 <React.Fragment>
                     <Sidebar.HideSlim>
@@ -41,13 +41,13 @@ export class SidebarTopA extends React.Component {
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown>
                             <div className="small sidebar__link--muted">
-                                { localStorage.getItem('SectorCompany   ') }
+                                { localStorage.getItem('SectorCompany') }
                             </div>
                         </Sidebar.Section>
                     </Sidebar.HideSlim>
                 </React.Fragment>
             )
-        } else if ( localStorage.getItem('Profile') === 'EXTERNAL' ) {
+        } else if ( localStorage.getItem('Profile') == 'EXTERNAL' ) {
             return (
                 <React.Fragment>
                     <Sidebar.HideSlim>
@@ -70,14 +70,11 @@ export class SidebarTopA extends React.Component {
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown>
-                            <div className="small sidebar__link--muted">
-                                { localStorage.getItem('SectorCompany   ') }
-                            </div>
                         </Sidebar.Section>
                     </Sidebar.HideSlim>
                 </React.Fragment>
             )
-        } else if ( localStorage.getItem('Profile') === 'COLLABORATOR' ) {
+        } else if ( localStorage.getItem('Profile') == 'COLLABORATOR' ) {
             return (
                 <React.Fragment>
                     <Sidebar.HideSlim>
@@ -101,7 +98,7 @@ export class SidebarTopA extends React.Component {
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown>
                             <div className="small sidebar__link--muted">
-                                { localStorage.getItem('SectorCompany   ') }
+                                { localStorage.getItem('SectorCompany') }
                             </div>
                         </Sidebar.Section>
                     </Sidebar.HideSlim>
@@ -127,7 +124,7 @@ export class SidebarTopA extends React.Component {
                                 </DropdownMenu>
                             </UncontrolledButtonDropdown>
                             <div className="small sidebar__link--muted">
-                                { localStorage.getItem('SectorCompany   ') }
+                                { localStorage.getItem('SectorCompany') }
                             </div>
                         </Sidebar.Section>
                     </Sidebar.HideSlim>

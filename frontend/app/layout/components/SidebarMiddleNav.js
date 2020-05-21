@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { SidebarMenu } from './../../components';
+import API from '../../services/api';
 
 // export const SidebarMiddleNav = () => (
 //     <SidebarMenu>
@@ -19,8 +20,29 @@ import { SidebarMenu } from './../../components';
 // );
 
 export class SidebarMiddleNav extends React.Component {
+    constructor( props ) {
+        super( props )
+        this.state = {
+            dataUserLogged: ''
+        }
+    }
+  
+    componentDidMount() {
+        this.getDataUserLogged()
+    }
+  
+    getDataUserLogged = async () => {
+        const name = localStorage.getItem('Name');
+        const profile = localStorage.getItem('Profile');
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		const response = await API.get( `/user/name/?name=${name}&profile=${profile}`, header )
+        this.setState( { dataUserLogged: response.data } )
+    }
+    
     render() {
-        if ( localStorage.getItem('Profile') === 'ADMINISTRATOR' ) {
+        const { dataUserLogged } = this.state
+
+        if ( dataUserLogged.profile == "ADMINISTRATOR" ) {
             return (
                 // - Administrador acessa telas de gráficos, cadastros e listagem de acompanhamento de indicações/candidaturas...
                 <SidebarMenu>
@@ -36,7 +58,7 @@ export class SidebarMiddleNav extends React.Component {
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-suitcase"></i>} title="Oportunidades" to='/administrator/opportunity-list' exact/>
                 </SidebarMenu >
             )
-        } else if ( localStorage.getItem('Profile') === 'EXTERNAL' ) {
+        } else if ( dataUserLogged.profile == "EXTERNAL" ) {
             return (
                 // - Externo pode indicar e candidatar, ver listagem de acompanhamento de indicações e gráficos de indicações e candidaturas...
                 <SidebarMenu>
@@ -51,7 +73,7 @@ export class SidebarMiddleNav extends React.Component {
                     </SidebarMenu.Item>
                 </SidebarMenu >
             )
-        } else if ( localStorage.getItem('Profile') === 'COLLABORATOR' ) {
+        } else if ( dataUserLogged.profile == "COLLABORATOR" ) {
             return (
                 // - Colaborador só pode indicar, ver listagem de acompanhamento de indicações e gráficos de indicações...
                 <SidebarMenu>
@@ -63,6 +85,7 @@ export class SidebarMiddleNav extends React.Component {
                 </SidebarMenu >
             )
         } else {
+            // console.log('else: ' + localStorage.getItem('Profile'))
             return (
                 <SidebarMenu>
                     <SidebarMenu.Item icon={<i className="fa fa-fw fa-home"></i>} title="Início" to='/pages/login' exact/>

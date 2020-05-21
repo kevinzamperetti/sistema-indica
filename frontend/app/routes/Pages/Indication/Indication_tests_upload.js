@@ -81,7 +81,7 @@ export default class Indication extends Component {
 		}
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getDataUserLogged() && this.listAllOpportunities();
     }
 
