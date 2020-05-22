@@ -40,12 +40,13 @@ export default class CandidatureExternalEdit extends Component {
     }
 
     downloadFile = async ( evt, i ) => {
-        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         // const FileDownload = require("js-file-download");
         var fileDownload = require('react-file-download');
-        await API.get(`/file/downloadFile/${evt.fileNameAttachment}`, header)
+        await API.get(`/file/downloadFile/${evt.fileNameAttachment}`,
+                        { responseType: 'arraybuffer',
+                          headers: { Authorization: localStorage.getItem('Authorization')} } )
         .then( response => {
-            fileDownload(response.data, evt.fileNameAttachment);
+            fileDownload(response.data, evt.fileNameAttachment, evt.fileTypeAttachment);
         } )
         .catch( error => {
             toast.error(this.util.contentError(error.response.data.message));

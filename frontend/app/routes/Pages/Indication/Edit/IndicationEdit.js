@@ -53,19 +53,18 @@ export default class IndicationEdit extends Component {
     }
 
     downloadFile = async ( evt, i ) => {
-        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         // const FileDownload = require("js-file-download");
         var fileDownload = require('react-file-download');
-        // API.delete( `/keyWord/${evt.id}`, header )
-        await API.get(`/file/downloadFile/${evt.fileNameAttachment}`, header)
+        await API.get(`/file/downloadFile/${evt.fileNameAttachment}`,
+                        { responseType: 'arraybuffer',
+                          headers: { Authorization: localStorage.getItem('Authorization')} } )
         .then( response => {
-            fileDownload(response.data, evt.fileNameAttachment);
+            fileDownload(response.data, evt.fileNameAttachment, evt.fileTypeAttachment);
         } )
         .catch( error => {
             toast.error(this.util.contentError(error.response.data.message));
         } )
     }
-    
 
     edit( evt ) {
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
