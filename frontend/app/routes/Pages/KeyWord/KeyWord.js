@@ -113,7 +113,7 @@ export default class KeyWord extends Component {
     }
     
     render() {
-        const { listOpportunities, listKeyWords } = this.state
+        const { listOpportunities, listKeyWords, opportunityIdSelector } = this.state
         const columns = ["Palavras chaves cadastradas para esta oportunidade", ""];
         const data = listKeyWords.length > 0
                         ? listKeyWords.map( ( keyWord ) => 
@@ -184,7 +184,13 @@ export default class KeyWord extends Component {
                     <Row>
                         <Col>
                             <MUIDataTable
-                                title={""}
+                                title={
+                                    listKeyWords == ''
+                                     ? <b> Quantidade de palavras necessárias para avaliação automática:</b>
+                                     : listKeyWords.length >= opportunityIdSelector.automaticEvaluationQuantity
+                                        ? <b className="text-success"> Quantidade de palavras necessárias para avaliação automática: {opportunityIdSelector.automaticEvaluationQuantity} </b>
+                                        : <b className="text-danger"> Quantidade de palavras necessárias para avaliação automática: {opportunityIdSelector.automaticEvaluationQuantity} </b>
+                                      }
                                 data={data}
                                 columns={columns}
                                 options={options}/>

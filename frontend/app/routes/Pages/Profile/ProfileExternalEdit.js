@@ -105,7 +105,7 @@ export default class ProfileExternalEdit extends Component {
     }
 
     render() {
-        const { name, email, password, documentNumber } = this.state
+        const { name, email, password, documentNumber, disableButton } = this.state
         return (
             <React.Fragment>
                 <Container>

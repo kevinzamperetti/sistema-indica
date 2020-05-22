@@ -163,7 +163,7 @@ export default class ProfileCollaboratorEdit extends Component {
                                                 <span className="text-danger">*</span> Senha
                                             </Label>
                                             <Col sm={8}>
-                                                <Input type="text" name="password" id="password" placeholder="Senha..." defaultValue={password}
+                                                <Input type="password" name="password" id="password" placeholder="Senha..." defaultValue={password}
                                                        onBlur={ this.changeValuesState.bind( this ) } />
                                             </Col>
                                         </FormGroup>
@@ -172,7 +172,7 @@ export default class ProfileCollaboratorEdit extends Component {
                                                 <span className="text-danger">*</span> Repetir Senha
                                             </Label>
                                             <Col sm={8}>
-                                                <Input type="text" name="repeatPassword" id="repeatPassword" placeholder="Repetir Senha..."
+                                                <Input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repetir Senha..."
                                                        onBlur={ this.changeValuesState.bind( this ) } />
                                             </Col>
                                         </FormGroup>
