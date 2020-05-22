@@ -84,7 +84,7 @@ public class IndicationServiceImpl implements IndicationService {
         String fileName = fileStorageService.storeFile(file);
 
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
+                .path("/api/file/downloadFile/")
                 .path(fileName)
                 .toUriString();
 
