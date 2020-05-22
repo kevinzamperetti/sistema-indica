@@ -12,58 +12,6 @@ import {
 import Util from '../../../../components/Util/Util';
 import API from '../../../../services/api';
 
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                Indicação realizada com sucesso!
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao realizar indicação
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
-
 export default class IndicationEdit extends Component {
     constructor( props ) {
         super( props )
@@ -113,9 +61,8 @@ export default class IndicationEdit extends Component {
         .then( response => {
             fileDownload(response.data, evt.fileNameAttachment);
         } )
-        .catch( erro => {
-            console.log( "Erro: " + erro ) 
-            toast.error(contentError);
+        .catch( error => {
+            toast.error(this.util.contentError(error.response.data.message));
         } )
     }
     
@@ -128,12 +75,11 @@ export default class IndicationEdit extends Component {
             status: indicationStatus
         }, header )
         .then( response => {
-            toast.success(contentSuccess);
+            toast.success(this.util.contentSuccess());
             this.listIndicationById();
         } )
-        .catch( erro => {
-            console.log( "Erro: " + erro ) 
-            toast.error(contentError);
+        .catch( error => {
+            toast.error(this.util.contentError(error.response.data.message));
         } )
     }
 
@@ -162,15 +108,14 @@ export default class IndicationEdit extends Component {
     //                 fileTypeAttachment: fileTypeAttachment
     //         }, header )
     //         .then( response => {
-    //             toast.success(contentSuccess);
+    //             toast.success(this.util.contentSuccess());
     //             // console.log( response.data )
     //         } )
-    //         .catch( erro => {
-    //             console.log( "Erro: " + erro ) 
-    //             toast.error(contentError);
+    //         .catch( error => {
+    //             toast.error(this.util.contentError(error.response.data.message));
     //         } )
     //     } else {
-    //         toast.error(errorFillFields);
+    //         toast.error(this.util.errorFillFields());
     //     }
     // }
     

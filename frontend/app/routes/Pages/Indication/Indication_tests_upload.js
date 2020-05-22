@@ -9,62 +9,12 @@ import {
 } from '../../../components';
 
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                Indicação realizada com sucesso!
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao realizar indicação
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
+import Util from '../../../components/Util/Util';
 
 export default class Indication extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
             // userId: '',
             opportunityIdSelector: '',
@@ -135,15 +85,14 @@ export default class Indication extends Component {
     //     if ( image ) {
     //         API.post( '/file/uploadFile', this.state.image, header )
     //         .then( response => {
-    //             toast.success(contentSuccess);
+    //             toast.success(this.util.contentSuccess());
     //             // console.log( response.data )
     //         } )
-    //         .catch( erro => {
-    //             console.log( "Erro: " + erro ) 
-    //             toast.error(contentError);
+    //         .catch( error => {
+    //             toast.error(this.util.contentError(error.response.data.message));
     //         } )
     //     } else {
-    //         toast.error(errorFillFields);
+    //         toast.error(this.util.errorFillFields());
     //     }
     // }
 
@@ -216,15 +165,14 @@ export default class Indication extends Component {
     //         })
     //         console.log(response)
     //         // .then( response => {
-    //         //     toast.success(contentSuccess);
+    //         //     toast.success(this.util.contentSuccess());
     //         //     // console.log( response.data )
     //         // } )
-    //         // .catch( erro => {
-    //         //     console.log( "Erro: " + erro ) 
-    //         //     toast.error(contentError);
+    //         // .catch( error => {
+    //         //     toast.error(this.util.contentError(error.response.data.message));
     //         // } )
     //     } else {
-    //         toast.error(errorFillFields);
+    //         toast.error(this.util.errorFillFields());
     //     }
     // }
 
@@ -256,15 +204,14 @@ export default class Indication extends Component {
    
                 console.log(response)
                 .then( response => {
-                    toast.success(contentSuccess);
+                    toast.success(this.util.contentSuccess());
                     // console.log( response.data )
                 } )
-                .catch( erro => {
-                    console.log( "Erro: " + erro ) 
-                    toast.error(contentError);
+                .catch( error => {
+                    toast.error(this.util.contentError(error.response.data.message));
                 } )
             } else {
-                toast.error(errorFillFields);
+                toast.error(this.util.errorFillFields());
             }
         }
     

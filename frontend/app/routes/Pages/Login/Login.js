@@ -18,46 +18,13 @@ import {
 import { HeaderAuth } from "../../components/Pages/HeaderAuth";
 import { FooterAuth } from "../../components/Pages/FooterAuth";
 
+import Util from '../../../components/Util/Util'
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                {/* {this.state.errorMessage} */}
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentErrorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
 
 export default class Login extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
 			name: '',
 			email: '',
@@ -111,7 +78,7 @@ export default class Login extends Component {
                 // } )
                 // console.log( "Erro: " + error.response.data.message ) 
                 console.log( "errorMessage: " + error ) 
-                toast.error(contentError);
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
 			toast.error(contentErrorFillFields);

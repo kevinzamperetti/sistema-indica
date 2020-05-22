@@ -7,64 +7,13 @@ import { HeaderMain } from "../../components/HeaderMain";
 import { ProfileLeftNav } from "../../components/Profile/ProfileLeftNav";
 import { ProfileHeader } from "../../components/Profile/ProfileHeader";
 
+import Util from '../../../components/Util/Util';
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                Dados de usuário alterados com sucesso!
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao alterar dados
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
-
 
 export default class ProfileAdministratorEdit extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
             name: '',
             email: '',
@@ -72,7 +21,8 @@ export default class ProfileAdministratorEdit extends Component {
             profileSelector: 'ADMINISTRATOR',
             profile: '',
             sectorCompany: '',
-            isCollaborator: ''
+            isCollaborator: '',
+            disableButton: false
         }
     }
 
@@ -98,10 +48,23 @@ export default class ProfileAdministratorEdit extends Component {
     }
 
     changeValuesState( evt ) {
-		const { name, value } = evt.target
+        const { name, value } = evt.target
+        const { password, repeatPassword } = this.state
 		this.setState( {
 			[name]: value
         })
+        if ([name] == "repeatPassword" ) {
+            if ( password != repeatPassword && repeatPassword != '') {
+                toast.error(this.util.contentError('Senhas informadas são diferentes!'));
+                this.setState( {
+                    disableButton: true
+                })
+            } else {
+                this.setState( {
+                    disableButton: false
+                })
+            }
+        }
     }
 
     edit( evt ) {
@@ -120,19 +83,18 @@ export default class ProfileAdministratorEdit extends Component {
             }, header ).then( response => {
                 localStorage.removeItem('Name');
                 localStorage.setItem( 'Name', name )
-                toast.success(contentSuccess);
+                toast.success(this.util.contentSuccess());
             } )
-            .catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+            .catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-            toast.error(errorFillFields);
+            toast.error(this.util.errorFillFields());
         }
     }
 
     render() {
-        const { name, email, password } = this.state
+        const { name, email, password, disableButton } = this.state
         return (
             <React.Fragment>
                 <Container>
@@ -195,7 +157,7 @@ export default class ProfileAdministratorEdit extends Component {
                                                 <span className="text-danger">*</span> Repetir Senha
                                             </Label>
                                             <Col sm={8}>
-                                                <Input type="password" name="password" id="repeatPassword" placeholder="Repetir Senha..." defaultValue={password}
+                                                <Input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repetir Senha..."
                                                        onBlur={ this.changeValuesState.bind( this ) }
                                                 />
                                             </Col>
@@ -214,7 +176,10 @@ export default class ProfileAdministratorEdit extends Component {
                                 </CardBody>
                                 <CardFooter className="p-4 bt-0">
                                     <div className="d-flex">
-                                        <Button color='primary' className="ml-auto px-4" onClick={ this.edit.bind( this ) }>Alterar</Button>
+                                        {disableButton
+                                            ? <Button color='primary' className="ml-auto px-4" onClick={ this.edit.bind( this ) } disabled>Alterar</Button>
+                                            : <Button color='primary' className="ml-auto px-4" onClick={ this.edit.bind( this ) }>Alterar</Button>
+                                        } 
                                     </div>
                                 </CardFooter>
                             </Card>

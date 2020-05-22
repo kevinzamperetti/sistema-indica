@@ -10,89 +10,15 @@ import {
     Form, FormGroup, Label, Media, Input, InputGroup,InputGroupAddon
 } from '../../../components';
 import API from '../../../services/api';
+import Util from '../../../../components/Util/Util';
 
 // const realMaskDecimal = createNumberMask({ prefix: 'R$', allowDecimal: true, thousandsSeparatorSymbol: ".", decimalSymbol : "," });
 const realMaskDecimal = createNumberMask({ prefix: '', allowDecimal: false, thousandsSeparatorSymbol: "." });
 
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                Nível de Indicação cadastrado com sucesso!
-            </p>
-            <div className="d-flex mt-2">
-                <Button color="success" onClick={() => { closeToast }} >
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-success">
-                    Cancelar
-                </Button>
-            </div>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao salvar dados
-            </p>
-            <div className="d-flex mt-2">
-                <Button color="danger" onClick={() => { closeToast }}>
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
-                    Cancelar
-                </Button>
-            </div>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-            <div className="d-flex mt-2">
-                <Button color="danger" onClick={() => { closeToast }}>
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
-                    Cancelar
-                </Button>
-            </div>
-        </Media>
-    </Media>
-);
-
 export default class OpportunityBonusLevelEdit extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
 			name: '',
 			bonusValue: '',
@@ -119,16 +45,15 @@ export default class OpportunityBonusLevelEdit extends Component {
                 enabled: enabled,
                 value: bonusValue.replace('.', '')
 			} ).then( response => {
-                toast.success(contentSuccess);
+                toast.success(this.util.contentSuccess());
 				console.log( response.data )
                 // { <Redirect to="/pages/opportunity-bonus-level" /> }
 			} )
-			.catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+			.catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-            toast.error(errorFillFields);
+            toast.error(this.util.errorFillFields());
         }
 	}    
     

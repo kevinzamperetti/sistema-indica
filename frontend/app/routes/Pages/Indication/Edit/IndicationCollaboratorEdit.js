@@ -51,9 +51,8 @@ export default class IndicationCollaboratorEdit extends Component {
         .then( response => {
             fileDownload(response.data, evt.fileNameAttachment);
         } )
-        .catch( erro => {
-            console.log( "Erro: " + erro ) 
-            toast.error(contentError);
+        .catch( error => {
+            toast.error(this.util.contentError(error.response.data.message));
         } )
     }
     

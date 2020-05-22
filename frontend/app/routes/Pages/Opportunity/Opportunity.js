@@ -9,62 +9,12 @@ import {
     Form, FormGroup, Label, Media, Input
 } from '../../../components';
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                Oportunidade cadastrada com sucesso!
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao salvar dados
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
+import Util from '../../../components/Util/Util';
 
 export default class Opportunity extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
 			name: '',
 			description: '',
@@ -148,17 +98,16 @@ export default class Opportunity extends Component {
                 automaticEvaluationQuantity: automaticEvaluationQuantity,
                 enabled: enabled
             }, header ).then( response => {
-                toast.success(contentSuccess);
+                toast.success(this.util.contentSuccess());
                 document.getElementById("form-opportunity").reset();
         		// this.props.history.push("/pages/key-word")
                 // console.log( response.data )
             } )
-            .catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+            .catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-            toast.error(errorFillFields);
+            toast.error(this.util.errorFillFields());
         }
     }
     

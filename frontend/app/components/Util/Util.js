@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { 
+  Badge, Button, Container, Row, Col, Card, CardBody, CardFooter,
+  Form, FormGroup, Label, Media, Input
+} from '../../components/';
 
 export default class Util extends React.Component {
 
@@ -236,6 +240,61 @@ export default class Util extends React.Component {
         return "Não"
     }
   }
+
+// ========== Toast Contents: ============
+// eslint-disable-next-line react/prop-types
+contentSuccess(message) {
+  return (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-check"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Successo!
+            </Media>
+        </Media>
+    </Media>
+  )
+}
+
+// eslint-disable-next-line react/prop-types
+contentError( message ) {
+  return (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                {message}
+            </p>
+        </Media>
+    </Media>
+  )
+}
+
+// eslint-disable-next-line react/prop-types
+errorFillFields() {
+  return (
+    <Media>
+        <Media middle left className="mr-3">
+            <i className="fa fa-fw fa-2x fa-close"></i>
+        </Media>
+        <Media body>
+            <Media heading tag="h6">
+                Erro!
+            </Media>
+            <p>
+                Existem campos não preeenchidos.
+            </p>
+        </Media>
+    </Media>
+  )
+}
 
 	render() {
 		return (

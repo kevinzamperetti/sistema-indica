@@ -17,68 +17,17 @@ import API from '../../../services/api';
 // const realMaskDecimal = createNumberMask({ prefix: 'R$', allowDecimal: true, thousandsSeparatorSymbol: ".", decimalSymbol : "," });
 const realMaskDecimal = createNumberMask({ prefix: '', allowDecimal: false, thousandsSeparatorSymbol: "." });
 
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                {/* Nível de Indicação cadastrado com sucesso! 
-                    porque ta valendo pro save e delete*/}
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao salvar dados
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
-
 export default class OpportunityBonusLevel extends Component {
     constructor( props ) {
         super( props )
         this.util = new Util();
         this.state = {
+            idOpportunityBonusLevel: '',
 			name: '',
 			bonusValue: '',
             enabled: false,
-            listOpportunityBonusLevel: []
+            listOpportunityBonusLevel: [],
+            edit: false
         }
     }
 
@@ -102,25 +51,39 @@ export default class OpportunityBonusLevel extends Component {
 
     save( evt ) {
 		evt.preventDefault();
+        const { idOpportunityBonusLevel, name, bonusValue, enabled, edit } = this.state
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const { name, bonusValue, enabled } = this.state
-		if ( name && bonusValue ) {
+		if ( name && bonusValue && !edit ) {
 			API.post( '/opportunityBonusLevel', {
                 name: name,
                 value: bonusValue.replace('.', ''),
                 enabled: enabled
 			}, header ).then( response => {
-                toast.success(contentSuccess);
+                toast.success(this.util.contentSuccess());
                 document.getElementById("form-opportunity-bonus-level").reset();
                 this.listAllOpportunityBonusLevel();
 				// console.log( response.data )
 			} )
-			.catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+			.catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
+            } )
+        } else if ( idOpportunityBonusLevel && name && bonusValue && edit ) {
+            console.log(bonusValue)
+			API.put( `/opportunityBonusLevel/${idOpportunityBonusLevel}`, {
+                id: idOpportunityBonusLevel,
+                name: name,
+                value: bonusValue.replace('.', ''),
+                enabled: enabled
+			}, header ).then( response => {
+                toast.success(this.util.contentSuccess());
+                document.getElementById("form-opportunity-bonus-level").reset();
+                this.listAllOpportunityBonusLevel();
+			} )
+			.catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-            toast.error(errorFillFields);
+            toast.error(this.util.errorFillFields());
         }
     }
     
@@ -128,18 +91,27 @@ export default class OpportunityBonusLevel extends Component {
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         API.delete( `/opportunityBonusLevel/${evt.id}`, header )
         .then( response => {
-        toast.success(contentSuccess);
+        toast.success(this.util.contentSuccess());
         this.listAllOpportunityBonusLevel();
         } )
-        .catch( erro => {
-            console.log( "Erro: " + erro ) 
-            toast.error(contentError);
+        .catch( error => {
+            toast.error(this.util.contentError(error.response.data.message));
         } )
     }
-    
+
+    fillForm( opportunityBonusLevel ) {
+        this.setState( { 
+            idOpportunityBonusLevel: opportunityBonusLevel.id,
+            name: opportunityBonusLevel.name,
+            bonusValue: opportunityBonusLevel.value,
+            enabled: opportunityBonusLevel.enabled,
+            edit: true
+         }  )
+    }
+
     render() {
-        const { listOpportunityBonusLevel } = this.state
-        const columns = ["Nome", "Valor", "Situação", ""];
+        const { listOpportunityBonusLevel, name, bonusValue } = this.state
+        const columns = ["Nome", "Valor", "Situação", "", ""];
         const data = listOpportunityBonusLevel.length > 0
                         ? listOpportunityBonusLevel.map( ( opportunityBonusLevel ) => 
                             [ opportunityBonusLevel.name,
@@ -147,6 +119,7 @@ export default class OpportunityBonusLevel extends Component {
                               <Badge pill color={this.util.setEnabledColor(opportunityBonusLevel.enabled)}>
                                 {this.util.setEnabledName(opportunityBonusLevel.enabled)}
                               </Badge>,
+                              <Link className="fa fa-edit" onClick={ this.fillForm.bind( this, opportunityBonusLevel ) }/>,                              
                               <Link className="fa fa-close" onClick={ this.delete.bind( this, opportunityBonusLevel ) }/>
                             ] )
                         : []
@@ -177,7 +150,8 @@ export default class OpportunityBonusLevel extends Component {
                                                 Nome
                                             </Label>
                                             <Col sm={9}>
-                                                <Input type="text" name="name" id="name" placeholder="" onBlur={ this.changeValuesState.bind( this ) }/>
+                                                <Input type="text" name="name" id="name" placeholder="" defaultValue={name}
+                                                       onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -185,13 +159,6 @@ export default class OpportunityBonusLevel extends Component {
                                                 Valor da Bonificação:
                                             </Label>
                                             <Col sm={9}>
-                                            {/* <Input
-                                                mask={ realMaskDecimal }
-                                                className='text-right form-control'
-                                                placeholder='Informe o valor da bonificação'
-                                                tag={ MaskedInput }
-                                                name="bonusValue"
-                                                id="bonusValue"/> */}
                                                 <InputGroup>
                                                     <InputGroupAddon addonType="prepend">R$</InputGroupAddon>
                                                     <Input 
@@ -201,6 +168,7 @@ export default class OpportunityBonusLevel extends Component {
                                                         placeholder="Informe o valor da bonificação..." 
                                                         id="bonusValue" 
                                                         name="bonusValue"
+                                                        value={bonusValue}
                                                         onBlur={ this.changeValuesState.bind( this ) } />
                                                     <InputGroupAddon addonType="append">,00</InputGroupAddon>
                                                 </InputGroup>
@@ -211,11 +179,6 @@ export default class OpportunityBonusLevel extends Component {
                                                 Ativo
                                             </Label>
                                             <Col sm={9}>
-                                                {/* <Toggle
-                                                    checked={ this.state.enabled }
-                                                    name='enabled'
-                                                    value='true'
-                                                    onChange={ () => { this.setState({ enabled: !this.state.enabled }) } }/> */}
                                                 <Toggle
                                                     checked={ this.state.enabled }
                                                     name='enabled'

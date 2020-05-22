@@ -22,86 +22,12 @@ import {
 import { HeaderDemo } from "../../components/HeaderDemo";
 
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                Campanha de Indicação salva com sucesso!
-            </p>
-            <div className="d-flex mt-2">
-                <Button color="success" onClick={() => { closeToast }} >
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-success">
-                    Cancelar
-                </Button>
-            </div>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao salvar dados
-            </p>
-            <div className="d-flex mt-2">
-                <Button color="danger" onClick={() => { closeToast }}>
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
-                    Cancelar
-                </Button>
-            </div>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-            <div className="d-flex mt-2">
-                <Button color="danger" onClick={() => { closeToast }}>
-                    Ok
-                </Button>
-                <Button color="link" onClick={() => { closeToast }}  className="ml-2 text-danger">
-                    Cancelar
-                </Button>
-            </div>
-        </Media>
-    </Media>
-);
+import Util from '../../../../components/Util/Util';
 
 export default class CampaignEdit extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
 			name: '',
             expirationDate: '',
@@ -127,19 +53,17 @@ export default class CampaignEdit extends Component {
                 expirationDate: expirationDateFormatted,
                 enabled: enabled
 			} ).then( response => {
-                toast.success(contentSuccess);
-				// console.log( response.data )
+                toast.success(this.util.contentSuccess());
 				this.setState({redirect: true})
 				// this.props.history.push( "/pages/login" )
 				// this.salvarImagem(response.data.id, imagem)
 			//this.props.history.push( "/login" )
 			} )
-			.catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+			.catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-            toast.error(errorFillFields);
+            toast.error(this.util.errorFillFields());
         }
 	}
 
@@ -226,6 +150,6 @@ export default class CampaignEdit extends Component {
     }
 
     // _showHandler = () => {
-    //             toast.success(contentSuccess);
+    //             toast.success(this.util.contentSuccess());
     // }
 }
