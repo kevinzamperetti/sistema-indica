@@ -60,9 +60,15 @@ export default class OpportunityBonusLevel extends Component {
                 enabled: enabled
 			}, header ).then( response => {
                 toast.success(this.util.contentSuccess());
-                document.getElementById("form-opportunity-bonus-level").reset();
+                document.getElementById("name").value='';
+                document.getElementById("bonusValue").value='';
+                
                 this.listAllOpportunityBonusLevel();
-				// console.log( response.data )
+				this.setState( {
+                    name: '',
+                    bonusValue: '',
+                    enabled: false
+                } )
 			} )
 			.catch( error => {
                 toast.error(this.util.contentError(error.response.data.message));
