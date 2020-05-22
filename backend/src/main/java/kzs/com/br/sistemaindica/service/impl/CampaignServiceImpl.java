@@ -43,7 +43,8 @@ public class CampaignServiceImpl implements CampaignService {
         if (isNull(campaign.getId())) {
             throw new CampaignIdNotProvidedException("Id of Campaign not provided.");
         }
-        findById(campaign.getId());
+        Campaign campaignDb = findById(campaign.getId());
+        campaign.setCreationDate(campaignDb.getCreationDate());
         verifyFields(campaign);
         return repository.save(campaign);
     }
@@ -66,9 +67,6 @@ public class CampaignServiceImpl implements CampaignService {
         if (isNull(campaign.getExpirationDate())) {
             throw new CampaignExpirationDateNotProvidedException("Expiration Date of Campaign not provided.");
         }
-//        if (isNull(campaign.getHasReward())) {
-//            throw new CampaignHasRewardNotProvidedException("Has Reward of Campaign not provided.");
-//        }
         if (isNull(campaign.getEnabled())) {
             throw new CampaignEnabledNotProvidedException("Enabled of Campaign not provided.");
         }

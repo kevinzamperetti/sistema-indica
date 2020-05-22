@@ -20,8 +20,6 @@ import static javax.persistence.FetchType.LAZY;
 @NoArgsConstructor
 public class OpportunityBonusLevel  extends BaseEntity {
 
-//    BRONZE, SILVER, GOLD, PLATINUM;
-
     private String name;
 
     @Column(precision = 10, scale = 2)

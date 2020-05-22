@@ -71,7 +71,10 @@ public class OpportunityServiceImpl implements OpportunityService {
             throw new OpportunityIdNotProvidedException("Id of Opportunity not provided.");
         }
         findById(opportunity.getId());
+        setCampaign(opportunity);
+        setBonusLevel(opportunity);
         verifyFields(opportunity);
+        checkCampaignExpirationDate(opportunity.getExpirationDate(), opportunity.getCampaign().getExpirationDate());
         return repository.save(opportunity);
     }
 

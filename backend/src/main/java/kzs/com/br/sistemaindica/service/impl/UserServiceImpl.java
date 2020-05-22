@@ -47,11 +47,13 @@ public class UserServiceImpl implements UserService {
         if (isNull(user.getId())) {
             throw new UserIdNotProvidedException("Id of User not provided.");
         }
-        repository.findById(user.getId())
+        User userDb = repository.findById(user.getId())
                 .orElseThrow(() -> new UserIdNotFoundException("User not found."));
 
         //        verifyDataUser(user);
-        user.setPassword(cryptographyPassword(user.getPassword()));
+        if (!userDb.getPassword().equals(user.getPassword())) {
+            user.setPassword(cryptographyPassword(user.getPassword()));
+        }
         return repository.save(user);
     }
 
