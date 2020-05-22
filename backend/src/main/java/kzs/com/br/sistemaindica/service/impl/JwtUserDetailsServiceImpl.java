@@ -27,24 +27,24 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
             return new User(userRegisterInSystem.get().getEmail(), userRegisterInSystem.get().getPassword(),
                     new ArrayList<>());
         } else {
-            throw new UsernameNotFoundException("User not found with email: " + email);
+            throw new UsernameNotFoundException("Usuário não encontrado com este e-mail: " + email);
         }
     }
 
     public UserDetails loadUserByUsername(String email, boolean isCollaborator) throws UsernameNotFoundException {
 
         kzs.com.br.sistemaindica.entity.User userRegisterInSystem = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado com este e-mail: " + email));
 
         if (!isCollaborator == userRegisterInSystem.getIsCollaborator()) {
-            throw new UserCollaboratorNotFoundException("User is not a company employee.");
+            throw new UserCollaboratorNotFoundException("Erro ao realizar login. Revisar informação de Colaborador da Empresa");
         }
 
         if (userRegisterInSystem.getEmail().equals(email)) {
             return new User(userRegisterInSystem.getEmail(), userRegisterInSystem.getPassword(),
                     new ArrayList<>());
         } else {
-            throw new UsernameNotFoundException("User not found with email: " + email);
+            throw new UsernameNotFoundException("Usuário não encontrado com este e-mail: " + email);
         }
     }
 }

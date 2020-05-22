@@ -20,13 +20,13 @@ public class OpportunityBonusLevelServiceImpl implements OpportunityBonusLevelSe
     @Override
     public OpportunityBonusLevel findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new OpportunityBonusLevelIdNotFoundException("Id of Bonus Level not found."));
+                .orElseThrow(() -> new OpportunityBonusLevelIdNotFoundException("Nível de Bonificação não encontrado"));
     }
 
     @Override
     public OpportunityBonusLevel save(OpportunityBonusLevel opportunityBonusLevel) {
         if (nonNull(opportunityBonusLevel.getId())) {
-            throw new OpportunityBonusLevelIdMustNotBeProvidedException("Id of Bonus Level must not be provided.");
+            throw new OpportunityBonusLevelIdMustNotBeProvidedException("Id do Nível de Bonificação não deve ser informado");
         }
         verifyFields(opportunityBonusLevel);
         return repository.save(opportunityBonusLevel);
@@ -35,7 +35,7 @@ public class OpportunityBonusLevelServiceImpl implements OpportunityBonusLevelSe
     @Override
     public OpportunityBonusLevel edit(OpportunityBonusLevel opportunityBonusLevel) {
         if (isNull(opportunityBonusLevel.getId())) {
-            throw new OpportunityBonusLevelIdNotProvidedException("Id of Bonus Level not provided.");
+            throw new OpportunityBonusLevelIdNotProvidedException("Id do Nível de Bonificação não informado.");
         }
         findById(opportunityBonusLevel.getId());
         verifyFields(opportunityBonusLevel);
@@ -45,9 +45,9 @@ public class OpportunityBonusLevelServiceImpl implements OpportunityBonusLevelSe
     @Override
     public void delete(Long id) {
         OpportunityBonusLevel opportunityBonusLevel = repository.findById(id)
-                .orElseThrow(() -> new CampaignIdNotFoundException("Id of Bonus Level not found."));
+                .orElseThrow(() -> new CampaignIdNotFoundException("Nível de Bonificação não encontrado"));
         if(!opportunityBonusLevel.getOpportunities().isEmpty()) {
-            throw new OpportunityBonusLevelHasOpportunitiesAndCannotBeDeletedException("Bonus Level has opportunities and cannot be deleted.");
+            throw new OpportunityBonusLevelHasOpportunitiesAndCannotBeDeletedException("Nível de Bonificação possui Oportunidades vinculadas e não pode ser excluída");
         } else {
             repository.delete(opportunityBonusLevel);
         }
@@ -55,13 +55,13 @@ public class OpportunityBonusLevelServiceImpl implements OpportunityBonusLevelSe
 
     private void verifyFields(OpportunityBonusLevel opportunityBonusLevel) {
         if (!hasText(opportunityBonusLevel.getName())) {
-            throw new OpportunityBonusLevelNameNotProvidedException("Name of Bonus Level not provided.");
+            throw new OpportunityBonusLevelNameNotProvidedException("Nome do Nível de Bonificação não informado");
         }
         if (isNull(opportunityBonusLevel.getValue())) {
-            throw new OpportunityBonusLevelValueNotProvidedException("Value of Bonus Level not provided.");
+            throw new OpportunityBonusLevelValueNotProvidedException("Valor Nível de Bonificação não informado");
         }
         if (isNull(opportunityBonusLevel.getEnabled())) {
-            throw new OpportunityBonusLevelEnabledNotProvidedException("Enabled of Bonus Level not provided.");
+            throw new OpportunityBonusLevelEnabledNotProvidedException("Situação do Nível de Bonificação não informado");
         }
     }
 

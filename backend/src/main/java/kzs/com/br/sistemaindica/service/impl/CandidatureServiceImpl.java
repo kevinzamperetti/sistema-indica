@@ -48,13 +48,13 @@ public class CandidatureServiceImpl implements CandidatureService {
     @Override
     public Candidature findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new CandidatureIdNotFoundException("Id of Candidature not found."));
+                .orElseThrow(() -> new CandidatureIdNotFoundException("Candidatura não encontrado"));
     }
 
     @Override
     public Candidature save(Candidature candidature) {
         if (nonNull(candidature.getId())) {
-            throw new CandidatureIdMustNotBeProvidedException("Id of Candidature must not be provided.");
+            throw new CandidatureIdMustNotBeProvidedException("Id da Candidatura não deve ser informado");
         }
         verifyFields(candidature);
         setOpportunity(candidature);
@@ -82,13 +82,13 @@ public class CandidatureServiceImpl implements CandidatureService {
 
     private void setOpportunity(Candidature candidature) {
         Opportunity opportunity = opportunityRepository.findById(candidature.getOpportunity().getId())
-                .orElseThrow(() -> new CandidatureIdNotFoundException("Candidature not found."));
+                .orElseThrow(() -> new CandidatureIdNotFoundException("Candidatura não encontrada"));
         candidature.setOpportunity(opportunity);
     }
 
     private void setUser(Candidature candidature) {
         User user = userRepository.findById(candidature.getUser().getId())
-                .orElseThrow(() -> new CandidatureIdNotFoundException("User not found."));
+                .orElseThrow(() -> new CandidatureIdNotFoundException("Usuário não encontrado"));
         candidature.setUser(user);
     }
 
@@ -96,14 +96,14 @@ public class CandidatureServiceImpl implements CandidatureService {
         if (repository.findByCandidatureEmailOrIndicationNameOrIndicationPhoneNumber(
                 candidature.getCandidateEmail(), candidature.getCandidateName(),
                 candidature.getCandidatePhoneNumber()).isPresent()) {
-            throw new CandidatureYouAreAlreadyAppliedForThisOpportunityException("You are already applied for this opportunity.");
+            throw new CandidatureYouAreAlreadyAppliedForThisOpportunityException("Você já está inscrito para esta oportunidade");
         }
     }
 
     @Override
     public Candidature edit(Candidature candidature) {
         if (isNull(candidature.getId())) {
-            throw new OpportunityIdNotProvidedException("Id of Opportunity not provided.");
+            throw new OpportunityIdNotProvidedException("Id da Oportunidade não informado");
         }
         findById(candidature.getId());
         verifyFields(candidature);
@@ -114,10 +114,10 @@ public class CandidatureServiceImpl implements CandidatureService {
     @Transactional
     public Candidature updateStatus(CandidatureStatusDto candidatureStatusDto) {
         if (isNull(candidatureStatusDto.getStatus())) {
-            throw new CandidatureStatusNotProvidedException("Status for update of Candidature not provided.");
+            throw new CandidatureStatusNotProvidedException("Situação para alteração da Candidatura não informado");
         }
         Candidature candidature = repository.findById(candidatureStatusDto.getId())
-                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
 
         candidature.setStatus(candidatureStatusDto.getStatus());
 
@@ -134,9 +134,9 @@ public class CandidatureServiceImpl implements CandidatureService {
     @Override
     public void delete(Long id) {
         Candidature candidature = repository.findById(id)
-                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
         if(!CandidatureStatus.NEW.equals(candidature.getStatus())) {
-            throw new CandidatureIsInProgressAndCannotBeDeletedException("Candidature is in progress and cannot be deleted.");
+            throw new CandidatureIsInProgressAndCannotBeDeletedException("Candidatura está em andamento e não pode ser excluída");
         } else {
             repository.delete(candidature);
         }
@@ -144,28 +144,25 @@ public class CandidatureServiceImpl implements CandidatureService {
 
     private void verifyFields(Candidature candidature) {
         if (isNull(candidature.getUser())) {
-            throw new CandidatureUserNotProvidedException("User of Candidature not provided.");
+            throw new CandidatureUserNotProvidedException("Usuário da Candidatura não informado");
         }
         if (isNull(candidature.getCandidateDocumentNumber())) {
-            throw new CandidatureCandidateDocumentNumberNotProvidedException("Candidate Document Number of Candidature not provided.");
+            throw new CandidatureCandidateDocumentNumberNotProvidedException("CPF do Candidato não informado");
         }
         if (isNull(candidature.getOpportunity())) {
-            throw new CandidatureOpportunityNotProvidedException("Opportunity of Candidature not provided.");
+            throw new CandidatureOpportunityNotProvidedException("Oportunidade da Candidatura não informada");
         }
-//        if (isNull(candidature.getAttachment())) {
-//            throw new CandidatureAttachmentNotProvidedException("Attachment of Candidature not provided.");
-//        }
         if (isNull(candidature.getStatus())) {
-            throw new CandidatureStatusNotProvidedException("Status of Candidature not provided.");
+            throw new CandidatureStatusNotProvidedException("Situação da Candidatura não informada");
         }
         if (isNull(candidature.getCandidateName())) {
-            throw new CandidatureCandidateNameNotProvidedException("Candidate Name of Candidature not provided.");
+            throw new CandidatureCandidateNameNotProvidedException("Nome do Candidato não informado");
         }
         if (isNull(candidature.getCandidatePhoneNumber())) {
-            throw new CandidatureCandidatePhoneNumberNotProvidedException("Candidate Phone Number of Candidature not provided.");
+            throw new CandidatureCandidatePhoneNumberNotProvidedException("Telefone do Candidato não informado");
         }
         if (isNull(candidature.getCandidateEmail())) {
-            throw new CandidatureCandidateEmailNotProvidedException("Candidate Email of Candidature not provided.");
+            throw new CandidatureCandidateEmailNotProvidedException("E-mail do Candidato não informado");
         }
     }
 

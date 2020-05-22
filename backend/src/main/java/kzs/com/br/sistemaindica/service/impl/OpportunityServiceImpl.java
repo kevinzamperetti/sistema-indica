@@ -31,44 +31,44 @@ public class OpportunityServiceImpl implements OpportunityService {
     @Override
     public Opportunity findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
     }
 
     @Override
     public Opportunity save(Opportunity opportunity) {
         if (nonNull(opportunity.getId())) {
-            throw new OpportunityIdMustNotBeProvidedException("Id of Opportunity must not be provided.");
+            throw new OpportunityIdMustNotBeProvidedException("Id da Oportunidade não deve ser informado");
         }
         verifyFields(opportunity);
         setCampaign(opportunity);
         setBonusLevel(opportunity);
         opportunity.setCreationDate(LocalDate.now());
         checkCampaignExpirationDate(opportunity.getExpirationDate(), opportunity.getCampaign().getExpirationDate());
-        return repository.save(opportunity); //ver se foi setado os objetos de campaign e opportunityBonusLevel
+        return repository.save(opportunity);
     }
 
     private void setCampaign(Opportunity opportunity) {
         Campaign campaign = campaignRepository.findById(opportunity.getCampaign().getId())
-                .orElseThrow(() -> new CampaignIdNotFoundException("Campaign not found."));
+                .orElseThrow(() -> new CampaignIdNotFoundException("Campanha de Indicação não encontrada"));
         opportunity.setCampaign(campaign);
     }
 
     private void setBonusLevel(Opportunity opportunity) {
         OpportunityBonusLevel bonusLevel = bonusLevelRepository.findById(opportunity.getBonusLevel().getId())
-                .orElseThrow(() -> new OpportunityBonusLevelIdNotFoundException("Bonus Level not found."));
+                .orElseThrow(() -> new OpportunityBonusLevelIdNotFoundException("Nível de Bonificaçao não encontrado"));
         opportunity.setBonusLevel(bonusLevel);
     }
 
     private void checkCampaignExpirationDate(LocalDate opportunityExpirationDate, LocalDate campaignExpirationDate) {
         if (opportunityExpirationDate.isAfter(campaignExpirationDate)) {
-            throw new OpportunityExpirationDateAfterCampaignExpirationDateException("Opportunity Expiration Date is after Campaign Expiration Date.");
+            throw new OpportunityExpirationDateAfterCampaignExpirationDateException("Data de Expiração não pode ser superior a Data de Expiração da Campanha de Indicação");
         }
     }
 
     @Override
     public Opportunity edit(Opportunity opportunity) {
         if (isNull(opportunity.getId())) {
-            throw new OpportunityIdNotProvidedException("Id of Opportunity not provided.");
+            throw new OpportunityIdNotProvidedException("Id da Oportunidade não informado");
         }
         findById(opportunity.getId());
         setCampaign(opportunity);
@@ -81,11 +81,11 @@ public class OpportunityServiceImpl implements OpportunityService {
     @Override
     public void delete(Long id) {
         Opportunity opportunity = repository.findById(id)
-                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
         if(!opportunity.getIndications().isEmpty()) {
-            throw new OpportunityHasIndicationsAndCannotBeDeletedException("Opportunity has Indications and cannot be deleted.");
+            throw new OpportunityHasIndicationsAndCannotBeDeletedException("Oportunidade possui Indicações vinculadas e não pode ser excluída");
         } else if(!opportunity.getKeyWords().isEmpty()) {
-                throw new OpportunityHasKeyWordsAndCannotBeDeletedException("Opportunity has Key Words and cannot be deleted.");
+                throw new OpportunityHasKeyWordsAndCannotBeDeletedException("Oportunidade possui Palavras Chave vinculadas e não pode ser excluída");
         } else {
             repository.delete(opportunity);
         }
@@ -93,28 +93,28 @@ public class OpportunityServiceImpl implements OpportunityService {
 
     private void verifyFields(Opportunity opportunity) {
         if (!hasText(opportunity.getName())) {
-            throw new OpportunityNameNotProvidedException("Name of Opportunity not provided.");
+            throw new OpportunityNameNotProvidedException("Nome não informado");
         }
         if (!hasText(opportunity.getDescription())) {
-            throw new OpportunityDescriptionNotProvidedException("Description of Opportunity not provided.");
+            throw new OpportunityDescriptionNotProvidedException("Descrição não informado");
         }
         if (isNull(opportunity.getCampaign())) {
-            throw new OpportunityCampaignNotProvidedException("Campaign of Opportunity not provided.");
+            throw new OpportunityCampaignNotProvidedException("Campanha de Indicação não informada");
         }
         if (isNull(opportunity.getBonusLevel())) {
-            throw new OpportunityBonusLevelNotProvidedException("Bonus Level of Opportunity not provided.");
+            throw new OpportunityBonusLevelNotProvidedException("Nível de Bonificação não informado");
         }
         if (isNull(opportunity.getExperienceLevel())) {
-            throw new OpportunityExperienceLevelNotProvidedException("Experience Level of Opportunity not provided.");
+            throw new OpportunityExperienceLevelNotProvidedException("Nível de Experiência não informado");
         }
         if (isNull(opportunity.getExpirationDate())) {
-            throw new OpportunityExpirationDateNotProvidedException("Expiration Date of Opportunity not provided.");
+            throw new OpportunityExpirationDateNotProvidedException("Data de Expiração não informado");
         }
         if (isNull(opportunity.getAutomaticEvaluationQuantity())) {
-            throw new OpportunityAutomaticEvaluationQuantityNotProvidedException("Automatic Evaluation Quantity of Opportunity not provided.");
+            throw new OpportunityAutomaticEvaluationQuantityNotProvidedException("Quantidade de Avaliação automática não informada");
         }
         if (isNull(opportunity.getEnabled())) {
-            throw new OpportunityEnabledNotProvidedException("Enabled of Opportunity not provided.");
+            throw new OpportunityEnabledNotProvidedException("Situação não informada");
         }
     }
 

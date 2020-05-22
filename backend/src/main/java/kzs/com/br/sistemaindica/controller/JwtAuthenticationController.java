@@ -45,7 +45,7 @@ public class JwtAuthenticationController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         User userRegisterInSystem = userRepository.findByEmail(authenticationRequest.getEmail())
-                .orElseThrow( () -> new UsernameNotFoundException("User not found with email: " + authenticationRequest.getEmail()));
+                .orElseThrow( () -> new UsernameNotFoundException("Usuário não encontrado. E-mail informado: " + authenticationRequest.getEmail()));
 
 //        System.out.println("Usuário logado: " + userDetails.getUsername());
         return ResponseEntity.ok(
@@ -64,9 +64,9 @@ public class JwtAuthenticationController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
+            throw new Exception("Usuário Disativado", e);
         } catch (BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
+            throw new Exception("Credenciais inválidas", e);
         }
     }
 

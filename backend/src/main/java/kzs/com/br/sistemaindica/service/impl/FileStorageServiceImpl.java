@@ -33,7 +33,7 @@ public class FileStorageServiceImpl {
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
-            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
+            throw new FileStorageException("Não foi possível criar o diretório em que os arquivos enviados serão armazenados.", ex);
         }
     }
 
@@ -47,14 +47,14 @@ public class FileStorageServiceImpl {
         fileName = fileBaseName.concat("." + fileExtension);
 
         if (!"pdf".toUpperCase().equals(fileExtension.toUpperCase())) {
-            throw new FileStorageException("Sorry! File whit extension dont accepted! " +
-                                           "Extension accepted: PDF, extension your file: " + fileExtension);
+            throw new FileStorageException("Extensão do arquivo não é aceita! " +
+                                           "Extensão aceita: PDF, extensão do seu arquivo: " + fileExtension);
         }
 
         try {
             // Check if the file's name contains invalid characters
             if(fileName.contains("..")) {
-                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+                throw new FileStorageException("Nome do arquivo contém sequência de caminho inválida: " + fileName);
             }
 
             // Copy file to the target location (Replacing existing file with the same name)
@@ -63,7 +63,7 @@ public class FileStorageServiceImpl {
 
             return fileName;
         } catch (IOException ex) {
-            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+            throw new FileStorageException("Não foi possível armazenar o arquivo " + fileName + ". Tente novamente!", ex);
         }
     }
 
@@ -74,10 +74,10 @@ public class FileStorageServiceImpl {
             if(resource.exists()) {
                 return resource;
             } else {
-                throw new MyFileNotFoundException("File " + fileName + " not found.");
+                throw new MyFileNotFoundException("File " + fileName + " não encontrado");
             }
         } catch (MalformedURLException ex) {
-            throw new MyFileNotFoundException("File " + fileName + " not found.", ex);
+            throw new MyFileNotFoundException("File " + fileName + " não encontrado", ex);
         }
     }
 }

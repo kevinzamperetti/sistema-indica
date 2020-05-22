@@ -25,7 +25,7 @@ public class KeyWordServiceImpl implements KeyWordService {
     @Override
     public KeyWord findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new KeyWordIdNotFoundException("Id of Key Word not found."));
+                .orElseThrow(() -> new KeyWordIdNotFoundException("Palavra Chave não encontrada"));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class KeyWordServiceImpl implements KeyWordService {
     @Override
     public KeyWord save(KeyWord keyWord) {
         if (nonNull(keyWord.getId())) {
-            throw new KeyWordIdMustNotBeProvidedException("Id of Key Word must not be provided.");
+            throw new KeyWordIdMustNotBeProvidedException("Id da Palavra Chave não deve ser informado");
         }
         verifyFields(keyWord);
         setOpportunity(keyWord);
@@ -46,14 +46,14 @@ public class KeyWordServiceImpl implements KeyWordService {
 
     private void setOpportunity(KeyWord keyWord) {
         Opportunity opportunity = opportunityRepository.findById(keyWord.getOpportunity().getId())
-                .orElseThrow(() -> new OpportunityIdNotFoundException("Opportunity not found."));
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
         keyWord.setOpportunity(opportunity);
     }
 
     @Override
     public KeyWord edit(KeyWord keyWord) {
         if (isNull(keyWord.getId())) {
-            throw new KeyWordIdNotProvidedException("Id of Opportunity not provided.");
+            throw new KeyWordIdNotProvidedException("Id da Oportunidade não informada");
         }
         findById(keyWord.getId());
         verifyFields(keyWord);
@@ -63,19 +63,19 @@ public class KeyWordServiceImpl implements KeyWordService {
     @Override
     public void delete(Long id) {
         KeyWord keyWord = repository.findById(id)
-                .orElseThrow(() -> new KeyWordIdNotFoundException("Id of Key Word not found."));
+                .orElseThrow(() -> new KeyWordIdNotFoundException("Palavra não encontrada"));
         repository.delete(keyWord);
     }
 
     private void verifyFields(KeyWord keyWord) {
         if (isNull(keyWord.getWord())) {
-            throw new KeyWordNameNotProvidedException("Word of Key Word not provided.");
+            throw new KeyWordNameNotProvidedException("Palavra não informada.");
         }
         if (isNull(keyWord.getOpportunity())) {
-            throw new KeyWordOpportunityNotProvidedException("Opportunity of Key Word not provided.");
+            throw new KeyWordOpportunityNotProvidedException("Oportunidade da Palavra Chave não informada.");
         }
         if (isNull(keyWord.getFound())) {
-            throw new KeyWordFoundNotProvidedException("Field 'Found' of Key Word not provided.");
+            throw new KeyWordFoundNotProvidedException("Campo 'Found' da Palavra Chave não informado.");
         }
     }
 

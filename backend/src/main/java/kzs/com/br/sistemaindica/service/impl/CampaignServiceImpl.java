@@ -22,13 +22,13 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public Campaign findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new CampaignIdNotFoundException("Id of Campaign not found."));
+                .orElseThrow(() -> new CampaignIdNotFoundException("Campanha de Indicação não encontrado"));
     }
 
     @Override
     public Campaign save(Campaign campaign) {
         if (nonNull(campaign.getId())) {
-            throw new CampaignIdMustNotBeProvidedException("Id of Campaign must not be provided.");
+            throw new CampaignIdMustNotBeProvidedException("Id da Campanha de Indicação não deve ser informado");
         }
         verifyFields(campaign);
         campaign.setCreationDate(LocalDate.now());
@@ -41,7 +41,7 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public Campaign edit(Campaign campaign) {
         if (isNull(campaign.getId())) {
-            throw new CampaignIdNotProvidedException("Id of Campaign not provided.");
+            throw new CampaignIdNotProvidedException("Id da Campanha de Indicação não informado");
         }
         Campaign campaignDb = findById(campaign.getId());
         campaign.setCreationDate(campaignDb.getCreationDate());
@@ -52,9 +52,9 @@ public class CampaignServiceImpl implements CampaignService {
     @Override
     public void delete(Long id) {
         Campaign campaign = repository.findById(id)
-                .orElseThrow(() -> new CampaignIdNotFoundException("Id of Campaign not found."));
+                .orElseThrow(() -> new CampaignIdNotFoundException("Id Campanha de Indicação encontrado"));
         if(!campaign.getOpportunities().isEmpty()) {
-            throw new CampaignHasOpportunitiesAndCannotBeDeletedException("Campaign has opportunities and cannot be deleted.");
+            throw new CampaignHasOpportunitiesAndCannotBeDeletedException("Campanha de Indicação possui Oportunidades vinculadas e não pode ser excluída");
         } else {
             repository.delete(campaign);
         }
@@ -62,13 +62,13 @@ public class CampaignServiceImpl implements CampaignService {
 
     private void verifyFields(Campaign campaign) {
         if (!hasText(campaign.getName())) {
-            throw new CampaignNameNotProvidedException("Name of Campaign not provided.");
+            throw new CampaignNameNotProvidedException("Nome da Campanha de Indicação não informado");
         }
         if (isNull(campaign.getExpirationDate())) {
-            throw new CampaignExpirationDateNotProvidedException("Expiration Date of Campaign not provided.");
+            throw new CampaignExpirationDateNotProvidedException("Data de Expiração da Campanha de Indicação não informado");
         }
         if (isNull(campaign.getEnabled())) {
-            throw new CampaignEnabledNotProvidedException("Enabled of Campaign not provided.");
+            throw new CampaignEnabledNotProvidedException("Situação da Campanha de Indicação não informada");
         }
     }
 

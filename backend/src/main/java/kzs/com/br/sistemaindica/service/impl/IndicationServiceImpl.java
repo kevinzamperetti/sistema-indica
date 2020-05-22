@@ -52,20 +52,20 @@ public class IndicationServiceImpl implements IndicationService {
     @Override
     public Indication findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new IndicationIdNotFoundException("Id of Indication not found."));
+                .orElseThrow(() -> new IndicationIdNotFoundException("Indicação não encontrada"));
     }
 
     @Override
     public List<Indication> findByUser(Long id) {
         userRepository.findById(id)
-                .orElseThrow(() -> new UserIdNotFoundException("User not found."));
+                .orElseThrow(() -> new UserIdNotFoundException("Usuário não encontrado"));
         return repository.findByUser(id);
     }
 
     @Override
     public Indication save(Indication indication) {
         if (nonNull(indication.getId())) {
-            throw new IndicationIdMustNotBeProvidedException("Id of Indication must not be provided.");
+            throw new IndicationIdMustNotBeProvidedException("Id da Indicação não deve ser informado.");
         }
         verifyFields(indication);
         setOpportunity(indication);
@@ -94,13 +94,13 @@ public class IndicationServiceImpl implements IndicationService {
 
     private void setOpportunity(Indication indication) {
         Opportunity opportunity = opportunityRepository.findById(indication.getOpportunity().getId())
-                .orElseThrow(() -> new IndicationIdNotFoundException("Opportunity not found."));
+                .orElseThrow(() -> new IndicationIdNotFoundException("Oportunidade não encontrada"));
         indication.setOpportunity(opportunity);
     }
 
     private void setUser(Indication indication) {
         User user = userRepository.findById(indication.getUser().getId())
-                .orElseThrow(() -> new IndicationIdNotFoundException("User not found."));
+                .orElseThrow(() -> new IndicationIdNotFoundException("Usuário não encontrado"));
         indication.setUser(user);
     }
 
@@ -108,14 +108,14 @@ public class IndicationServiceImpl implements IndicationService {
         if (repository.findByIndicationEmailOrIndicationNameOrIndicationPhoneNumber(
                 indication.getIndicationEmail(), indication.getIndicationName(),
                 indication.getIndicationPhoneNumber()).isPresent()) {
-            throw new IndicationThisPersonAlreadyHasIndicationException("This person already has indication");
+            throw new IndicationThisPersonAlreadyHasIndicationException("Esta pessoa já possui uma indicação");
         }
     }
 
     @Override
     public Indication edit(Indication indication) {
         if (isNull(indication.getId())) {
-            throw new OpportunityIdNotProvidedException("Id of Opportunity not provided.");
+            throw new OpportunityIdNotProvidedException("Id da Oportunidade não informado");
         }
         findById(indication.getId());
         verifyFields(indication);
@@ -126,10 +126,10 @@ public class IndicationServiceImpl implements IndicationService {
     @Transactional
     public Indication updateStatus(IndicationStatusDto indicationStatusDto) {
         if (isNull(indicationStatusDto.getStatus())) {
-            throw new IndicationStatusNotProvidedException("Status for update of Indication not provided.");
+            throw new IndicationStatusNotProvidedException("Situação para alteração da Indicação não informado");
         }
         Indication indication = repository.findById(indicationStatusDto.getId())
-                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
 
         indication.setStatus(indicationStatusDto.getStatus());
 
@@ -152,9 +152,9 @@ public class IndicationServiceImpl implements IndicationService {
     @Override
     public void delete(Long id) {
         Indication indication = repository.findById(id)
-                .orElseThrow(() -> new OpportunityIdNotFoundException("Id of Opportunity not found."));
+                .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
         if(!IndicationStatus.NEW.equals(indication.getStatus())) {
-            throw new IndicationIsInProgressAndCannotBeDeletedException("Indication is in progress and cannot be deleted.");
+            throw new IndicationIsInProgressAndCannotBeDeletedException("Indicação está em andamento e não pode ser excluída");
         } else {
             repository.delete(indication);
         }
@@ -162,34 +162,31 @@ public class IndicationServiceImpl implements IndicationService {
 
     private void verifyFields(Indication indication) {
         if (isNull(indication.getUser())) {
-            throw new IndicationUserNotProvidedException("User of Indication not provided.");
+            throw new IndicationUserNotProvidedException("Usuário da Indicação não informado");
         }
         if (isNull(indication.getUserDocumentNumber())) {
-            throw new IndicationUserDocumentNumberNotProvidedException("User Document of Indication not provided.");
+            throw new IndicationUserDocumentNumberNotProvidedException("CPF do Usuário não informado");
         }
         if (isNull(indication.getOpportunity())) {
-            throw new IndicationOpportunityNotProvidedException("Opportunity of Indication not provided.");
+            throw new IndicationOpportunityNotProvidedException("Oportunidade da Indicação não informada");
         }
-//        if (isNull(indication.getAttachment())) {
-//            throw new IndicationAttachmentNotProvidedException("Attachment of Indication not provided.");
-//        }
         if (isNull(indication.getStatus())) {
-            throw new IndicationStatusNotProvidedException("Status of Indication not provided.");
+            throw new IndicationStatusNotProvidedException("Situação da Indicação não informada");
         }
         if (isNull(indication.getIndicationName())) {
-            throw new IndicationNameNotProvidedException("Indication Name of Indication not provided.");
+            throw new IndicationNameNotProvidedException("Nome do Indicado não informado");
         }
         if (isNull(indication.getIndicationPhoneNumber())) {
-            throw new IndicationPhoneNumberNotProvidedException("Indication Phone Number of Indication not provided.");
+            throw new IndicationPhoneNumberNotProvidedException("Telefone do Indicado não informado");
         }
         if (isNull(indication.getIndicationEmail())) {
-            throw new IndicationEmailNotProvidedException("Indication Email of Indication not provided.");
+            throw new IndicationEmailNotProvidedException("E-mail do Indicado não informado");
         }
     }
 
     private void validateUserAndIndication(Indication indication) {
         if (indication.getUser().getName().equals(indication.getIndicationName())) {
-            throw new IndicationCannotBePerformedForYouException("Indication cannot be performed for you.");
+            throw new IndicationCannotBePerformedForYouException("Não é possível realizar uma indicação para você mesmo");
         }
     }
 

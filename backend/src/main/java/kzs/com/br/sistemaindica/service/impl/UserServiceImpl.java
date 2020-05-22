@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         verifyDataUser(user);
 
         BankData bankData = bankDataRepository.findById(user.getBankData().getId())
-                .orElseThrow(() -> new BankDataNotProvidedException("Bank Data not found."));
+                .orElseThrow(() -> new BankDataNotProvidedException("Dados Bancários não encontrados"));
 
         user.setBankData(bankData);
 
@@ -45,10 +45,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User edit(User user) {
         if (isNull(user.getId())) {
-            throw new UserIdNotProvidedException("Id of User not provided.");
+            throw new UserIdNotProvidedException("Id do usuário não informado");
         }
         User userDb = repository.findById(user.getId())
-                .orElseThrow(() -> new UserIdNotFoundException("User not found."));
+                .orElseThrow(() -> new UserIdNotFoundException("Usuário não encontrado"));
 
         //        verifyDataUser(user);
         if (!userDb.getPassword().equals(user.getPassword())) {
@@ -60,12 +60,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editBankData(BankDataDto bankDataDto) {
         User user = repository.findById(bankDataDto.getIdUser())
-                .orElseThrow(() -> new UserIdNotFoundException("User not found."));
+                .orElseThrow(() -> new UserIdNotFoundException("Usuário não encontrado"));
 
         verifyDataForUpdateBankData(bankDataDto);
 
         BankData bankData = bankDataRepository.findById(bankDataDto.getBankDataId())
-                .orElseThrow(() -> new BankDataNotProvidedException("Bank Data not found."));
+                .orElseThrow(() -> new BankDataNotProvidedException("Dados Bancários não encontrados"));
 
         user.setBankData(bankData);
         user.setBankAgency(bankDataDto.getBankAgency());
@@ -75,54 +75,54 @@ public class UserServiceImpl implements UserService {
 
     private void verifyDataForUpdateBankData(BankDataDto bankDataDto) {
         if (isNull(bankDataDto.getBankDataId())) {
-            throw new BankDataNotProvidedException("Bank Data not provided.");
+            throw new BankDataNotProvidedException("Dados Bancários não foram informados");
         }
         if (isNull(bankDataDto.getBankAgency())) {
-            throw new UserBankAgencyNotProvidedException("Bank Agency of User not provided.");
+            throw new UserBankAgencyNotProvidedException("Agência Bancária do Usuário não informada");
         }
         if (isNull(bankDataDto.getBankAccount())) {
-            throw new UserBankAccountNotProvidedException("Bank Account of User not provided.");
+            throw new UserBankAccountNotProvidedException("Conta Bancária do Usuário não informada");
         }
     }
 
     private void verifyDataUser(User user) {
         if (!hasText(user.getName())) {
-            throw new UserNameNotProvidedException("Name of user not provided.");
+            throw new UserNameNotProvidedException("Nome do Usuário não informado");
         }
 
         if (isNull(user.getEmail())) {
-            throw new UserEmailNotProvidedException("Email of user not provided.");
+            throw new UserEmailNotProvidedException("E-mail do Usuário não informado");
         }
 
         if (isNull(user.getPassword())) {
-            throw new UserPasswordNotProvidedException("Password of user not provided.");
+            throw new UserPasswordNotProvidedException("Senha do Usuário não informada");
         }
 
         if (isNull(user.getDocumentNumber())) {
-            throw new UserDocumentNumberNotProvidedException("Address of user not provided.");
+            throw new UserDocumentNumberNotProvidedException("CPF do Usuário não informado");
         }
 
         if (isNull(user.getProfile())) {
-            throw new UserProfileNotProvidedException("Address of user not provided.");
+            throw new UserProfileNotProvidedException("Perfil do Usuário não informado");
         }
 
         if (isNull(user.getBankData())) {
-            throw new BankDataNotProvidedException("Bank Data of user not provided.");
+            throw new BankDataNotProvidedException("Dados Bancários do Usuário não informado");
         }
 
         if (isNull(user.getBankAccount())) {
-            throw new UserBankAccountNotProvidedException("Bank Account of user not provided.");
+            throw new UserBankAccountNotProvidedException("Conta Bancária do Usuário não informada");
         }
 
         if (isNull(user.getBankAgency())) {
-            throw new UserBankAgencyNotProvidedException("Bank Agency of user not provided.");
+            throw new UserBankAgencyNotProvidedException("Agência Bancária do Usuário não informada");
         }
     }
 
     private void validateEmail(String email) {
         Optional<User> emailUser = repository.findByEmail(email);
         if (emailUser.isPresent()) {
-            throw new UserEmailAlreadyRegisteredException("This user cannot be registered. Email already registered in the system.");
+            throw new UserEmailAlreadyRegisteredException("E-mail já cadastrado no sistema");
         }
     }
 
