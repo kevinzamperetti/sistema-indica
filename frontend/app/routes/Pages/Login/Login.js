@@ -81,7 +81,7 @@ export default class Login extends Component {
                 toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-			toast.error(contentErrorFillFields);
+			toast.error(this.util.errorFillFields());
 		}
     }
 
