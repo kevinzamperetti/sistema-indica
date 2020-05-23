@@ -56,4 +56,10 @@ public class UserController {
                                                      @RequestParam(name = "profile") UserProfile profile) {
         return ResponseEntity.ok(repository.findByName(name, profile));
     }
+
+    @GetMapping("/forgotPassword")
+    public ResponseEntity<Boolean> sendTemporaryPassword(@RequestParam(name = "email") String email) {
+        return ResponseEntity.ok(service.sendTemporaryPassword(email));
+    }
+
 }

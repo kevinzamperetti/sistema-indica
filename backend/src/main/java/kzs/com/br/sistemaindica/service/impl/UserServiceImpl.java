@@ -6,7 +6,9 @@ import kzs.com.br.sistemaindica.entity.dto.BankDataDto;
 import kzs.com.br.sistemaindica.exception.*;
 import kzs.com.br.sistemaindica.repository.BankDataRepository;
 import kzs.com.br.sistemaindica.repository.UserRepository;
+import kzs.com.br.sistemaindica.service.EmailService;
 import kzs.com.br.sistemaindica.service.UserService;
+import kzs.com.br.sistemaindica.util.Cryptography;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository repository;
 
     private final BankDataRepository bankDataRepository;
+
+    private final EmailService emailService;
 
     @Override
     public User save(User user) {
@@ -71,6 +75,38 @@ public class UserServiceImpl implements UserService {
         user.setBankAgency(bankDataDto.getBankAgency());
         user.setBankAccount(bankDataDto.getBankAccount());
         return repository.save(user);
+    }
+
+    @Override
+    public Boolean sendTemporaryPassword(String email) {
+        Optional<User> user = repository.findByEmailHasRegister(email);
+        if (user.isPresent()) {
+            String temporaryPassword = generatedTemporaryPassword();
+            user.get().setPassword(Cryptography.cryptographyPassword(temporaryPassword));
+            repository.save(user.get());
+            return emailService.sendEmailForgotPassword(email, temporaryPassword);
+        } else {
+            throw new UserEmailNotFoundException("E-mail não cadastrado no sistema");
+        }
+    }
+
+    @Override
+    public String generatedTemporaryPassword() {
+        int qtyMaxCharacters = 8;
+        String[] characters = { "a", "1", "b", "2", "4", "5", "6", "7", "8",
+                "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+                "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w",
+                "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I",
+                "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
+                "V", "W", "X", "Y", "Z" };
+
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < qtyMaxCharacters; i++) {
+            int position = (int) (Math.random() * characters.length);
+            password.append(characters[position]);
+        }
+        return password.toString();
     }
 
     private void verifyDataForUpdateBankData(BankDataDto bankDataDto) {

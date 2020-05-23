@@ -58,7 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
         // Não cheque essas requisições
                 .authorizeRequests()
-                .antMatchers("/login", "/api/bankData", "/api/user/register", "/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**")
+                .antMatchers("/login", "/api/bankData", "/api/user/register", "/api/user/forgotPassword", "/v2/api-docs",
+                                         "/configuration/ui", "/swagger-resources/**", "/configuration/**", "/swagger-ui.html", "/webjars/**")
                 .permitAll()
         // Qualquer outra requisição deve ser checada
         .antMatchers("/api/**").authenticated().and()

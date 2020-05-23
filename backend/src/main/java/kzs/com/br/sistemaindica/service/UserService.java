@@ -11,4 +11,8 @@ public interface UserService {
 
     User editBankData(BankDataDto bankDataDto);
 
+    Boolean sendTemporaryPassword(String email);
+
+    String generatedTemporaryPassword();
+
 }
