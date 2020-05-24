@@ -48,7 +48,7 @@ export default class Candidature extends Component {
 
     listAllOpportunities = async () => {
 		const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const response = await API.get( '/opportunity?enabled=true', header )
+        const response = await API.get( '/opportunity/select', header )
         this.setState( { listOpportunities: response.data }  )
     }
 

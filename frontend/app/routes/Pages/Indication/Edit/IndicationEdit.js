@@ -68,56 +68,38 @@ export default class IndicationEdit extends Component {
 
     edit( evt ) {
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const { indication, indicationStatus } = this.state
-        API.put( `/indication/${indication.id}/updateStatus`, {  
-            id: indication.id,
-            status: indicationStatus
-        }, header )
-        .then( response => {
-            toast.success(this.util.contentSuccess());
-            this.listIndicationById();
-        } )
-        .catch( error => {
-            toast.error(this.util.contentError(error.response.data.message));
-        } )
+        const { indication, indicationStatus, user } = this.state
+        if ( indicationStatus ) {
+            API.put( `/indication/${indication.id}/updateStatus`, {  
+                id: indication.id,
+                status: indicationStatus
+            }, header )
+            .then( response => {
+                toast.success(this.util.contentSuccess());
+                this.listIndicationById();
+                // if (response.data.indication.status == 'HIRED') {
+                //     this.sendEmailWhenIndicationHired(user.email, indication.indicationName)
+                // } else if (response.data.indication.status == 'BONUS_SENT') {
+                //     this.sendEmailWhenIndicationBonusSent(user.email, indication.indicationName)
+                // }
+            } )
+            .catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
+            } )
+        } else {
+            toast.error(this.util.errorFillFields());
+        }
     }
-
-    // save( evt ) {
-    //     // evt.preventDefault();
-    //     const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-    //     const { opportunityIdSelector, listOpportunities, attachment, indicationName,
-    //             indicationPhoneNumber, indicationEmail, status, dataUserLogged,
-    //             image, fileNameAttachment, fileDownloadUriAttachment, fileTypeAttachment } = this.state
-    //     if ( opportunityIdSelector && listOpportunities && indicationName &&
-    //             indicationPhoneNumber && indicationEmail && status && dataUserLogged && image ) {
-    //             API.post( '/indication', {  
-    //                 user: {
-    //                     id: dataUserLogged.id
-    //                 },
-    //                 opportunity: {
-    //                     id: opportunityIdSelector.id
-    //                 },	
-    //                 indicationName: indicationName,
-    //                 indicationPhoneNumber: indicationPhoneNumber,
-    //                 indicationEmail: indicationEmail,
-    //                 userDocumentNumber: dataUserLogged.documentNumber,
-    //                 status: status,
-    //                 fileNameAttachment: fileNameAttachment,
-    //                 fileDownloadUriAttachment: fileDownloadUriAttachment,
-    //                 fileTypeAttachment: fileTypeAttachment
-    //         }, header )
-    //         .then( response => {
-    //             toast.success(this.util.contentSuccess());
-    //             // console.log( response.data )
-    //         } )
-    //         .catch( error => {
-    //             toast.error(this.util.contentError(error.response.data.message));
-    //         } )
-    //     } else {
-    //         toast.error(this.util.errorFillFields());
-    //     }
+    // sendEmailWhenIndicationHired(email, name) {
+	// 	const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+    //     const response = API.get( `/sendEemail/indication/status/hired?email${email}&name=${name}`, header )
     // }
-    
+
+    // sendEmailWhenIndicationBonusSent (name, email) {
+	// 	const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+    //     const response = API.get( `/sendEemail/indication/status/hired?email${email}&name=${name}`, header )
+    // }
+
     render() {
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         const { indication, user, opportunity, listIndicationHistory, listKeyWords } = this.state

@@ -176,6 +176,10 @@ export default class Util extends React.Component {
         return "Nova"
     } else if (status === 'HIRED') {
         return "Contratada"
+    } else if (status === 'SENDING_BONUS') {
+        return "Enviando Bônus"
+    } else if (status === 'BONUS_SENT') {
+        return "Bonus depositado"
     } else if (status === 'DISCARDED') {
         return "Descartada"
     }
@@ -190,6 +194,10 @@ export default class Util extends React.Component {
         return "warning"
     } else if (status === 'HIRED') {
         return "success"
+    } else if (status === 'SENDING_BONUS') {
+        return "success"
+    } else if (status === 'BONUS_SENT') {
+        return "info"
     } else if (status === 'DISCARDED') {
         return "danger"
     }

@@ -35,8 +35,10 @@ export class SidebarMiddleNav extends React.Component {
         const name = localStorage.getItem('Name');
         const profile = localStorage.getItem('Profile');
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-		const response = await API.get( `/user/name/?name=${name}&profile=${profile}`, header )
-        this.setState( { dataUserLogged: response.data } )
+        if (name && profile) {
+            const response = await API.get( `/user/name/?name=${name}&profile=${profile}`, header )
+            this.setState( { dataUserLogged: response.data } )
+        }
     }
     
     render() {

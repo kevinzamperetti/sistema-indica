@@ -26,7 +26,7 @@ export default class CandidatureExternalList extends Component {
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
 		const responseUser = await API.get( `/user/name/?name=${name}&profile=${profile}`, header )
         
-        const responseCandidaturies = await API.get( '/candidature?enabled=true', header )
+        const responseCandidaturies = await API.get( `/candidature/user/${responseUser.data.id}`, header )
         this.setState( { 
             dataUserLogged: responseUser.data,
             listCandidaturies: responseCandidaturies.data
