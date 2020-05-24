@@ -183,6 +183,7 @@ export default class IndicationEdit extends Component {
                                                 <option value="">Selecione...</option>
                                                 <option value="IN_PROGRESS">Em andamento</option>
                                                 <option value="HIRED">Indicação Contratada</option>
+                                                <option value="BONUS_SENT">Bônus enviado</option>
                                                 <option value="DISCARDED">Indicação Descartada</option>
                                             </CustomInput>
                                         </FormGroup>                                                

@@ -150,7 +150,7 @@ public class IndicationServiceImpl implements IndicationService {
             setIndicationHistory(indication);
         }
         if (IndicationStatus.BONUS_SENT.equals(indicationStatusDto.getStatus()) &&
-                IndicationStatus.HIRED.equals(previousStatus)) {
+                IndicationStatus.SENDING_BONUS.equals(previousStatus)) {
             emailService.sendEmailWhenIndicationBonusSent(indication.getUser().getEmail(), indication.getIndicationName());
         }
         return indicationSaved;

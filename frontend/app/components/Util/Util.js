@@ -160,8 +160,12 @@ export default class Util extends React.Component {
         return "primary"
     } else if (status === 'NEW') {
         return "warning"
-      } else if (status === 'HIRED') {
+    } else if (status === 'HIRED') {
         return "success"
+    } else if (status === 'SENDING_BONUS') {
+        return "success"
+    } else if (status === 'BONUS_SENT') {
+        return "info"        
       } else if (status === 'DISCARDED') {
         return "danger"
     }
@@ -194,10 +198,6 @@ export default class Util extends React.Component {
         return "warning"
     } else if (status === 'HIRED') {
         return "success"
-    } else if (status === 'SENDING_BONUS') {
-        return "success"
-    } else if (status === 'BONUS_SENT') {
-        return "info"
     } else if (status === 'DISCARDED') {
         return "danger"
     }
