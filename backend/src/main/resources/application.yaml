@@ -30,14 +30,32 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
-
+  #File Upload configuration
   servlet:
     multipart:
       enabled: true
       file-size-threshold: 2KB
       max-file-size: 200MB
       max-request-size: 215MB
+  #spring-boot-starter-mail properties
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: noreply.indicame@gmail.com
+    password: indica.me
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        ssl:
+          enable: false
+        test-connection: true
 
+
+#File Upload Directory
 file:
   upload-dir: ./attachments/
 

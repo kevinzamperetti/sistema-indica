@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
+import MUIDataTable from "mui-datatables";
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import MaskedInput from 'react-text-mask';
 import Toggle from 'react-toggle';
 import moment from 'moment';
 import { HeaderDemo } from "../../components/HeaderDemo";
-//import { AdvancedTableA } from '../../Tables/ExtendedTable/components'
-// import { CampaignList } from './CampaignList/CampaignList'
 import { 
-    Button, ButtonGroup , Container, Row, Col, Card, CardBody, CardFooter,
-    Form, FormGroup, Label, Media, Input,Table
+    Badge, Button, Container, Row, Col, Card, CardBody, CardFooter,
+    Form, FormGroup, Label, Media, Input
 } from '../../../components';
 
-
-import { TableList } from '../../../components/Tables/TableList';
-
+import Util from '../../../components/Util/Util';
 import API from '../../../services/api';
 
 import {
@@ -21,74 +19,25 @@ import {
     createNumberMask,
     emailMask
 } from 'text-mask-addons';
+
 // const autoCorrectedDatePipe = createAutoCorrectedDatePipe('mm/dd/yyyy');
 const dolarsMask = createNumberMask({ prefix: '$' });
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                {/* Campanha de Indicação cadastrado com sucesso!
-                    porque ta valendo pro save e delete */}
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao salvar dados
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
 
 export default class Campaign extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
+            idCampaign: '',
 			name: '',
             expirationDate: '',
             enabled: false,
-            listCampaign: []
+            listCampaign: [],
+            edit: false
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.listAllCampaigns();
     }
 
@@ -108,25 +57,39 @@ export default class Campaign extends Component {
 
     save( evt ) {
 		evt.preventDefault();
-        const { name, expirationDate, enabled } = this.state
-		if ( name && expirationDate ) {
+        const { idCampaign, name, expirationDate, enabled, edit } = this.state
+        const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
+		if ( name && expirationDate && !edit ) {
             const expirationDateFormatted = moment( expirationDate, 'DD/MM/YYYY',true).format("YYYY-MM-DD");
-            const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
 			API.post( '/campaign', {
                 name: name,
                 expirationDate: expirationDateFormatted,
                 enabled: enabled
 			}, header ).then( response => {
-                toast.success(contentSuccess);
+                toast.success(this.util.contentSuccess());
+                document.getElementById("form-campaign").reset();
                 this.listAllCampaigns();
-			//this.props.history.push( "/login" )
 			} )
-			.catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+			.catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
+            } )
+        } else if ( idCampaign && name && expirationDate && edit ) {
+            const expirationDateFormatted = moment( expirationDate, 'DD/MM/YYYY',true).format("YYYY-MM-DD");
+			API.put( `/campaign/${idCampaign}`, {
+                id: idCampaign,
+                name: name,
+                expirationDate: expirationDateFormatted,
+                enabled: enabled
+			}, header ).then( response => {
+                toast.success(this.util.contentSuccess());
+                document.getElementById("form-campaign").reset();
+                this.listAllCampaigns();
+			} )
+			.catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-            toast.error(errorFillFields);
+            toast.error(this.util.errorFillFields());
         }
     }
 
@@ -134,17 +97,38 @@ export default class Campaign extends Component {
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         API.delete( `/campaign/${evt.id}`, header)
         .then( response => {
-        toast.success(contentSuccess);
+        toast.success(this.util.contentSuccess());
         this.listAllCampaigns();
         } )
-        .catch( erro => {
-            console.log( "Erro: " + erro ) 
-            toast.error(contentError);
+        .catch( error => {
+            toast.error(this.util.contentError(error.response.data.message))
         } )
     }
 
+    fillForm( campaign ) {
+        this.setState( { 
+            idCampaign: campaign.id,
+            name: campaign.name,
+            enabled: campaign.enabled,
+            expirationDate: moment(campaign.expirationDate, "YYYY-MM-DD", true).format("DD/MM/YYYY"),
+            edit: true
+         }  )
+    }
+
     render() {
-        const { listCampaign } = this.state
+        const { listCampaign, name, expirationDate } = this.state
+        const columns = ["Nome", "Data de Expiração", "Situação", "", ""];
+        const data = listCampaign.length > 0
+                        ? listCampaign.map( ( campaign ) => 
+                            [ campaign.name, moment(campaign.expirationDate, "YYYY-MM-DD", true).format("DD/MM/YYYY"),
+                              <Badge pill color={this.util.setEnabledColor(campaign.enabled)}>
+                                {this.util.setEnabledName(campaign.enabled)}
+                              </Badge>,
+                              <Link className="fa fa-edit" onClick={ this.fillForm.bind( this, campaign ) }/>,
+                              <Link className="fa fa-close" onClick={ this.delete.bind( this, campaign ) }/>                              
+                            ] )
+                        : []
+        const options = this.util.optionsMUIDataTable;
         return (
             <React.Fragment>
                 <Container>
@@ -165,14 +149,15 @@ export default class Campaign extends Component {
                         <Col lg={ 12 }>
                             <Card className="mb-3">
                                 <CardBody>
-                                    <Form>
+                                    <Form id="form-campaign">
                                     {/* <Form onSubmit={ this.save.bind( this ) }> */}
                                         <FormGroup row>
                                             <Label for="input" sm={3}>
                                                 Nome
                                             </Label>
                                             <Col sm={9}>
-                                                <Input type="text" name="name" id="name" placeholder="" onBlur={ this.changeValuesState.bind( this ) }/>
+                                                <Input type="text" name="name" id="name" placeholder="" defaultValue={name}
+                                                       onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
@@ -186,6 +171,7 @@ export default class Campaign extends Component {
                                                     tag={ MaskedInput }
                                                     name="expirationDate"
                                                     id="expirationDate"
+                                                    defaultValue={expirationDate}
                                                     onBlur={ this.changeValuesState.bind( this ) }/>
                                             </Col>
                                         </FormGroup>
@@ -214,65 +200,11 @@ export default class Campaign extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            {/* <CampaignList /> */}
-                            {/* <TableList title="Campanhas de Indicação" dataList={listCampaign} /> */}
-                            <Table className="mb-0" bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th colSpan="4" className="align-middle">Campanhas de Indicação cadastradas</th>
-                                    </tr>
-                                </thead>
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>Data de Expiração</th>
-                                        <th>Situação</th>
-                                        <th colSpan="2" className="align-center">Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { listCampaign.length > 0 ?
-                                        <React.Fragment>
-                                            { listCampaign.map( ( campaign ) => { 
-                                                return (
-                                                    <tr key={campaign.id}>
-                                                        <td className="align-self-center" width='100%'>
-                                                            <span className="text-inverse"> { campaign.name } </span>
-                                                        </td>
-                                                        <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> 
-                                                                { moment(campaign.expirationDate, "YYYY-MM-DD", true).format("DD/MM/YYYY") }
-                                                             </span>
-                                                        </td>
-                                                        <td className="align-middle" width='100%'>
-                                                            <span className="text-inverse"> { campaign.enabled === true ? 'Ativo' : 'Inativo' } </span>
-                                                        </td>
-                                                        <td className="align-middle text-right">
-                                                            <ButtonGroup>
-                                                                <Button color="link" className="text-decoration-none">
-                                                                    <i className="fa fa-edit"></i>
-                                                                </Button>
-                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, campaign ) }>
-                                                                    <i className="fa fa-close"></i>
-                                                                </Button>
-                                                            </ButtonGroup>
-                                                        </td>
-                                                    </tr>
-                                                    ) } 
-                                                )
-                                            }
-                                        </React.Fragment>
-                                        :
-                                            <tr>
-                                                <td>
-                                                    <span className="text-inverse">
-                                                        Não existem dados para serem listados
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                    }
-                                </tbody>
-                            </Table>
+                            <MUIDataTable
+                                title={""}
+                                data={data}
+                                columns={columns}
+                                options={options}/>
                         </Col>
                     </Row>
                     <ToastContainer 
@@ -287,6 +219,6 @@ export default class Campaign extends Component {
     }
 
     // _showHandler = () => {
-    //             toast.success(contentSuccess);
+    //             toast.success(this.util.contentSuccess());
     // }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-
+import { Route, Switch, Redirect } from 'react-router';
 import {
     Form,
     FormGroup,
@@ -18,46 +18,13 @@ import {
 import { HeaderAuth } from "../../components/Pages/HeaderAuth";
 import { FooterAuth } from "../../components/Pages/FooterAuth";
 
+import Util from '../../../components/Util/Util'
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                {/* {this.state.errorMessage} */}
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentErrorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
 
 export default class Login extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
 			name: '',
 			email: '',
@@ -90,7 +57,20 @@ export default class Login extends Component {
                 localStorage.setItem( 'Profile', response.data.profile )
                 localStorage.setItem( 'SectorCompany', response.data.sectorCompany )
                 // localStorage.setItem('UserId', userId ) implementar no back se quiser gravar só o id do user no localStorage
-                this.props.history.push('/home/graphics')
+                if (response.data.profile == "ADMINISTRATOR") {
+                    this.props.history.push('/administrator/home')
+                } else if (response.data.profile == "EXTERNAL") {
+                    this.props.history.push('/external/home')
+                } else if (response.data.profile == "COLLABORATOR"){
+                    this.props.history.push('/collaborator/home')
+                }
+
+                // } else if (response.data.profile == 'COLLABORATOR') {
+                //     this.props.history.push('/collaborator/home')
+                // } else {
+                //     this.props.history.push('/pages/error-404')
+                // }
+
                 } )
             .catch( error => {
                 // this.setState( {
@@ -98,10 +78,10 @@ export default class Login extends Component {
                 // } )
                 // console.log( "Erro: " + error.response.data.message ) 
                 console.log( "errorMessage: " + error ) 
-                toast.error(contentError);
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-			toast.error(contentErrorFillFields);
+			toast.error(this.util.errorFillFields());
 		}
     }
 

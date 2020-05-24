@@ -300,11 +300,6 @@ const WizardStep1 = () => (
                     </Card>
                 </Col>
             </Row>
-            {/* <Row>
-                <Col>
-                    <CampaignList />
-                </Col>
-            </Row> */}
         </Container>
     </React.Fragment>
 );

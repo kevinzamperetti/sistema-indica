@@ -1,45 +1,80 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { NavLink as RouterNavLink } from 'react-router-dom';
-import { 
-    Nav,
-    NavItem,
-    NavLink
-} from './../../../components';
+import { Redirect } from 'react-router';
+import { Nav, NavItem, NavLink } from '../../../components';
 
-const ProfileLeftNav = () => (
-    <React.Fragment>
-        { /* START Left Nav  */}
-        <div className="mb-4">
-            <Nav pills vertical>
-                <NavItem>
-                    <NavLink tag={ RouterNavLink } to="/apps/profile-edit">
-                        Profile Edit
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag={ RouterNavLink } to="/apps/account-edit">
-                        Account Edit
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag={ RouterNavLink } to="/apps/billing-edit">
-                        Billing Edit
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag={ RouterNavLink } to="/apps/settings-edit">
-                        Settings Edit
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag={ RouterNavLink } to="/apps/sessions-edit">
-                        Sessions Edit
-                    </NavLink>
-                </NavItem>
-            </Nav>
-        </div>
-        { /* END Left Nav  */}
-    </React.Fragment>
-)
+export class ProfileLeftNav extends Component {
+    constructor( props ) {
+        super( props )
+    }
 
-export { ProfileLeftNav };
+    render() {
+        if ( localStorage.getItem('Profile') == "ADMINISTRATOR" ) {
+            return (
+                <React.Fragment>
+                    <div className="mb-4">
+                        <Nav pills vertical>
+                            <NavItem>
+                                <NavLink tag={ RouterNavLink } to="/administrator/profile-details">
+                                    Minha Conta
+                                </NavLink>
+                            </NavItem>
+                        </Nav>
+                    </div>
+                </React.Fragment>
+            )
+        } else if ( localStorage.getItem('Profile') == "EXTERNAL" ) {
+            return (
+                <React.Fragment>
+                    <div className="mb-4">
+                        <Nav pills vertical>
+                            <NavItem>
+                                <NavLink tag={ RouterNavLink } to="/external/profile-details">
+                                    Minha Conta
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={ RouterNavLink } to="/external/account-edit">
+                                    Dados bancários
+                                </NavLink>
+                            </NavItem>
+                        </Nav>
+                    </div>
+                </React.Fragment>
+            )
+        } else if ( localStorage.getItem('Profile') == "COLLABORATOR" ) {
+            return (
+                <React.Fragment>
+                    <div className="mb-4">
+                        <Nav pills vertical>
+                            <NavItem>
+                                <NavLink tag={ RouterNavLink } to="/collaborator/profile-details">
+                                    Minha Conta
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={ RouterNavLink } to="/collaborator/account-edit">
+                                    Dados bancários
+                                </NavLink>
+                            </NavItem>
+                        </Nav>
+                    </div>
+                </React.Fragment>                
+            )
+        } else {
+            return(
+                <React.Fragment>
+                    <div className="mb-4">
+                        <Nav pills vertical>
+                            <NavItem>
+                                {/* <NavLink tag={ RouterNavLink } to="/pages/error-404">
+                                    Minha Conta
+                                </NavLink> */}
+                            </NavItem>
+                        </Nav>
+                    </div>
+                </React.Fragment>
+            )
+        }
+    }
+}

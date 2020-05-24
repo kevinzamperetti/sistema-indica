@@ -1,82 +1,29 @@
 import React, { Component } from 'react';
+import MUIDataTable from "mui-datatables";
+import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { HeaderDemo } from "../../components/HeaderDemo";
 import { 
-    Button, ButtonGroup, Container, Row, Col, Card, CardBody, CardFooter, CustomInput,
+    Badge, Button, ButtonGroup, Container, Row, Col, Card, CardBody, CardFooter, CustomInput,
     Form, FormGroup, Label, Media, Input, Table
 } from '../../../components';
-
-// import { BasicBehaviors, InputSize, ControllingSelections } from '../../../routes/Forms/Typeahead/components';
-// import { TrTableBordered } from '../../Tables/Tables/components/TrTableBordered';
-
+import Util from '../../../components/Util/Util';
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                {/* Palavra Chave cadastrada com sucesso! comentado 
-                    porque ta valendo pro save e delete*/} 
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao salvar dados
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const errorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
 
 export default class KeyWord extends Component {
     constructor( props ) {
         super( props )
+        this.util = new Util();
         this.state = {
             word: '',
 			opportunityIdSelector: '',
             listOpportunities: '',
             listKeyWords: '',
-            enabled: false
+            found: false
 		}
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.listAllOpportunities();
     }
 
@@ -128,25 +75,27 @@ export default class KeyWord extends Component {
     save( evt ) {
         evt.preventDefault();
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
-        const { word, opportunityIdSelector, enabled } = this.state
+        const { word, opportunityIdSelector, found } = this.state
         if ( word && opportunityIdSelector ) {
              API.post( '/keyWord', {
                 word: word.toUpperCase(),
                 opportunity: {
                     id: opportunityIdSelector.id,
                 },
-                enabled: enabled
+                found: found
             }, header ).then( response => {
-                toast.success(contentSuccess);
+                toast.success(this.util.contentSuccess());
+                document.getElementById("word").value='';
                 this.listKeyWordsByOpportunity();
-                // console.log( response.data )
+                this.setState( {
+                    word: ''
+                } )
             } )
-            .catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+            .catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
         } else {
-            toast.error(errorFillFields);
+            toast.error(this.util.errorFillFields());
         }
     }
 
@@ -155,17 +104,25 @@ export default class KeyWord extends Component {
         const header = { headers: {Authorization: localStorage.getItem('Authorization') } }
         API.delete( `/keyWord/${evt.id}`, header )
         .then( response => {
-        toast.success(contentSuccess);
+        toast.success(this.util.contentSuccess());
         this.listKeyWordsByOpportunity();
         } )
-        .catch( erro => {
-            console.log( "Erro: " + erro ) 
-            toast.error(contentError);
+        .catch( error => {
+            toast.error(this.util.contentError(error.response.data.message));
         } )
     }
     
     render() {
-        const { listOpportunities, listKeyWords } = this.state
+        const { listOpportunities, listKeyWords, opportunityIdSelector } = this.state
+        const columns = ["Palavras chaves cadastradas para esta oportunidade", ""];
+        const data = listKeyWords.length > 0
+                        ? listKeyWords.map( ( keyWord ) => 
+                            [ keyWord.word,
+                              <Link className="fa fa-close" onClick={ this.delete.bind( this, keyWord ) }/>
+                            ] )
+                        : []
+        const options = this.util.optionsMUIDataTableWithOutPrintAndFilter
+
         return (
             <React.Fragment>
                 <Container>
@@ -182,7 +139,7 @@ export default class KeyWord extends Component {
                         <Col lg={ 12 }>
                             <Card className="mb-3">
                                 <CardBody>
-                                    <Form>
+                                    <Form id="form-key-word">
                                         <FormGroup row>
                                             <Label for="opportunityIdSelector" sm={3}>Oportunidade</Label>
                                             <Col sm={9}>
@@ -226,50 +183,17 @@ export default class KeyWord extends Component {
                     </Row>
                     <Row>
                         <Col>
-                            <Table className="mb-0" bordered responsive>
-                                <thead>
-                                    <tr>
-                                        <th colSpan="2" className="align-middle">Palavras chaves cadastradas para esta oportunidade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    { listKeyWords.length > 0 ?
-                                        <React.Fragment>
-                                            { listKeyWords.map( ( keyWord ) => { 
-                                                return (
-                                                    <tr key={keyWord.id}>
-                                                        <td className="align-middle" width='100%'>
-                                                                        <span className="text-inverse">
-                                                                            { keyWord.word }
-                                                                        </span>
-                                                        </td>
-                                                        <td className="align-middle text-right">
-                                                            <ButtonGroup>
-                                                                {/* <Button color="link" className="text-decoration-none">
-                                                                    <i className="fa fa-edit"></i>
-                                                                </Button> */}
-                                                                <Button color="link" className="text-decoration-none" onClick={ this.delete.bind( this, keyWord ) }>
-                                                                    <i className="fa fa-close"></i>
-                                                                </Button>
-                                                            </ButtonGroup>
-                                                        </td>
-                                                    </tr>
-                                                    ) } 
-                                                )
-                                            }
-                                        </React.Fragment>
-                                        :
-                                            <tr>
-                                                <td>
-                                                    <span className="text-inverse">
-                                                        Não existem palavras chaves cadastradas para esta oportunidade
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                    
-                            </Table>
+                            <MUIDataTable
+                                title={
+                                    listKeyWords == ''
+                                     ? <b> Quantidade de palavras necessárias para avaliação automática:</b>
+                                     : listKeyWords.length >= opportunityIdSelector.automaticEvaluationQuantity
+                                        ? <b className="text-success"> Quantidade de palavras necessárias para avaliação automática: {opportunityIdSelector.automaticEvaluationQuantity} </b>
+                                        : <b className="text-danger"> Quantidade de palavras necessárias para avaliação automática: {opportunityIdSelector.automaticEvaluationQuantity} </b>
+                                      }
+                                data={data}
+                                columns={columns}
+                                options={options}/>
                         </Col>
                     </Row>
                     <ToastContainer 

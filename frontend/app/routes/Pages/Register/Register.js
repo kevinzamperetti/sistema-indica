@@ -24,63 +24,13 @@ import {
 import { HeaderAuth } from "../../components/Pages/HeaderAuth";
 import { FooterAuth } from "../../components/Pages/FooterAuth";
 
+import Util from '../../../components/Util/Util';
 import API from '../../../services/api';
-
-// ========== Toast Contents: ============
-// eslint-disable-next-line react/prop-types
-const contentSuccess = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-check"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Successo!
-            </Media>
-            <p>
-                Campanha de Indicação salva com sucesso!
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentError = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Erro ao salvar dados
-            </p>
-        </Media>
-    </Media>
-);
-
-// eslint-disable-next-line react/prop-types
-const contentErrorFillFields = ({ closeToast }) => (
-    <Media>
-        <Media middle left className="mr-3">
-            <i className="fa fa-fw fa-2x fa-close"></i>
-        </Media>
-        <Media body>
-            <Media heading tag="h6">
-                Erro!
-            </Media>
-            <p>
-                Existem campos não preeenchidos.
-            </p>
-        </Media>
-    </Media>
-);
 
 export default class Register extends Component {
     constructor( props ) {
-        super( props )
+		super( props )
+		this.util = new Util();
         this.state = {
 			name: '',
 			email: '',
@@ -91,8 +41,8 @@ export default class Register extends Component {
 			bankAgency: '',
 			bankAccount: '',
 			listBanks: []
+		}
 	}
-}
 
 	componentDidMount() {
 		this.listAllBanks()
@@ -138,16 +88,15 @@ export default class Register extends Component {
 				bankAgency: bankAgency,
 				bankAccount: bankAccount
 			} ).then( response => {
-				toast.success(contentSuccess);
+				toast.success(this.util.contentSuccess());
 				// console.log( response.data )
 				this.setState({redirect: true})
 			})
-			.catch( erro => {
-                console.log( "Erro: " + erro ) 
-                toast.error(contentError);
+			.catch( error => {
+                toast.error(this.util.contentError(error.response.data.message));
             } )
 		} else {
-			toast.error(contentErrorFillFields);
+			toast.error(this.util.errorFillFields());
 		}
 	}
     
@@ -177,11 +126,11 @@ export default class Register extends Component {
 								</FormText>
 							</FormGroup>
 							<FormGroup>
-								<Label for="password">Password</Label>
+								<Label for="password">Senha</Label>
 								<Input type="password" name="password" id="password" placeholder="Senha..." className="bg-white" />
 							</FormGroup>
 							<FormGroup>
-								<Label for="repeatPassword">Repeat Password</Label>
+								<Label for="repeatPassword">Repetir Senha</Label>
 								<Input type="password" name="password" id="repeatPassword" placeholder="Password..." className="bg-white" />
 							</FormGroup>
 							<FormGroup>
@@ -236,7 +185,6 @@ export default class Register extends Component {
 							</ThemeConsumer>
 						</Form>
 						<div className="d-flex mb-5">
-							<Link to="/pages/forgot-password" className="text-decoration-none">Esqueceu sua senha?</Link>
 							<Link to="/pages/login" className="ml-auto text-decoration-none">Login</Link>
 						</div>
 						<FooterAuth />

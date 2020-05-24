@@ -39,3 +39,6 @@ node_modules
 /frontend-new/
 /frontend-com-todos-arquivos/
 /frontend-removido-so-rotas/
+/ant/
+/backend/attachments/
+/backend/.idea/workspace.xml
