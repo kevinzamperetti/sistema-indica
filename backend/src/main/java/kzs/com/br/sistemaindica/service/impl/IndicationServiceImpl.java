@@ -12,6 +12,7 @@ import kzs.com.br.sistemaindica.payload.UploadFileResponse;
 import kzs.com.br.sistemaindica.repository.IndicationRepository;
 import kzs.com.br.sistemaindica.repository.OpportunityRepository;
 import kzs.com.br.sistemaindica.repository.UserRepository;
+import kzs.com.br.sistemaindica.service.EmailService;
 import kzs.com.br.sistemaindica.service.IndicationHistoryService;
 import kzs.com.br.sistemaindica.service.IndicationService;
 import kzs.com.br.sistemaindica.service.IndicationWinnerService;
@@ -43,6 +44,8 @@ public class IndicationServiceImpl implements IndicationService {
     private final IndicationWinnerService indicationWinnerService;
 
     private final FileStorageServiceImpl fileStorageService;
+
+    private final EmailService emailService;
 
     @Override
     public List<Indication> findIndicationByStatus(IndicationStatus status) {
@@ -131,12 +134,24 @@ public class IndicationServiceImpl implements IndicationService {
         Indication indication = repository.findById(indicationStatusDto.getId())
                 .orElseThrow(() -> new OpportunityIdNotFoundException("Oportunidade não encontrada"));
 
-        indication.setStatus(indicationStatusDto.getStatus());
+        IndicationStatus previousStatus = indication.getStatus();
 
+        indication.setStatus(indicationStatusDto.getStatus());
         Indication indicationSaved = repository.save(indication);
+
         setIndicationHistory(indicationSaved);
+
         if (IndicationStatus.HIRED.equals(indicationStatusDto.getStatus())) {
-            setIndicationWinner(indicationSaved);
+//            setIndicationWinner(indicationSaved); //se for salvar tem que tratar para se já existir registro excluir, se não da erro de id com mais de um registro
+            emailService.sendEmailWhenIndicationHired(indication.getUser().getEmail(), indication.getIndicationName());
+
+            indication.setStatus(IndicationStatus.SENDING_BONUS);
+            indicationSaved = repository.save(indication);
+            setIndicationHistory(indication);
+        }
+        if (IndicationStatus.BONUS_SENT.equals(indicationStatusDto.getStatus()) &&
+                IndicationStatus.HIRED.equals(previousStatus)) {
+            emailService.sendEmailWhenIndicationBonusSent(indication.getUser().getEmail(), indication.getIndicationName());
         }
         return indicationSaved;
     }

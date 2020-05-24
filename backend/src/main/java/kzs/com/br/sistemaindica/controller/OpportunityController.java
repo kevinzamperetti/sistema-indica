@@ -29,6 +29,11 @@ public class OpportunityController {
         return ResponseEntity.ok(repository.findOpportunityByEnabled(enabled));
     }
 
+    @GetMapping(path = "/select")
+    public ResponseEntity<Set<Opportunity>> listAllEnabledAndValidDate() {
+        return ResponseEntity.ok(repository.findOpportunityByEnabledAndValidDate());
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Opportunity> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(service.findById(id));

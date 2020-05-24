@@ -52,6 +52,13 @@ public class CandidatureServiceImpl implements CandidatureService {
     }
 
     @Override
+    public List<Candidature> findByUser(Long id) {
+        userRepository.findById(id)
+                .orElseThrow(() -> new UserIdNotFoundException("Usuário não encontrado"));
+        return repository.findByUser(id);
+    }
+
+    @Override
     public Candidature save(Candidature candidature) {
         if (nonNull(candidature.getId())) {
             throw new CandidatureIdMustNotBeProvidedException("Id da Candidatura não deve ser informado");

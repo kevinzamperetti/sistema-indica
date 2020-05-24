@@ -22,6 +22,14 @@ public interface CandidatureRepository extends JpaRepository<Candidature, Long> 
     Optional<Candidature> findById(@Param("id") Long id);
 
     @Query("SELECT c " +
+            " FROM Candidature c" +
+            " LEFT JOIN FETCH c.user u" +
+            " LEFT JOIN FETCH c.opportunity o " +
+            "WHERE u.id = :id " +
+            "ORDER BY c.creationDate, c.status")
+    List<Candidature> findByUser(@Param("id") Long id);
+
+    @Query("SELECT c " +
             " FROM Candidature c " +
             " JOIN FETCH c.user u " +
             " LEFT JOIN FETCH c.opportunity o " +

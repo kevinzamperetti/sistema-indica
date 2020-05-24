@@ -16,6 +16,8 @@ public interface CandidatureService {
 
     Candidature findById(Long id);
 
+    List<Candidature> findByUser(Long id);
+
     Candidature save(Candidature candidature);
 
     UploadFileResponse uploadAttachment(@RequestParam("file") MultipartFile file);

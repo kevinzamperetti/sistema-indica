@@ -25,4 +25,11 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
             "ORDER BY c.enabled DESC, c.expirationDate")
     Set<Campaign> findCampaignByEnabled(@Param("enabled") Boolean enabled);
 
+    @Query("SELECT c " +
+            " FROM Campaign c " +
+            "WHERE c.enabled = true " +
+            "  AND c.expirationDate >= CURRENT_DATE " +
+            "ORDER BY c.name")
+    Set<Campaign> findCampaignByEnabledAndValidDate();
+
 }

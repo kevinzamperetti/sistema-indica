@@ -1,34 +1,30 @@
 package kzs.com.br.sistemaindica.controller;
 
+import kzs.com.br.sistemaindica.service.EmailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
-//@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RequestMapping("/api/sendEemail")
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class EmailController {
 
     @Autowired
-    private JavaMailSender mailSender;
+    private EmailService emailService;
 
-    @RequestMapping(path = "/email-send", method = RequestMethod.GET)
-    public String sendMail() {
-        SimpleMailMessage message = new SimpleMailMessage();
+    @GetMapping(path = "/indication/status/bonusSent")
+    public ResponseEntity<Boolean> sendEmailWhenIndicationBonusSent(@PathVariable(value = "email") String email,
+                                                        @PathVariable(value = "name") String name) {
+        return ResponseEntity.ok(emailService.sendEmailWhenIndicationBonusSent(email, name));
+    }
 
-        message.setText("Hello from Spring Boot Application");
-        message.setTo("kevin.zamperetti92@gmail.com");
-        message.setFrom("noreply.indicame@gmail.com");
-
-        try {
-            mailSender.send(message);
-            return "Email enviado com sucesso!";
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Erro ao enviar email.";
-        }
+    @GetMapping(path = "/indication/status/hired")
+    public ResponseEntity<Boolean> sendEmailWhenIndicationHired(@PathVariable(value = "email") String email,
+                                              @PathVariable(value = "name") String name) {
+        return ResponseEntity.ok(emailService.sendEmailWhenIndicationHired(email, name));
     }
 
 }

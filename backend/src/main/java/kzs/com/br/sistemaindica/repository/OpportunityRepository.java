@@ -31,6 +31,13 @@ public interface OpportunityRepository extends JpaRepository<Opportunity, Long> 
             "ORDER BY o.expirationDate, o.name")
     Set<Opportunity> findOpportunityByEnabled(@Param("enabled") Boolean enabled);
 
+    @Query("SELECT o " +
+            " FROM Opportunity o " +
+            "WHERE o.enabled = true " +
+            "  AND o.expirationDate >= CURRENT_DATE " +
+            "ORDER BY o.name")
+    Set<Opportunity> findOpportunityByEnabledAndValidDate();
+
     @Query("SELECT count(o) " +
             " FROM Opportunity o " +
             "WHERE o.enabled = true")

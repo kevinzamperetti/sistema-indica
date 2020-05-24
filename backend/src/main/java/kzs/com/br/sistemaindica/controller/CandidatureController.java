@@ -38,6 +38,11 @@ public class CandidatureController {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping(path = "/user/{id}")
+    public ResponseEntity<List<Candidature>> findByUser(@PathVariable(value = "id") Long id) {
+        return ResponseEntity.ok(service.findByUser(id));
+    }
+
     @GetMapping(path = "/countByStatus")
     public ResponseEntity<CandidatureQuantityDto> totalIndicationsByStatus() {
         return ResponseEntity.ok(service.totalCandidaturiesByStatus());

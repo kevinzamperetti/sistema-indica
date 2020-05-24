@@ -52,7 +52,7 @@ public class Indication extends BaseEntity {
     @Column(name = "file_type_attachment")
     private String fileTypeAttachment;
 
-    @JsonIgnoreProperties("indication") //aqui
+    @JsonIgnoreProperties({"indication", "user"}) //aqui
     @OneToOne(mappedBy = "indication", fetch = LAZY)
     private IndicationWinner indicationWinner;
 

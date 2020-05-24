@@ -28,6 +28,11 @@ public class CampaignController {
         return ResponseEntity.ok(repository.findCampaignByEnabled(enabled));
     }
 
+    @GetMapping(path = "/select")
+    public ResponseEntity<Set<Campaign>> listAllEnabledAndValidDate() {
+        return ResponseEntity.ok(repository.findCampaignByEnabledAndValidDate());
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<Campaign> findById(@PathVariable(value = "id") Long id) {
         return ResponseEntity.ok(service.findById(id));
