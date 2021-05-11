@@ -62,7 +62,7 @@
     "font-awesome": "^4.7.0",
     "holderjs": "^2.9.6",
     "js-file-download": "^0.4.12",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "mui-datatables": "^2.14.0",
     "node-fetch": "^2.6.0",
